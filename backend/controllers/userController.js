@@ -30,12 +30,12 @@ export const registerUser = handle(async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 10);
   const otp = generateOtp();
   const hashOtp = await bcrypt.hash(otp, 10);
-  const user = User.create({
+  const user = await User.create({
     name,
     email,
     phone,
     password: hashedPassword,
-    isVerfied: false,
+    isVerified: false,
     verifyOtp: hashOtp,
     verifyOtpExpire: Date.now() + 10 * 60 * 1000,
   });
@@ -97,7 +97,7 @@ export const resendOtp = handle(async (req, res) => {
     return res
       .status(400)
       .json({ success: false, message: "Email already verified" });
-  const otp = generateOTP();
+  const otp = generateOtp();
   user.verifyOtp = await bcrypt.hash(otp, 10);
   user.verifyOtpExpire = new Date(Date.now() + 10 * 60 * 1000);
   await user.save();
@@ -151,7 +151,7 @@ export const forgotPassword = handle(async (req, res) => {
   const user = await User.findOne({ email });
   if (!user)
     return res.status(404).json({ success: false, message: "User not found" });
-  const otp = generateOTP();
+  const otp = generateOtp();
   user.resetOtp = await bcrypt.hash(otp, 10);
   user.resetOtpExpire = new Date(Date.now() + 10 * 60 * 1000);
   await user.save();
