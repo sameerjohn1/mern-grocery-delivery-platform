@@ -49,3 +49,27 @@ export const addCategory = async (req, res) => {
       .json({ success: false, message: error.message, stack: error.stack });
   }
 };
+
+export const getCategories = async (req, res) => {
+  try {
+    const categories = await Category.find();
+    res
+      .status(200)
+      .json({ success: true, count: categories.length, categories });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const getCategory = async (req, res) => {
+  try {
+    const category = await Category.findById(req.params.id);
+    if (!category)
+      return res
+        .status(404)
+        .json({ success: false, message: "Category Not Found" });
+    res.status(200).json({ success: true, category });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
