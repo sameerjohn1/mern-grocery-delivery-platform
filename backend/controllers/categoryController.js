@@ -1,5 +1,5 @@
 import Category from "../models/Category.js";
-import Product from "../models/Product";
+import Product from "../models/Product.js";
 import cloudinary from "../config/cloudinary.js";
 
 export const addCategory = async (req, res) => {
