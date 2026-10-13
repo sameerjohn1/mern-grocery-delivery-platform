@@ -28,3 +28,14 @@ export const addProduct = async (req, res) => {
     return res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const getProducts = async (req, res) => {
+  try {
+    const { category } = req.query;
+    const filter = category ? { category } : {};
+    const products = await Product.find(filter);
+    res.status(200).json({ success: true, count: products.length, products });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
