@@ -21,10 +21,26 @@ export const addHookah = async (req, res) => {
   }
 };
 
+export const getHookahs = async (req, res) => {
+  try {
+    const hookahs = (await Hookah.find()).sort({ createdAt: -1 });
+    res.status(200).json({ success: true, count: hookahs.length, hookahs });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 export const getHookah = async (req, res) => {
   try {
-    const hookahs = (await Hookah.find()).toSorted({ createdAt: -1 });
-    res.status(200).json({ success: false, count: hookahs.length, hookahs });
+    const hookah = await Hookah.findById(req.params.id);
+    if (!hookah) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Hookah not found" });
+    }
+
+    res.status(200).json({ success: true, hookah });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
@@ -34,7 +50,7 @@ export const getHookah = async (req, res) => {
 export const updateHookah = async (req, res) => {
   try {
     const hookah = await Hookah.findByIdAndUpdate(req.params.id);
-    if (!hokah) {
+    if (!hookah) {
       return res
         .status(404)
         .json({ success: false, message: "Hookah not found" });
@@ -66,6 +82,35 @@ export const updateHookah = async (req, res) => {
         console.log("Old hookah image cleanup failed:", cleanupError.message);
       }
     }
+
+    res
+      .status(200)
+      .json({ success: true, message: "Hookah updated successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const deleteHookah = async (req, res) => {
+  try {
+    const hookah = await Hookah.findById(req.params.id);
+    if (!hookah) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Hookah not found" });
+    }
+    if (hookah.image?.public_id) {
+      await cloudinary.uploader.destroy(hookah.image.public_id, {
+        invalidate: true,
+      });
+    }
+
+    await Hookah.findByIdAndDelete(req.params.id);
+
+    res
+      .status(200)
+      .json({ success: true, message: "Hookah deleted successfully" });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: error.message });
