@@ -20,3 +20,13 @@ export const addHookah = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const getHookah = async (req, res) => {
+  try {
+    const hookahs = (await Hookah.find()).toSorted({ createdAt: -1 });
+    res.status(200).json({ success: false, count: hookahs.length, hookahs });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
