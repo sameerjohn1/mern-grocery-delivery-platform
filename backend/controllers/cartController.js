@@ -45,3 +45,40 @@ export const getCart = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const updateCart = async (req, res) => {
+  try {
+    const cart = await Cart.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!cart) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Cart Item Not Found" });
+    }
+    res
+      .status(200)
+      .json({ success: true, message: "Cart Updated Successfully", cart });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const removeCart = async (req, res) => {
+  try {
+    const cart = await Cart.findByIdAndDelete(req.params.id);
+
+    if (!cart) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Cart Item Not Found" });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Product Removed From Cart Successfully",
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
