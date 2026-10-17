@@ -1,0 +1,26 @@
+import Address from "../models/Address";
+
+const handle = (fn) => async (req, res) => {
+  try {
+    await fn(req, res);
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+export const addAddress = handle(async (req, res) => {
+  const address = await Address.create({ user: req.user._id, ...req.body });
+  res.status(201).json({
+    success: true,
+    message: "Address Added Successfully",
+    address,
+  });
+});
+
+export const getAddress = handle(async (req, res) => {
+  const addresses = await Address.find({ user: req.user._id }).sort({
+    createdAt: -1,
+  });
+
+  res.status(200).json({ success: true, count: addresses.length, addresses });
+});
