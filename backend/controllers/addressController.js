@@ -40,3 +40,18 @@ export const updateAddress = handle(async (req, res) => {
     .status(200)
     .json({ success: true, message: "Address Updated Successfully", address });
 });
+
+export const deleteAddress = handle(async (req, res) => {
+  const address = await Address.findOneAndDelete({
+    _id: req.params.id,
+    user: req.user._id,
+  });
+  if (!address) {
+    return res
+      .status(404)
+      .json({ success: false, message: "Address Not Found" });
+  }
+  res
+    .status(200)
+    .json({ success: true, message: "Address Deleted Successfully" });
+});
