@@ -24,3 +24,19 @@ export const getAddress = handle(async (req, res) => {
 
   res.status(200).json({ success: true, count: addresses.length, addresses });
 });
+
+export const updateAddress = handle(async (req, res) => {
+  const address = await Address.findByIdAndUpdate(
+    { _id: req.params.id, user: req.user._id },
+    req.body,
+    { returnDocument: "after" },
+  );
+  if (!address) {
+    return res
+      .status(404)
+      .json({ success: false, message: "Address Not Found" });
+  }
+  res
+    .status(200)
+    .json({ success: true, message: "Address Updated Successfully", address });
+});
