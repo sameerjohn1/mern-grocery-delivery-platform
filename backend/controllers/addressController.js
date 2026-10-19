@@ -1,4 +1,4 @@
-import Address from "../models/Address";
+import Address from "../models/Address.js";
 
 const handle = (fn) => async (req, res) => {
   try {
@@ -26,7 +26,7 @@ export const getAddress = handle(async (req, res) => {
 });
 
 export const updateAddress = handle(async (req, res) => {
-  const address = await Address.findByIdAndUpdate(
+  const address = await Address.findOneAndUpdate(
     { _id: req.params.id, user: req.user._id },
     req.body,
     { returnDocument: "after" },
