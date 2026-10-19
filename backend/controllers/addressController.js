@@ -17,7 +17,7 @@ export const addAddress = handle(async (req, res) => {
   });
 });
 
-export const getAddress = handle(async (req, res) => {
+export const getAddresses = handle(async (req, res) => {
   const addresses = await Address.find({ user: req.user._id }).sort({
     createdAt: -1,
   });
