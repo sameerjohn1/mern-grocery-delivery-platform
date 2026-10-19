@@ -1,4 +1,4 @@
-import Address from "../models/Address";
+import Address from "../models/Address.js";
 
 const handle = (fn) => async (req, res) => {
   try {
@@ -17,10 +17,41 @@ export const addAddress = handle(async (req, res) => {
   });
 });
 
-export const getAddress = handle(async (req, res) => {
+export const getAddresses = handle(async (req, res) => {
   const addresses = await Address.find({ user: req.user._id }).sort({
     createdAt: -1,
   });
 
   res.status(200).json({ success: true, count: addresses.length, addresses });
+});
+
+export const updateAddress = handle(async (req, res) => {
+  const address = await Address.findOneAndUpdate(
+    { _id: req.params.id, user: req.user._id },
+    req.body,
+    { returnDocument: "after" },
+  );
+  if (!address) {
+    return res
+      .status(404)
+      .json({ success: false, message: "Address Not Found" });
+  }
+  res
+    .status(200)
+    .json({ success: true, message: "Address Updated Successfully", address });
+});
+
+export const deleteAddress = handle(async (req, res) => {
+  const address = await Address.findOneAndDelete({
+    _id: req.params.id,
+    user: req.user._id,
+  });
+  if (!address) {
+    return res
+      .status(404)
+      .json({ success: false, message: "Address Not Found" });
+  }
+  res
+    .status(200)
+    .json({ success: true, message: "Address Deleted Successfully" });
 });
