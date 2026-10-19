@@ -8,6 +8,7 @@ import categoryRoutes from "./routes/categoryRoute.js";
 import productRoutes from "./routes/productRoute.js";
 import hookahRoutes from "./routes/hookahRoute.js";
 import cartRoutes from "./routes/cartRoute.js";
+import addressRoutes from "./routes/addressRoute.js";
 
 const PORT = 5000;
 const app = express();
@@ -26,6 +27,7 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/hookahs", hookahRoutes);
 app.use("/api/cart", cartRoutes);
+app.use("/api/address", addressRoutes);
 
 app.get("/", (req, res) => {
   res.send("API Working");
