@@ -10,6 +10,7 @@ import hookahRoutes from "./routes/hookahRoute.js";
 import cartRoutes from "./routes/cartRoute.js";
 import addressRoutes from "./routes/addressRoute.js";
 import orderRoutes from "./routes/orderRoute.js";
+import paymentRoutes from "./routes/paymentRoute.js";
 
 const PORT = 5000;
 const app = express();
@@ -30,6 +31,7 @@ app.use("/api/hookahs", hookahRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/address", addressRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/payment", paymentRoutes);
 
 app.get("/", (req, res) => {
   res.send("API Working");
