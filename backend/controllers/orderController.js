@@ -86,3 +86,15 @@ export const deleteOrder = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const myOrders = async (req, res) => {
+  try {
+    const orders = await Order.find({ user: req.user._id })
+      .populate("products.product")
+      .populate("address")
+      .sort({ createdAt: -1 });
+    res.status(200).json({ success: true, count: orders.length, orders });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
