@@ -33,3 +33,22 @@ export const placeOrder = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+export const getOrder = async (req, res) => {
+  try {
+    const order = await Order.findById(req.params.id)
+      .populate("products.product")
+      .populate("address")
+      .populate("user", "-password");
+
+    if (!order) {
+      res.status(404).json({
+        success: false,
+        message: "Order Not Found",
+      });
+    }
+    res.status(200).json({ success: true, order });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
