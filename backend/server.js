@@ -12,6 +12,7 @@ import addressRoutes from "./routes/addressRoute.js";
 import orderRoutes from "./routes/orderRoute.js";
 import paymentRoutes from "./routes/paymentRoute.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import adminOrderRoutes from "./routes/adminOrderRoutes.js";
 
 const PORT = 5000;
 const app = express();
@@ -34,6 +35,7 @@ app.use("/api/address", addressRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/admin/orders", adminOrderRoutes);
 
 app.get("/", (req, res) => {
   res.send("API Working");
