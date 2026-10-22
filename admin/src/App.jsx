@@ -1,9 +1,9 @@
-import React from "react";
+import LoginPage from "./components/LoginPage/LoginPage";
 
 const App = () => {
   return (
     <div>
-      <h1 class="text-3xl font-bold underline">Hello world!</h1>
+      <LoginPage />
     </div>
   );
 };
