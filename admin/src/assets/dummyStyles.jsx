@@ -433,7 +433,7 @@ export const itemListPageStyles = {
 export const adminLoginStyles = {
   // Main container
   mainContainer:
-    "relative flex min-h-screen items-center justify-center overflow-hidden bg-black px-4 py-12",
+    "relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-black px-4 py-10 sm:px-6 sm:py-12",
 
   // Glow effects
   glow1:
@@ -444,21 +444,24 @@ export const adminLoginStyles = {
     "animate-spin-slow absolute left-1/2 top-1/2 h-175 w-175 -translate-x-1/2 -translate-y-1/2 rounded-full bg-yellow-400/3 blur-3xl",
 
   // Content wrapper
-  contentWrapper: "relative z-10 w-full max-w-md",
+  contentWrapper: "relative z-10 mx-auto flex w-full max-w-md flex-col",
 
   // Brand header
-  brandHeader: "mb-8 text-center",
-  brandInner: "mb-4 flex items-center justify-center gap-3",
+  brandHeader: "mb-7 text-center",
+  brandInner: "mb-4 flex items-center justify-center gap-3.5",
   logoWrapper:
-    "flex h-14 w-14 items-center justify-center rounded-2xl bg-yellow-400 p-2 shadow-lg shadow-yellow-400/20 ring-1 ring-yellow-200/50",
+    "flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-[#0B0A08] shadow-lg shadow-black/50 ring-1 ring-yellow-400/25",
   logoImage: "h-full w-full object-contain",
+  brandText: "text-left",
   adminLabel:
-    "text-[10px] font-black uppercase tracking-[0.5em] text-yellow-300/60",
-  brandTitle: "text-3xl font-black tracking-tight text-white",
+    "text-[10px] font-black uppercase leading-none tracking-[0.3em] text-yellow-300/60",
+  brandTitle: "mt-1.5 text-2xl font-black leading-none tracking-tight text-white",
+  brandSubtitle:
+    "mx-auto mt-3 max-w-xs text-sm font-medium leading-relaxed text-white/50",
 
   // Card
   card:
-    "relative rounded-3xl border border-yellow-400/10 bg-white/3 p-8 shadow-2xl shadow-black/60 ring-1 ring-white/5 backdrop-blur-xl",
+    "relative rounded-3xl border border-yellow-400/10 bg-white/3 p-6 shadow-2xl shadow-black/60 ring-1 ring-white/5 backdrop-blur-xl sm:p-8",
   cardTopLine:
     "absolute -top-px left-8 right-8 h-px bg-linear-to-r from-transparent via-yellow-400/40 to-transparent",
 
@@ -467,36 +470,43 @@ export const adminLoginStyles = {
 
   // Error
   errorContainer:
-    "flex items-center gap-2 rounded-2xl border border-red-500/40 bg-black/80 px-4 py-3 text-sm font-medium text-white shadow-lg shadow-red-500/10",
-  errorDot: "h-1.5 w-1.5 animate-pulse rounded-full bg-red-400",
+    "flex items-start gap-2.5 rounded-2xl border border-red-500/40 bg-black/80 px-4 py-3 text-sm font-medium text-white shadow-lg shadow-red-500/10",
+  errorDot:
+    "mt-1.5 h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-red-400",
 
   // Field group
-  fieldGroup: "space-y-1.5",
+  fieldGroup: "space-y-2",
   fieldLabel:
     "flex items-center justify-between text-xs font-bold uppercase tracking-wider text-yellow-300/60",
   fieldWrapper: "group relative",
   fieldGlow:
-    "absolute inset-0 rounded-2xl bg-linear-to-r from-yellow-400/10 to-yellow-400/5 opacity-0 blur-sm transition group-focus-within:opacity-100",
+    "absolute -inset-1 rounded-2xl bg-linear-to-r from-yellow-400/25 to-yellow-400/5 opacity-0 blur-md transition duration-300 group-focus-within:opacity-100",
   fieldInputContainer:
-    "relative flex items-center rounded-2xl border border-white/10 bg-black/60 transition-all duration-300 group-hover:border-white/20 focus-within:border-yellow-400/60 focus-within:shadow-[0_0_30px_rgba(250,204,21,0.06)]",
+    "relative flex items-center gap-3 rounded-2xl border border-white/10 bg-black/60 px-4 transition-all duration-300 group-hover:border-white/20 focus-within:border-yellow-400/60 focus-within:shadow-[0_0_30px_rgba(250,204,21,0.06)]",
   fieldIcon:
-    "ml-4 h-5 w-5 text-yellow-400/40 transition group-focus-within:text-yellow-400",
+    "h-5 w-5 shrink-0 text-yellow-400/40 transition group-focus-within:text-yellow-400",
   fieldInput:
-    "w-full bg-transparent px-4 py-3.5 text-sm text-white placeholder:text-white/30 outline-none",
+    "w-full min-w-0 flex-1 bg-transparent py-3.5 text-sm text-white placeholder:text-white/30 outline-none",
   fieldInputPassword:
-    "w-full bg-transparent px-4 py-3.5 pr-12 text-sm text-white placeholder:text-white/30 outline-none",
+    "w-full min-w-0 flex-1 bg-transparent py-3.5 pr-12 text-sm text-white placeholder:text-white/30 outline-none",
 
   // Toggle password
   toggleButton:
-    "absolute right-4 cursor-pointer text-yellow-400/50 transition hover:text-yellow-400",
+    "absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-yellow-400/50 transition hover:text-yellow-400",
   toggleIcon: "h-5 w-5",
 
   // Submit button
   submitButton:
-    "group relative w-full cursor-pointer overflow-hidden rounded-2xl bg-yellow-400 px-5 py-2 text-sm font-black text-black transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(250,204,21,0.3)] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0",
+    "group relative w-full cursor-pointer overflow-hidden rounded-2xl bg-yellow-400 px-5 py-3 text-sm font-black text-black transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(250,204,21,0.3)] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0",
+  submitShine:
+    "absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 group-hover:translate-x-full",
   submitInner: "relative z-10 flex items-center justify-center gap-2",
   spinner: "h-4 w-4 animate-spin rounded-full border-2 border-black/30 border-t-black",
   submitIcon: "h-4 w-4 transition group-hover:translate-x-0.5",
+
+  // Footer
+  footerNote:
+    "mt-6 text-center text-xs font-medium tracking-wide text-white/35",
 };
 
 export const adminNavbarStyles = {
