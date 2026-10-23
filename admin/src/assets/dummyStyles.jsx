@@ -22,14 +22,16 @@ export const addHookahPageStyles = {
     "absolute -bottom-32 -left-32 w-80 h-80 bg-yellow-400/3 rounded-full blur-3xl pointer-events-none",
 
   // Header
-  header: "mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between",
+  header:
+    "mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between",
   heading: "text-2xl font-extrabold tracking-tight text-white sm:text-3xl",
   headingHighlight:
     "text-transparent bg-clip-text bg-linear-to-r from-yellow-400 to-amber-500",
   headerBadge:
     "flex w-fit items-center gap-2 rounded-full border border-yellow-400/20 bg-yellow-400/10 px-4 py-2",
   headerBadgeIcon: "w-4 h-4 text-yellow-400",
-  headerBadgeText: "text-xs font-semibold text-yellow-400 tracking-wider uppercase",
+  headerBadgeText:
+    "text-xs font-semibold text-yellow-400 tracking-wider uppercase",
 
   // Form
   form: "space-y-6",
@@ -78,8 +80,7 @@ export const addHookahPageStyles = {
   inputFieldInputWithPrefix: "pl-8",
 
   // Company field (similar but without icon wrapper)
-  companyLabel:
-    "block text-sm font-medium text-gray-300 mb-1.5 tracking-wide",
+  companyLabel: "block text-sm font-medium text-gray-300 mb-1.5 tracking-wide",
   companyIcon: "inline w-4 h-4 mr-1.5 text-yellow-400",
   companyInput:
     "w-full bg-black border border-gray-700 rounded-xl px-4 py-2.5 text-white placeholder-gray-500 focus:border-yellow-400/70 focus:ring-2 focus:ring-yellow-400/20 focus:bg-black transition-all duration-300 outline-none",
@@ -93,7 +94,6 @@ export const addHookahPageStyles = {
   // Shared icon size
   iconSm: "w-4 h-4",
 };
-
 
 export const addItemsPageStyles = {
   // ---- Main container ----
@@ -166,8 +166,7 @@ export const addItemsPageStyles = {
     "mt-6 grid lg:grid-cols-2 md:grid-cols-2 gap-6 xl:grid-cols-[0.9fr_1.1fr]",
 
   // ---- Left column (categories) ----
-  leftColumn:
-    "rounded-4xl border border-yellow-400/15 bg-[#111111] p-5",
+  leftColumn: "rounded-4xl border border-yellow-400/15 bg-[#111111] p-5",
   columnTitle: "flex items-center gap-2 text-xl font-black",
   columnIcon: "h-5 w-5 text-yellow-300",
   categoryForm: "mt-5 grid gap-4",
@@ -185,15 +184,15 @@ export const addItemsPageStyles = {
     "rounded-xl p-2 text-rose-300 hover:bg-rose-500 hover:text-white",
 
   // ---- Right column (add item) ----
-  rightColumn:
-    "rounded-4xl border border-yellow-400/15 bg-[#111111] p-5",
+  rightColumn: "rounded-4xl border border-yellow-400/15 bg-[#111111] p-5",
   itemForm: "mt-5 grid gap-4 md:grid-cols-2",
   itemSelectLabel: "block md:col-span-2",
   itemSelect:
     "mt-2 h-12 w-full rounded-2xl border border-yellow-400/15 bg-black/35 px-4 text-sm font-semibold text-white outline-none focus:border-yellow-300",
   itemSelectOption: "bg-[#111111]",
   itemImageUploadWrapper: "md:col-span-2",
-  itemActionButton: "bg-yellow-400 text-black hover:bg-yellow-300 md:col-span-2",
+  itemActionButton:
+    "bg-yellow-400 text-black hover:bg-yellow-300 md:col-span-2",
 };
 
 export const hookahListPageStyles = {
@@ -227,8 +226,7 @@ export const hookahListPageStyles = {
     "max-w-[1600px] mx-auto mb-6 flex flex-wrap items-center justify-between gap-4",
   headerLeft: "flex min-w-0 flex-wrap items-center gap-3",
   headerIcon: "w-6 h-6 text-yellow-400",
-  headerTitle:
-    "text-xl font-extrabold tracking-tight text-white sm:text-2xl",
+  headerTitle: "text-xl font-extrabold tracking-tight text-white sm:text-2xl",
   headerHighlight:
     "text-transparent bg-clip-text bg-linear-to-r from-yellow-400 to-amber-500",
   headerBadge:
@@ -236,8 +234,7 @@ export const hookahListPageStyles = {
 
   // ---- Search ----
   searchWrapper: "relative w-full sm:w-72",
-  searchIcon:
-    "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500",
+  searchIcon: "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500",
   searchInput:
     "w-full bg-black/90 border border-gray-700 rounded-xl pl-10 pr-4 py-2.5 text-white placeholder-gray-500 focus:border-yellow-400/70 focus:ring-2 focus:ring-yellow-400/20 transition-all outline-none text-sm",
 
@@ -321,8 +318,7 @@ export const itemListPageStyles = {
   toastSpinner: "h-3 w-3 animate-spin",
   toastCancelButton:
     "rounded-xl border border-yellow-400/20 px-3 py-1.5 text-xs font-black text-yellow-200 transition hover:bg-yellow-400 hover:text-black",
-  toastCloseButton:
-    "text-white/50 transition hover:text-white",
+  toastCloseButton: "text-white/50 transition hover:text-white",
   iconSm: "h-4 w-4",
 
   // ---- Field ----
@@ -354,8 +350,7 @@ export const itemListPageStyles = {
   filterRow: "mt-5 flex gap-2 overflow-x-auto pb-1",
   filterButtonBase:
     "inline-flex shrink-0 items-center cursor-pointer gap-2 rounded-2xl border px-4 py-2.5 text-sm font-black transition",
-  filterButtonActive:
-    "border-yellow-300 bg-yellow-400 text-black",
+  filterButtonActive: "border-yellow-300 bg-yellow-400 text-black",
   filterButtonInactive:
     "border-yellow-400/15 bg-black/30 text-yellow-100 hover:border-yellow-300/60",
   filterIcon: "h-4 w-4",
@@ -377,23 +372,18 @@ export const itemListPageStyles = {
   itemHeader: "flex items-start justify-between gap-2",
   itemHeaderLeft: "min-w-0",
   itemName: "truncate text-base font-black text-white",
-  itemCompany:
-    "mt-0.5 flex items-center gap-1 text-xs font-bold text-white/50",
+  itemCompany: "mt-0.5 flex items-center gap-1 text-xs font-bold text-white/50",
   itemIcon: "h-3 w-3 text-yellow-300",
   itemWeightBadge:
     "rounded-xl border border-yellow-400/25 bg-yellow-400/10 px-2 py-0.5 text-[10px] font-black text-yellow-200",
 
   itemPriceGrid: "mt-3 grid grid-cols-2 gap-2",
-  itemOriginalPrice:
-    "rounded-xl border border-white/10 bg-black/30 p-2",
+  itemOriginalPrice: "rounded-xl border border-white/10 bg-black/30 p-2",
   itemSellingPrice:
     "rounded-xl border border-yellow-400/25 bg-yellow-400 p-2 text-black",
-  priceLabel:
-    "text-[9px] font-black uppercase tracking-[0.16em] text-white/35",
-  priceOriginalValue:
-    "mt-0.5 text-sm font-black text-white/55 line-through",
-  priceSellingValue:
-    "mt-0.5 text-sm font-black",
+  priceLabel: "text-[9px] font-black uppercase tracking-[0.16em] text-white/35",
+  priceOriginalValue: "mt-0.5 text-sm font-black text-white/55 line-through",
+  priceSellingValue: "mt-0.5 text-sm font-black",
 
   // ---- Edit mode ----
   editForm: "grid gap-2",
@@ -455,13 +445,13 @@ export const adminLoginStyles = {
   brandText: "text-left",
   adminLabel:
     "text-[10px] font-black uppercase leading-none tracking-[0.3em] text-yellow-300/60",
-  brandTitle: "mt-1.5 text-2xl font-black leading-none tracking-tight text-white",
+  brandTitle:
+    "mt-1.5 text-2xl font-black leading-none tracking-tight text-white",
   brandSubtitle:
     "mx-auto mt-3 max-w-xs text-sm font-medium leading-relaxed text-white/50",
 
   // Card
-  card:
-    "relative rounded-3xl border border-yellow-400/10 bg-white/3 p-6 shadow-2xl shadow-black/60 ring-1 ring-white/5 backdrop-blur-xl sm:p-8",
+  card: "relative rounded-3xl border border-yellow-400/10 bg-white/3 p-6 shadow-2xl shadow-black/60 ring-1 ring-white/5 backdrop-blur-xl sm:p-8",
   cardTopLine:
     "absolute -top-px left-8 right-8 h-px bg-linear-to-r from-transparent via-yellow-400/40 to-transparent",
 
@@ -471,8 +461,7 @@ export const adminLoginStyles = {
   // Error
   errorContainer:
     "flex items-start gap-2.5 rounded-2xl border border-red-500/40 bg-black/80 px-4 py-3 text-sm font-medium text-white shadow-lg shadow-red-500/10",
-  errorDot:
-    "mt-1.5 h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-red-400",
+  errorDot: "mt-1.5 h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-red-400",
 
   // Field group
   fieldGroup: "space-y-2",
@@ -501,7 +490,8 @@ export const adminLoginStyles = {
   submitShine:
     "absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 group-hover:translate-x-full",
   submitInner: "relative z-10 flex items-center justify-center gap-2",
-  spinner: "h-4 w-4 animate-spin rounded-full border-2 border-black/30 border-t-black",
+  spinner:
+    "h-4 w-4 animate-spin rounded-full border-2 border-black/30 border-t-black",
   submitIcon: "h-4 w-4 transition group-hover:translate-x-0.5",
 
   // Footer
@@ -528,7 +518,8 @@ export const adminNavbarStyles = {
   logoTextWrapper: "leading-tight",
   logoLabel:
     "text-[10px] font-black uppercase tracking-[0.4em] text-yellow-300/80 sm:text-[11px]",
-  logoTitle: "text-xl font-black tracking-tight text-white sm:text-2xl lg:text-lg",
+  logoTitle:
+    "text-xl font-black tracking-tight text-white sm:text-2xl lg:text-lg",
 
   // ---- Nav links (desktop) ----
   navLinks: "hidden items-center gap-1 lg:flex xl:gap-2",
@@ -548,7 +539,7 @@ export const adminNavbarStyles = {
   navChevronInactive: "opacity-0 group-hover:opacity-100",
 
   // ---- Auth buttons ----
-  authButtons: "hidden items-center gap-2 sm:flex",
+  authButtons: "hidden items-center gap-2 lg:flex",
 
   logoutButton:
     "group cursor-pointer inline-flex items-center gap-1.5 rounded-2xl border border-red-400/40 bg-red-500 px-4 py-2 text-xs font-black text-white shadow-lg shadow-red-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-red-600 lg:gap-2 lg:px-5 lg:py-2.5 lg:text-sm",
@@ -568,8 +559,7 @@ export const adminNavbarStyles = {
 
   mobileNavLinkBase:
     "flex items-center justify-between rounded-2xl border px-4 py-3 text-sm font-black transition",
-  mobileNavLinkActive:
-    "border-yellow-400 bg-yellow-400 text-black",
+  mobileNavLinkActive: "border-yellow-400 bg-yellow-400 text-black",
   mobileNavLinkInactive:
     "border-white/10 bg-white/5 text-white hover:border-yellow-400/50 hover:bg-yellow-400 hover:text-black",
 
@@ -618,8 +608,7 @@ export const adminOrdersViewStyles = {
   ordersSubtext: "mt-1 text-sm font-medium text-white/50",
 
   // ---- Filters (search + status dropdown) ----
-  ordersFilters:
-    "flex w-full flex-col gap-3 md:flex-row xl:w-auto",
+  ordersFilters: "flex w-full flex-col gap-3 md:flex-row xl:w-auto",
 
   searchLabel: "relative w-full md:w-96",
   searchIcon:
@@ -639,7 +628,6 @@ export const adminOrdersViewStyles = {
   showAllLink:
     "inline-flex items-center justify-center rounded-2xl border border-yellow-400/25 bg-yellow-400 px-6 py-3 text-sm font-black text-black shadow-lg shadow-yellow-400/20 transition hover:-translate-y-0.5 hover:bg-yellow-300",
 };
-
 
 export const cancelConfirmStyles = {
   container:
@@ -664,8 +652,7 @@ export const cancelConfirmStyles = {
 };
 
 export const infoRowStyles = {
-  container:
-    "rounded-2xl border border-yellow-400/10 bg-black/35 p-4",
+  container: "rounded-2xl border border-yellow-400/10 bg-black/35 p-4",
   wide: "sm:col-span-2",
   header:
     "flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.18em] text-yellow-300/75",
@@ -706,8 +693,7 @@ export const orderDetailsModalStyles = {
   infoGrid2: "mt-4 grid gap-3 sm:grid-cols-2",
 
   // OrderTotalPill – extracted
-  totalPillContainer:
-    "rounded-2xl border border-yellow-400/10 bg-black/35 p-4",
+  totalPillContainer: "rounded-2xl border border-yellow-400/10 bg-black/35 p-4",
   totalPillHeader:
     "flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.18em] text-yellow-300/75",
   totalPillIcon: "h-3.5 w-3.5",
@@ -731,12 +717,9 @@ export const orderDetailsModalStyles = {
   actionsButtons: "mt-4 flex flex-wrap gap-2",
 
   // Action buttons
-  actionButtonOnWay:
-    "rounded-full bg-sky-500 px-4 py-2 text-sm font-bold",
-  actionButtonDeliver:
-    "rounded-full bg-green-500 px-4 py-2 text-sm font-bold",
-  actionButtonCancel:
-    "rounded-full bg-red-500 px-4 py-2 text-sm font-bold",
+  actionButtonOnWay: "rounded-full bg-sky-500 px-4 py-2 text-sm font-bold",
+  actionButtonDeliver: "rounded-full bg-green-500 px-4 py-2 text-sm font-bold",
+  actionButtonCancel: "rounded-full bg-red-500 px-4 py-2 text-sm font-bold",
 };
 
 export const orderItemCardStyles = {
@@ -746,13 +729,17 @@ export const orderItemCardStyles = {
   name: "line-clamp-2 min-h-9 text-sm font-black leading-5 text-white",
   company: "mt-1 truncate text-xs font-bold text-yellow-300",
   metaGrid: "mt-3 grid grid-cols-2 gap-2 text-[11px] font-extrabold",
-  sizeBadge: "rounded-xl bg-yellow-400/10 px-2 py-1 text-center text-yellow-200",
+  sizeBadge:
+    "rounded-xl bg-yellow-400/10 px-2 py-1 text-center text-yellow-200",
   qtyBadge: "rounded-xl bg-white/10 px-2 py-1 text-center text-white/70",
-  eachRow: "mt-2 flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-2 py-1.5",
+  eachRow:
+    "mt-2 flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-2 py-1.5",
   eachLabel: "text-[11px] font-bold text-white/50",
   eachValue: "text-xs font-black text-white",
-  totalRow: "mt-2 flex items-center justify-between rounded-xl border border-yellow-400/15 bg-yellow-400/10 px-2 py-1.5",
-  totalLabel: "flex items-center gap-1 text-[11px] font-black uppercase tracking-widest text-yellow-200",
+  totalRow:
+    "mt-2 flex items-center justify-between rounded-xl border border-yellow-400/15 bg-yellow-400/10 px-2 py-1.5",
+  totalLabel:
+    "flex items-center gap-1 text-[11px] font-black uppercase tracking-widest text-yellow-200",
   totalIcon: "h-3.5 w-3.5",
   totalValue: "text-xs font-black text-yellow-300",
 };
@@ -889,7 +876,8 @@ export const statusTimelineStyles = {
 };
 
 export const toastStyles = {
-  toast: "soft-enter fixed right-4 top-4 z-100 max-w-sm rounded-2xl border px-4 py-3 text-sm font-bold shadow-2xl",
+  toast:
+    "soft-enter fixed right-4 top-4 z-100 max-w-sm rounded-2xl border px-4 py-3 text-sm font-bold shadow-2xl",
   toastSuccess: "border-yellow-400/30 bg-[#141006] text-yellow-100",
   toastWarning: "border-rose-400/30 bg-rose-950 text-rose-100",
 };
