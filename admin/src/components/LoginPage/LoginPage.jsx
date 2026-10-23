@@ -68,9 +68,6 @@ const LoginPage = () => {
               <h1 className={s.brandTitle}>FreshMart</h1>
             </div>
           </div>
-          <p className={s.brandSubtitle}>
-            Sign in to manage orders, products and inventory.
-          </p>
         </div>
 
         <div className={s.card}>
@@ -159,10 +156,6 @@ const LoginPage = () => {
             </button>
           </form>
         </div>
-
-        <p className={s.footerNote}>
-          Protected area. Authorized personnel only.
-        </p>
       </div>
     </div>
   );
