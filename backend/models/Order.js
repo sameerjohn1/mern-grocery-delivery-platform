@@ -47,7 +47,13 @@ const orderSchema = new mongoose.Schema(
     },
     orderStatus: {
       type: String,
-      enum: ["Processing", "On the Way", "Delivered", "Cancelled"],
+      enum: [
+        "Processing",
+        "On the way",
+        "On the Way",
+        "Delivered",
+        "Cancelled",
+      ],
       default: "Processing",
     },
     stripeSessionId: { type: String, unique: true, sparse: true },
