@@ -12,6 +12,8 @@ const handle = (fn) => async (req, res) => {
 const getProduct = (item) => item.product || item;
 const getImg = (img) => (typeof img === "string" ? img : img?.url || "");
 const payLabel = (pm) => (pm === "Stripe" ? "Online" : pm);
+const normalizeOrderStatus = (status) =>
+  status === "On the Way" ? "On the way" : status;
 
 const formatOrder = (order) => ({
   orderId: order._id,
@@ -29,6 +31,7 @@ const formatOrder = (order) => ({
     return {
       productId: item.product?._id || item.product,
       name: p?.name || "",
+      image: getImg(p?.image || item.image) || null,
       company: p?.company || "",
       category: p?.category || item.category || "",
       size: p?.size || "",
@@ -41,6 +44,7 @@ const formatOrder = (order) => ({
   totalAmount: order.totalAmount,
   paymentMethod: payLabel(order.paymentMethod),
   paymentStatus: order.paymentStatus,
+  orderStatus: normalizeOrderStatus(order.orderStatus),
   createdAt: order.createdAt,
 });
 
@@ -63,8 +67,9 @@ export const getAllOrders = handle(async (req, res) => {
       n.includes(search.toLowerCase()) ||
       e.includes(search.toLowerCase()) ||
       p.includes(search);
-    const matchStatus = status === "All" || o.orderStatus === status;
-    return matchSearch && matchStatus;
+    const matchesStatus =
+      status === "All" || normalizeOrderStatus(o.orderStatus) === status;
+    return matchSearch && matchesStatus;
   });
 
   const currentPage = Number(page),

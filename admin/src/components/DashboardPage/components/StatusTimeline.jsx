@@ -11,7 +11,7 @@ const StatusTimeline = ({ status }) => {
     );
   }
 
-  const steps = ["Processing", "On the Way", "Delivered"];
+  const steps = ["Processing", "On the way", "Delivered"];
   const currentIndex = steps.indexOf(status);
 
   return (
