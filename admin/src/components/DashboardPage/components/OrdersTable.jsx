@@ -4,7 +4,7 @@ import StatusDropdown from "./StatusDropdown";
 import { formatShortOrderId } from "../../../utils/orderIds";
 import { ordersTableStyles as s } from "../../../assets/dummyStyles";
 
-const OrdersTable = ({ order = [], onSelectOrder, onStatusChange }) => (
+const OrdersTable = ({ orders = [], onSelectOrder, onStatusChange }) => (
   <div className={s.container}>
     <table className={s.table}>
       <thead>
@@ -19,13 +19,15 @@ const OrdersTable = ({ order = [], onSelectOrder, onStatusChange }) => (
       </thead>
 
       <tbody className={s.body}>
-        {order.map((order) => (
+        {orders.map((order) => (
           <tr className={s.row} key={order.orderId}>
             <td className={s.cell}>
-              <div className={s.customerName}>{order.customerName}</div>
+              <div className={s.customerName}>
+                {order.customerName || order.customer?.name || "Customer"}
+              </div>
               <div className={s.customerPhone}>
                 <Phone className={s.phoneIcon} />
-                {order.phone}
+                {order.phone || order.customer?.phone || "—"}
               </div>
             </td>
 
@@ -59,14 +61,14 @@ const OrdersTable = ({ order = [], onSelectOrder, onStatusChange }) => (
                 onClick={() => onSelectOrder(order)}
                 className={s.viewButton}
               >
-                <Eye className={s.viewButton} />
+                <Eye />
                 View
               </button>
             </td>
           </tr>
         ))}
 
-        {order.length === 0 && (
+        {orders.length === 0 && (
           <tr>
             <td colSpan={6} className={s.emptyCell}>
               <AlertTriangle className={s.emptyIcon} />

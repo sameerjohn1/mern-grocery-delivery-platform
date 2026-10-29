@@ -1,4 +1,4 @@
-export const addHookahPageStyles = {
+export const addProductPageStyles = {
   // Main container
   mainContainer:
     "min-h-screen w-full flex items-center justify-center bg-black p-4 sm:p-6 font-['Poppins',sans-serif]",
@@ -194,7 +194,7 @@ export const addItemsPageStyles = {
     "bg-[#34D399] text-[#065F46] hover:bg-[#6EE7B7] md:col-span-2",
 };
 
-export const hookahListPageStyles = {
+export const productListPageStyles = {
   // ---- Main container ----
   main: "min-h-screen bg-black p-4 sm:p-6 font-['Poppins',sans-serif]",
 
@@ -355,7 +355,7 @@ export const itemListPageStyles = {
 
   // ---- Grid ----
   gridSection: "mt-6",
-  grid: "grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6",
+  grid: "grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ",
 
   // ---- Item Card ----
   itemCard:
@@ -452,8 +452,7 @@ export const adminLoginStyles = {
 
   // Card
   card: "relative rounded-3xl border border-[#34D399]/10 bg-white/3 p-6 shadow-2xl shadow-[#071B16]/60 ring-1 ring-white/5 backdrop-blur-xl sm:p-8",
-  cardTopLine:
-    "absolute -top-px left-8 right-8 h-px bg-[#34D399]/40",
+  cardTopLine: "absolute -top-px left-8 right-8 h-px bg-[#34D399]/40",
 
   // Form
   form: "space-y-5",

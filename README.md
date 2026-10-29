@@ -70,6 +70,14 @@ backend/
 4. Start the server
    npm run dev
 
+### Seed admin dashboard demo data
+
+From `backend/`, run `npm run seed:demo` to add sample customers, products,
+categories, hookahs, carts, and orders. The seed can be run repeatedly without
+duplicating its demo records. Remote MongoDB targets are refused unless
+explicitly confirmed with `npm run seed:demo -- --allow-remote`; never use this
+option for a production database.
+
 ## Author
 
 **Sameer**, Full Stack Developer (React, Next.js, Node.js, MongoDB)

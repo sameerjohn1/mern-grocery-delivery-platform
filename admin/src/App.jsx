@@ -1,8 +1,8 @@
 import { Navigate, Routes, Route, useLocation } from "react-router-dom";
 import Login from "./pages/Login/Login";
-import AddHookah from "./pages/AddHookah/AddHookah";
+import AddProduct from "./pages/AddProduct/AddProduct";
 import Home from "./pages/Home/Home";
-import HookahList from "./pages/HookahList/HookahList";
+import ProductList from "./pages/ProductList/ProductList";
 import ItemList from "./pages/ItemListPage/ItemList";
 import Orders from "./pages/Orders/Orders";
 import AddItem from "./pages/AddItems/AddItem";
@@ -86,21 +86,28 @@ const App = () => {
         }
       />
       <Route
-        path="/add-hookah"
+        path="/add-product"
         element={
           <ProtectedRoute>
-            <AddHookah />
+            <AddProduct />
           </ProtectedRoute>
         }
       />
-
       <Route
-        path="/hookah-list"
+        path="/product-list"
         element={
           <ProtectedRoute>
-            <HookahList />
+            <ProductList />
           </ProtectedRoute>
         }
+      />
+      <Route
+        path="/add-hookah"
+        element={<Navigate to="/add-product" replace />}
+      />
+      <Route
+        path="/hookah-list"
+        element={<Navigate to="/product-list" replace />}
       />
 
       <Route path="*" element={<Navigate to="/" replace />} />
@@ -109,3 +116,4 @@ const App = () => {
 };
 
 export default App;
+// 6:20:50

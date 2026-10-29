@@ -60,8 +60,8 @@ const Navbar = () => {
     { name: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
     { name: "Add Items", icon: PlusCircle, href: "/add-item" },
     { name: "Item-List", icon: Package, href: "/item-list" },
-    { name: "Add Hookah", icon: PlusCircle, href: "/add-hookah" },
-    { name: "Hookah List", icon: Package, href: "/hookah-list" },
+    { name: "Add Product", icon: PlusCircle, href: "/add-product" },
+    { name: "Product List", icon: Package, href: "/product-list" },
     { name: "Orders", icon: ShoppingCart, href: "/orders" },
   ];
 

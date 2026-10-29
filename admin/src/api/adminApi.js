@@ -52,16 +52,16 @@ export const updateProduct = (id, data) => API.put(`/products/${id}`, data);
 
 export const deleteProduct = (id) => API.delete(`/products/${id}`);
 
-// Hookah
-export const getHookahs = () => API.get("/hookahs");
+// Catalog products (legacy /hookahs API and Hookah model retained for compatibility)
+export const getCatalogProducts = () => API.get("/hookahs");
 
-export const getHookah = (id) => API.get(`/hookahs/${id}`);
+export const getCatalogProduct = (id) => API.get(`/hookahs/${id}`);
 
-export const createHookah = (data) => API.post("/hookahs", data);
+export const createCatalogProduct = (data) => API.post("/hookahs", data);
 
-export const updateHookah = (id, data) => API.put(`/hookahs/${id}`, data);
+export const updateCatalogProduct = (id, data) => API.put(`/hookahs/${id}`, data);
 
-export const deleteHookah = (id) => API.delete(`/hookahs/${id}`);
+export const deleteCatalogProduct = (id) => API.delete(`/hookahs/${id}`);
 
 // Upload images
 export const uploadImage = async (file) => {

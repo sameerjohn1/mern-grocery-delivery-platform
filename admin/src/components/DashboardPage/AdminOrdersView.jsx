@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  BadgeIndianRupee,
+  Wallet,
   Filter,
   PackageCheck,
   Search,
@@ -17,6 +17,7 @@ import OrdersTable from "./components/OrdersTable";
 import StatGrid from "./components/StatGrid";
 import Toast from "./components/Toast";
 import {
+  getAllOrders,
   getDashboard,
   getSingleOrder,
   updateOrderStatus as updateOrderStatusApi,
@@ -30,6 +31,46 @@ const statusOptions = [
   "Delivered",
   "Cancelled",
 ];
+
+const ordersPerPage = 10;
+
+const getApiErrorMessage = (error, fallback) =>
+  error.response?.data?.message || error.message || fallback;
+
+const loadViewData = async ({ showSummary, search, filterStatus, page }) => {
+  if (showSummary) {
+    const { data } = await getDashboard();
+    if (!data?.success || !data.dashboard) {
+      throw new Error(data?.message || "Dashboard data is unavailable.");
+    }
+
+    return {
+      dashboard: data.dashboard,
+      orders: (data.dashboard.latestOrders || []).map((order) => ({
+        ...order,
+        orderStatus:
+          order.orderStatus === "On the Way" ? "On the way" : order.orderStatus,
+      })),
+      totalPages: 1,
+    };
+  }
+
+  const { data } = await getAllOrders({
+    search,
+    status: filterStatus,
+    page,
+    limit: ordersPerPage,
+  });
+  if (!data?.success || !Array.isArray(data.orders)) {
+    throw new Error(data?.message || "Orders could not be loaded.");
+  }
+
+  return {
+    dashboard: null,
+    orders: data.orders,
+    totalPages: Math.max(data.totalPages || 1, 1),
+  };
+};
 
 const getPaymentStatusForOrderStatus = (order, orderStatus) => {
   if (order.paymentMethod === "COD") {
@@ -50,35 +91,42 @@ function AdminOrdersView({
   const [dashboard, setDashboard] = useState(null);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loadError, setLoadError] = useState("");
   const [toast, setToast] = useState(null);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [cancelConfirmOrder, setCancelConfirmOrder] = useState(null);
   const [cancellingOrderId, setCancellingOrderId] = useState(null);
 
-  const fetchDashboard = async () => {
-    try {
-      const { data } = await getDashboard();
-      setDashboard(data.dashboard);
-      setOrders(data.dashboard.latestOrders || []);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const loadData = useCallback(
+    () =>
+      loadViewData({
+        showSummary,
+        search: debouncedSearch,
+        filterStatus,
+        page,
+      }),
+    [debouncedSearch, filterStatus, page, showSummary],
+  );
 
   useEffect(() => {
     let isCurrent = true;
 
-    getDashboard()
-      .then(({ data }) => {
+    loadData()
+      .then((result) => {
         if (!isCurrent) return;
-        setDashboard(data.dashboard);
-        setOrders(data.dashboard.latestOrders || []);
+        setDashboard(result.dashboard);
+        setOrders(result.orders);
+        setTotalPages(result.totalPages);
+        setLoadError("");
       })
       .catch((error) => {
-        console.log(error);
+        if (isCurrent) {
+          setLoadError(getApiErrorMessage(error, "Failed to load dashboard."));
+        }
       })
       .finally(() => {
         if (isCurrent) setLoading(false);
@@ -87,7 +135,12 @@ function AdminOrdersView({
     return () => {
       isCurrent = false;
     };
-  }, []);
+  }, [loadData]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(search.trim()), 300);
+    return () => clearTimeout(timer);
+  }, [search]);
 
   useEffect(() => {
     if (!toast) return undefined;
@@ -98,10 +151,36 @@ function AdminOrdersView({
   const handleViewOrder = async (order) => {
     try {
       const { data } = await getSingleOrder(order.orderId);
+      if (!data?.success || !data.order) {
+        throw new Error(data?.message || "Order details are unavailable.");
+      }
       setSelectedOrder(data.order);
     } catch (error) {
-      console.log(error);
+      setToast({
+        type: "warning",
+        message: getApiErrorMessage(error, "Failed to load order details."),
+      });
     }
+  };
+
+  const refreshData = async () => {
+    try {
+      const result = await loadData();
+      setDashboard(result.dashboard);
+      setOrders(result.orders);
+      setTotalPages(result.totalPages);
+      setLoadError("");
+      return true;
+    } catch (error) {
+      setLoadError(getApiErrorMessage(error, "Failed to refresh dashboard."));
+      return false;
+    }
+  };
+
+  const retryData = async () => {
+    setLoading(true);
+    await refreshData();
+    setLoading(false);
   };
 
   const requestOrderStatusChange = async (orderId, status) => {
@@ -117,7 +196,9 @@ function AdminOrdersView({
 
     try {
       const { data } = await updateOrderStatusApi(orderId, status);
-      if (!data.success) return;
+      if (!data?.success) {
+        throw new Error(data?.message || "Order status update failed.");
+      }
 
       setOrders((prev) =>
         prev.map((order) =>
@@ -139,31 +220,34 @@ function AdminOrdersView({
             }
           : prev,
       );
-      await fetchDashboard();
+      await refreshData();
       setToast({
         type: status === "Cancelled" ? "warning" : "success",
         message: `Order ${status.toLowerCase()} successfully.`,
       });
     } catch (err) {
-      console.log(err.response?.data || err);
+      setToast({
+        type: "warning",
+        message: getApiErrorMessage(err, "Failed to update order status."),
+      });
     }
   };
 
   const visibleOrders = useMemo(() => {
     return getVisibleOrders({
       orders,
-      search,
-      status: filterStatus,
+      search: showSummary ? search : "",
+      status: showSummary ? filterStatus : "All",
       limit,
     });
-  }, [orders, search, filterStatus, limit]);
+  }, [orders, search, filterStatus, limit, showSummary]);
 
   const statCards = [
     {
       title: "Total Revenue",
       value: formatMoney(dashboard?.totalRevenue || 0),
       sub: "Successful Payments",
-      icon: BadgeIndianRupee,
+      icon: Wallet,
     },
     {
       title: "Active Orders",
@@ -194,7 +278,9 @@ function AdminOrdersView({
         cancelConfirmOrder.orderId,
         "Cancelled",
       );
-      if (!data.success) return;
+      if (!data?.success) {
+        throw new Error(data?.message || "Order cancellation failed.");
+      }
 
       setOrders((prev) =>
         prev.map((order) =>
@@ -219,21 +305,43 @@ function AdminOrdersView({
             }
           : prev,
       );
-      await fetchDashboard();
+      await refreshData();
       setCancelConfirmOrder(null);
       setToast({
         type: "warning",
         message: "Order cancelled successfully.",
       });
     } catch (err) {
-      console.log(err.response?.data || err);
+      setToast({
+        type: "warning",
+        message: getApiErrorMessage(err, "Failed to cancel order."),
+      });
     } finally {
       setCancellingOrderId(null);
     }
   };
 
   if (loading) {
-    return <div className={s.loadingState}>Loading Dashboard...</div>;
+    return (
+      <div className={s.loadingState}>
+        Loading {showSummary ? "Dashboard" : "Orders"}...
+      </div>
+    );
+  }
+
+  if (loadError && !orders.length && !dashboard) {
+    return (
+      <div className={`${s.loadingState} flex-col gap-4 px-4 text-center`}>
+        <p role="alert">{loadError}</p>
+        <button
+          type="button"
+          onClick={retryData}
+          className="rounded-xl bg-emerald-400 px-5 py-2 font-bold text-emerald-950 transition hover:bg-emerald-300"
+        >
+          Retry
+        </button>
+      </div>
+    );
   }
 
   return (
@@ -272,7 +380,10 @@ function AdminOrdersView({
                 <Search className={s.searchIcon} />
                 <input
                   value={search}
-                  onChange={(event) => setSearch(event.target.value)}
+                  onChange={(event) => {
+                    setSearch(event.target.value);
+                    if (!showSummary) setPage(1);
+                  }}
                   placeholder="Search customer, mobile, or order id"
                   className={s.searchInput}
                 />
@@ -281,7 +392,10 @@ function AdminOrdersView({
                 <Filter className={s.filterIcon} />
                 <select
                   value={filterStatus}
-                  onChange={(event) => setFilterStatus(event.target.value)}
+                  onChange={(event) => {
+                    setFilterStatus(event.target.value);
+                    if (!showSummary) setPage(1);
+                  }}
                   className={s.filterSelect}
                 >
                   {statusOptions.map((status) => (
@@ -299,10 +413,49 @@ function AdminOrdersView({
           </div>
 
           <OrdersTable
-            orders={visibleOrders}
+            orders={showSummary ? visibleOrders : orders}
             onSelectOrder={handleViewOrder}
             onStatusChange={requestOrderStatusChange}
           />
+
+          {!showSummary && (
+            <div className="flex items-center justify-between gap-4 px-5 py-4">
+              <button
+                type="button"
+                onClick={() => setPage((currentPage) => currentPage - 1)}
+                disabled={page <= 1}
+                className="rounded-xl border border-emerald-400/30 px-4 py-2 text-sm font-bold text-emerald-100 transition hover:bg-emerald-400 hover:text-emerald-950 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                Previous
+              </button>
+              <span className="text-sm text-emerald-100/70">
+                Page {page} of {totalPages}
+              </span>
+              <button
+                type="button"
+                onClick={() => setPage((currentPage) => currentPage + 1)}
+                disabled={page >= totalPages}
+                className="rounded-xl border border-emerald-400/30 px-4 py-2 text-sm font-bold text-emerald-100 transition hover:bg-emerald-400 hover:text-emerald-950 disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                Next
+              </button>
+            </div>
+          )}
+
+          {loadError && (
+            <div className="flex items-center justify-between gap-4 px-5 pb-4">
+              <p role="alert" className="text-sm text-red-300">
+                {loadError}
+              </p>
+              <button
+                type="button"
+                onClick={retryData}
+                className="rounded-lg border border-red-300/30 px-3 py-1.5 text-sm font-bold text-red-200 transition hover:bg-red-300/10"
+              >
+                Retry
+              </button>
+            </div>
+          )}
 
           {showAllButton && (
             <div className={s.showAllWrapper}>
