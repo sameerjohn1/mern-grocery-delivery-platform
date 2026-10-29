@@ -10,7 +10,7 @@
 
 .dashboard-font,
 .dashboard-font * {
-  scrollbar-color: #facc15 #111111;
+  scrollbar-color: #34d399 #0d241d;
   scrollbar-width: thin;
 }
 
@@ -20,18 +20,18 @@
 }
 
 .dashboard-font ::-webkit-scrollbar-track {
-  background: #111111;
+  background: #0d241d;
   border-radius: 999px;
 }
 
 .dashboard-font ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #fde047, #eab308);
-  border: 2px solid #111111;
+  background: #34d399;
+  border: 2px solid #0d241d;
   border-radius: 999px;
 }
 
 .dashboard-font ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #fef08a, #facc15);
+  background: #6ee7b7;
 }
 
 @keyframes softEnter {
