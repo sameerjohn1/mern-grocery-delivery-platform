@@ -14,7 +14,7 @@ import { formatMoney, getVisibleOrders } from "./dashboardUtils";
 import CancelConfirm from "./components/CancelConfirm";
 import OrderDetailsModal from "./components/OrderDetailsModal";
 import OrdersTable from "./components/OrdersTable";
-import StatsGrid from "./components/StatsGrid";
+import StatGrid from "./components/StatGrid";
 import Toast from "./components/Toast";
 import {
   getDashboard,
@@ -58,7 +58,6 @@ function AdminOrdersView({
 
   const fetchDashboard = async () => {
     try {
-      setLoading(true);
       const { data } = await getDashboard();
       setDashboard(data.dashboard);
       setOrders(data.dashboard.latestOrders || []);
@@ -70,7 +69,24 @@ function AdminOrdersView({
   };
 
   useEffect(() => {
-    fetchDashboard();
+    let isCurrent = true;
+
+    getDashboard()
+      .then(({ data }) => {
+        if (!isCurrent) return;
+        setDashboard(data.dashboard);
+        setOrders(data.dashboard.latestOrders || []);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        if (isCurrent) setLoading(false);
+      });
+
+    return () => {
+      isCurrent = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -233,7 +249,7 @@ function AdminOrdersView({
               </div>
             </div>
             <div className={s.statsWrapper}>
-              <StatsGrid cards={statCards} />
+              <StatGrid cards={statCards} />
             </div>
           </div>
         )}
