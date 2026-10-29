@@ -14,15 +14,15 @@ import {
   Loader2,
 } from "lucide-react";
 import {
-  getHookahs,
-  updateHookah,
-  deleteHookah,
+  getCatalogProducts,
+  updateCatalogProduct,
+  deleteCatalogProduct,
   uploadImage,
 } from "../../api/adminApi";
-import { hookahListPageStyles as s } from "../../assets/dummyStyles";
+import { productListPageStyles as s } from "../../assets/dummyStyles";
 
-const HookahListPage = () => {
-  const [hookahs, setHookahs] = useState([]);
+const ProductListPage = () => {
+  const [products, setProducts] = useState([]);
   const [search, setSearch] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [editData, setEditData] = useState({});
@@ -38,8 +38,8 @@ const HookahListPage = () => {
   useEffect(() => {
     const load = async () => {
       try {
-        const { data } = await getHookahs();
-        setHookahs(data.hookahs);
+        const { data } = await getCatalogProducts();
+        setProducts(data.hookahs);
       } catch (err) {
         console.error(err);
       }
@@ -55,10 +55,10 @@ const HookahListPage = () => {
     };
   }, []);
 
-  const fetchHookahs = async () => {
+  const fetchProducts = async () => {
     try {
-      const { data } = await getHookahs();
-      setHookahs(data.hookahs);
+      const { data } = await getCatalogProducts();
+      setProducts(data.hookahs);
     } catch (error) {
       console.log(error);
     }
@@ -72,7 +72,7 @@ const HookahListPage = () => {
     );
   };
 
-  const filtered = hookahs.filter(
+  const filtered = products.filter(
     (h) =>
       h.name.toLowerCase().includes(search.toLowerCase()) ||
       h.company.toLowerCase().includes(search.toLowerCase()),
@@ -144,15 +144,15 @@ const HookahListPage = () => {
         payload.image = imageData;
       }
 
-      await updateHookah(editingId, payload);
+      await updateCatalogProduct(editingId, payload);
 
-      await fetchHookahs();
+      await fetchProducts();
       setEditingId(null);
       setEditData({});
-      showToast("Hookah updated successfully!");
+      showToast("Product updated successfully!");
     } catch (error) {
       console.error(error);
-      showToast("Failed to update hookah.", "error");
+      showToast("Failed to update product.", "error");
     } finally {
       setSavingId(null);
     }
@@ -165,10 +165,10 @@ const HookahListPage = () => {
   const confirmDelete = async () => {
     try {
       setDeletingId(confirmTarget.id);
-      await deleteHookah(confirmTarget.id);
+      await deleteCatalogProduct(confirmTarget.id);
       setConfirmTarget(null);
-      fetchHookahs();
-      showToast("Hookah deleted successfully!", "error");
+      fetchProducts();
+      showToast("Product deleted successfully!", "error");
     } catch (error) {
       console.log(error);
     } finally {
@@ -180,7 +180,7 @@ const HookahListPage = () => {
     setConfirmTarget(null);
   };
 
-  const getImageSrc = (isEditing, editData, hookah) => {
+  const getImageSrc = (isEditing, editData, product) => {
     if (isEditing) {
       if (editData._preview) {
         return editData._preview;
@@ -193,7 +193,7 @@ const HookahListPage = () => {
       return "";
     }
 
-    return hookah.image?.url ?? "";
+    return product.image?.url ?? "";
   };
 
   return (
@@ -267,7 +267,7 @@ const HookahListPage = () => {
         <div className={s.headerLeft}>
           <Package className={s.headerIcon} />
           <h1 className={s.headerTitle}>
-            <span className={s.headerHighlight}>Hookah</span> Collection
+            <span className={s.headerHighlight}>Product</span> Collection
           </h1>
           <span className={s.headerBadge}>{filtered.length} items</span>
         </div>
@@ -378,9 +378,9 @@ const HookahListPage = () => {
                     </p>
                     <div className={s.itemPriceRow}>
                       <span className={s.itemSellingPrice}>
-                        ₹{h.sellingPrice}
+                        {h.sellingPrice}
                       </span>
-                      <span className={s.itemOldPrice}>₹{h.oldPrice}</span>
+                      <span className={s.itemOldPrice}>{h.oldPrice}</span>
                     </div>
                     <p className={s.itemSize}>
                       <Weight className={s.itemIcon} />
@@ -411,7 +411,7 @@ const HookahListPage = () => {
       {filtered.length === 0 && (
         <div className={s.emptyState}>
           <Package className={s.emptyIcon} />
-          <p className={s.emptyTitle}>No hookahs found</p>
+          <p className={s.emptyTitle}>No products found</p>
           <p className={s.emptySubtext}>Try adjusting your search</p>
         </div>
       )}
@@ -419,4 +419,4 @@ const HookahListPage = () => {
   );
 };
 
-export default HookahListPage;
+export default ProductListPage;

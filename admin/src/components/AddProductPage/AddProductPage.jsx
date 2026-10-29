@@ -11,8 +11,8 @@ import {
   ArrowRight,
   Loader2,
 } from "lucide-react";
-import { createHookah, uploadImage } from "../../api/adminApi";
-import { addHookahPageStyles as s } from "../../assets/dummyStyles";
+import { createCatalogProduct, uploadImage } from "../../api/adminApi";
+import { addProductPageStyles as s } from "../../assets/dummyStyles";
 
 const InputField = ({
   icon: Icon,
@@ -47,7 +47,7 @@ const InputField = ({
   );
 };
 
-const AddHookahPage = () => {
+const AddProductPage = () => {
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -81,7 +81,8 @@ const AddHookahPage = () => {
       setImage(file);
       const reader = new FileReader();
       reader.onload = () => setPreview(reader.result);
-      reader.onerror = () => showToast("Unable to read selected image.", "error");
+      reader.onerror = () =>
+        showToast("Unable to read selected image.", "error");
       reader.readAsDataURL(file);
     }
   };
@@ -111,10 +112,10 @@ const AddHookahPage = () => {
       setIsSubmitting(true);
       const imageData = await uploadImage(image);
 
-      await createHookah({
+      await createCatalogProduct({
         image: {
           url: imageData.image.url,
-          publish_id: imageData.image.public_id,
+          public_id: imageData.image.public_id,
         },
         name,
         company,
@@ -122,7 +123,7 @@ const AddHookahPage = () => {
         oldPrice: Number(original),
         size: weight,
       });
-      showToast("Hookah added Successfully");
+      showToast("Product added successfully");
 
       setForm({
         name: "",
@@ -136,7 +137,7 @@ const AddHookahPage = () => {
       setPreview(null);
     } catch (error) {
       console.error(error);
-      showToast("Failed to add hookah.", "error");
+      showToast("Failed to add product.", "error");
     } finally {
       setIsSubmitting(false);
     }
@@ -210,7 +211,7 @@ const AddHookahPage = () => {
         {/* header */}
         <div className={s.header}>
           <h1 className={s.heading}>
-            <span className={s.headingHighlight}>Add</span> Hookah
+            <span className={s.headingHighlight}>Add</span> Product
           </h1>
 
           <div className={s.headerBadge}>
@@ -222,7 +223,7 @@ const AddHookahPage = () => {
         <form onSubmit={handleSubmit} className={s.form}>
           {/* Image upload */}
           <div>
-            <label className={s.uploadLabel}>Hookah Image</label>
+            <label className={s.uploadLabel}>Product Image</label>
             <div
               className={`${s.uploadAreaBase} ${
                 preview ? s.uploadAreaWithPreview : s.uploadAreaEmpty
@@ -232,7 +233,7 @@ const AddHookahPage = () => {
                 <div className={s.uploadPreviewContainer}>
                   <img
                     src={preview}
-                    alt="Hookah preview"
+                    alt="Product preview"
                     className={s.uploadPreviewImage}
                   />
                   <button
@@ -294,7 +295,7 @@ const AddHookahPage = () => {
               value={form.selling}
               onChange={handleChange}
               placeholder="49.99"
-              prefix="₹"
+              prefix=""
             />
             <InputField
               icon={Tag}
@@ -304,7 +305,7 @@ const AddHookahPage = () => {
               value={form.original}
               onChange={handleChange}
               placeholder="69.99"
-              prefix="₹"
+              prefix=""
             />
           </div>
 
@@ -319,7 +320,7 @@ const AddHookahPage = () => {
               value={form.company}
               onChange={handleChange}
               autoComplete="off"
-              placeholder="e.g. Hookah Masters LLC"
+              placeholder="e.g. GreenCart Foods"
               className={s.companyInput}
             />
           </div>
@@ -336,7 +337,7 @@ const AddHookahPage = () => {
               ) : (
                 <ArrowRight className={s.submitIcon} />
               )}
-              <span>{isSubmitting ? "Adding..." : "Add Hookah"}</span>
+              <span>{isSubmitting ? "Adding..." : "Add Product"}</span>
             </button>
           </div>
         </form>
@@ -345,4 +346,4 @@ const AddHookahPage = () => {
   );
 };
 
-export default AddHookahPage;
+export default AddProductPage;

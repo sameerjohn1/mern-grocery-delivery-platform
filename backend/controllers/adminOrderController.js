@@ -63,10 +63,12 @@ export const getAllOrders = handle(async (req, res) => {
     const n = o.user?.name?.toLowerCase() || "";
     const e = o.user?.email?.toLowerCase() || "";
     const p = o.user?.phone || "";
+    const orderId = o._id.toString().toLowerCase();
     const matchSearch =
       n.includes(search.toLowerCase()) ||
       e.includes(search.toLowerCase()) ||
-      p.includes(search);
+      p.includes(search) ||
+      orderId.includes(search.toLowerCase());
     const matchesStatus =
       status === "All" || normalizeOrderStatus(o.orderStatus) === status;
     return matchSearch && matchesStatus;

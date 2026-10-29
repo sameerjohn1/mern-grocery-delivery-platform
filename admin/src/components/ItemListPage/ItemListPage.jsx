@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import {
-  BadgeIndianRupee,
+  Wallet,
   CheckCircle2,
   Edit3,
   Filter,
@@ -375,7 +375,7 @@ const ItemListPage = () => {
                       <div className={s.editPriceRow}>
                         <Field
                           label="Original"
-                          icon={BadgeIndianRupee}
+                          icon={Wallet}
                           type="number"
                           value={data.originalPrice}
                           onChange={(event) =>
@@ -384,7 +384,7 @@ const ItemListPage = () => {
                         />
                         <Field
                           label="Selling"
-                          icon={BadgeIndianRupee}
+                          icon={Wallet}
                           type="number"
                           value={data.sellingPrice}
                           onChange={(event) =>
@@ -410,13 +410,13 @@ const ItemListPage = () => {
                         <div className={s.itemOriginalPrice}>
                           <p className={s.priceLabel}>Original</p>
                           <p className={s.priceOriginalValue}>
-                            ₹{data.originalPrice}
+                            {data.originalPrice}
                           </p>
                         </div>
                         <div className={s.itemSellingPrice}>
                           <p className={s.priceLabel}>Selling</p>
                           <p className={s.priceSellingValue}>
-                            ₹{data.sellingPrice}
+                            {data.sellingPrice}
                           </p>
                         </div>
                       </div>
