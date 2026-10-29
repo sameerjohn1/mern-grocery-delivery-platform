@@ -5,7 +5,7 @@ export const formatMoney = (value) =>
     maximumFractionDigits: 0,
   }).format(value || 0);
 
-export const formatDateMoney = (data) =>
+export const formatDateOnly = (data) =>
   new Intl.DateTimeFormat("en-PK", {
     day: "2-digit",
     month: "short",
