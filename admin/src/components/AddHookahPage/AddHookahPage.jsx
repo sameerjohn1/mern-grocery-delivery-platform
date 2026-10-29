@@ -173,15 +173,16 @@ const AddHookahPage = () => {
           100% { opacity: 1; transform: translateY(0) scale(1); }
         }
         .btn-glow {
-          background: linear-gradient(135deg, #fbbf24, #f59e0b);
-          box-shadow: 0 8px 24px -6px rgba(251, 191, 36, 0.4);
+          background: #34d399;
+          box-shadow: 0 8px 24px -6px rgba(52, 211, 153, 0.4);
         }
         .btn-glow:hover {
-          box-shadow: 0 12px 32px -6px rgba(251, 191, 36, 0.6);
+          background: #6ee7b7;
+          box-shadow: 0 12px 32px -6px rgba(52, 211, 153, 0.6);
           transform: translateY(-2px) scale(1.02);
         }
         .upload-area {
-          background: radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.03), transparent 70%);
+          background: #0d241d;
         }
       `}</style>
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { LogIn, Mail, Lock, Eye, EyeOff } from "lucide-react";
-import freshmartLogo from "../../assets/freshmart-logo.svg";
+import greenCartLogo from "../../assets/greenCart.png";
 import axios from "axios";
 import { adminLoginStyles as s } from "../../assets/dummyStyles";
 
@@ -58,14 +58,14 @@ const LoginPage = () => {
           <div className={s.brandInner}>
             <div className={s.logoWrapper}>
               <img
-                src={freshmartLogo}
-                alt="FreshMart"
+                src={greenCartLogo}
+                alt="GreenCart"
                 className={s.logoImage}
               />
             </div>
             <div className={s.brandText}>
               <p className={s.adminLabel}>Admin Portal</p>
-              <h1 className={s.brandTitle}>FreshMart</h1>
+              <h1 className={s.brandTitle}>GreenCart</h1>
             </div>
           </div>
         </div>

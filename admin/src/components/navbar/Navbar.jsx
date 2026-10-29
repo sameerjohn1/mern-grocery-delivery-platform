@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
-import freshmartLogo from "../../assets/freshmart-logo.svg";
+import greenCartLogo from "../../assets/greenCart.png";
 import { adminNavbarStyles as s } from "../../assets/dummyStyles";
 import {
   LayoutDashboard,
@@ -59,7 +59,7 @@ const Navbar = () => {
   const menuItems = [
     { name: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
     { name: "Add Items", icon: PlusCircle, href: "/add-item" },
-    { name: "Last Items", icon: Package, href: "/last-item" },
+    { name: "Item-List", icon: Package, href: "/item-list" },
     { name: "Add Hookah", icon: PlusCircle, href: "/add-hookah" },
     { name: "Hookah List", icon: Package, href: "/hookah-list" },
     { name: "Orders", icon: ShoppingCart, href: "/orders" },
@@ -88,12 +88,16 @@ const Navbar = () => {
         <div className={s.innerWrapper}>
           <div className={s.logoWrapper}>
             <div className={s.logoImageWrapper}>
-              <img src={freshmartLogo} className={s.logoImage} alt="" />
+              <img
+                src={greenCartLogo}
+                className={s.logoImage}
+                alt="GreenCart"
+              />
             </div>
 
             <div className={s.logoTextWrapper}>
               <p className={s.logoLabel}>Admin Panel</p>
-              <h1 className={s.logoTitle}>Fresh Mart</h1>
+              <h1 className={s.logoTitle}>GreenCart</h1>
             </div>
           </div>
 
