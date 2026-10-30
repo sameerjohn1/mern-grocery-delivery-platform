@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 
-const CART_STORAGE_KEY = "freshmart-cart";
+const CART_STORAGE_KEY = "GreenCart-cart";
 
 const CartContext = createContext(null);
 

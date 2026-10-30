@@ -1,4 +1,4 @@
-# FreshMart: Grocery Delivery Platform (MERN Stack)
+# GreenCart: Grocery Delivery Platform (MERN Stack)
 
 A full stack grocery delivery platform with a customer storefront and a separate admin dashboard. The REST API is built with Node.js, Express and MongoDB, following a layered architecture.
 
@@ -16,13 +16,13 @@ A full stack grocery delivery platform with a customer storefront and a separate
 ## Architecture
 
 backend/
-├── config/        # Database and Cloudinary configuration
-├── controllers/   # Request and response handling
-├── middleware/    # Auth, admin access, file upload
-├── models/        # Mongoose schemas (User, Product, Category)
-├── routes/        # Endpoint mapping
-├── utils/         # Helper functions
-└── server.js      # App entry point
+├── config/ # Database and Cloudinary configuration
+├── controllers/ # Request and response handling
+├── middleware/ # Auth, admin access, file upload
+├── models/ # Mongoose schemas (User, Product, Category)
+├── routes/ # Endpoint mapping
+├── utils/ # Helper functions
+└── server.js # App entry point
 
 ## Features (Implemented)
 
@@ -43,14 +43,14 @@ backend/
 
 ## API Endpoints
 
-| Method | Endpoint | Access | Description |
-|--------|----------|--------|-------------|
-| POST | /api/users/register | Public | Register a new user |
-| POST | /api/users/login | Public | Login and receive JWT |
-| GET | /api/products | Public | List all products |
-| POST | /api/products | Admin | Add a product |
-| GET | /api/categories | Public | List categories |
-| POST | /api/categories | Admin | Add a category |
+| Method | Endpoint            | Access | Description           |
+| ------ | ------------------- | ------ | --------------------- |
+| POST   | /api/users/register | Public | Register a new user   |
+| POST   | /api/users/login    | Public | Login and receive JWT |
+| GET    | /api/products       | Public | List all products     |
+| POST   | /api/products       | Admin  | Add a product         |
+| GET    | /api/categories     | Public | List categories       |
+| POST   | /api/categories     | Admin  | Add a category        |
 
 (Update this table with your actual routes.)
 

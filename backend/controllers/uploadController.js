@@ -10,7 +10,7 @@ export const uploadImage = async (req, res) => {
     }
 
     const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: "FreshMart-Images",
+      folder: "GreenCart-Images",
       resource_type: "image",
     });
 
