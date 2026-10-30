@@ -754,23 +754,24 @@ export const searchResultsStyles = {
 };
 
 export const signupPageStyles = {
-  mainContainer: "min-h-screen overflow-hidden bg-[#0b0a08] text-white",
+  mainContainer:
+    "signup-page min-h-screen overflow-hidden bg-[#000000] text-[#D1FAE5]",
 
   // Toast shared styles
   toastBase:
     "fixed right-4 top-4 z-50 flex items-center gap-3 rounded-2xl border px-4 py-3 shadow-2xl transition-all duration-500 sm:right-6",
   toastSuccess:
-    "border-yellow-300/40 bg-black text-yellow-200 shadow-yellow-400/20",
+    "border-[#34D399]/30 bg-[#071B16]/95 text-[#D1FAE5] shadow-[#34D399]/10",
   toastError:
-    "border-red-400/50 bg-black text-red-200 shadow-red-500/20",
+    "border-red-400/50 bg-[#071B16]/95 text-red-200 shadow-red-500/20",
   toastVisible: "translate-y-0 opacity-100",
   toastHidden: "-translate-y-4 opacity-0",
   toastIconWrapperSuccess:
-    "flex h-9 w-9 items-center justify-center rounded-full bg-yellow-300 text-black",
+    "flex h-9 w-9 items-center justify-center rounded-full bg-[#34D399] text-[#065F46]",
   toastIconWrapperError:
     "flex h-9 w-9 items-center justify-center rounded-full bg-red-500 text-white",
   toastTitle: "font-store-label block text-sm font-black",
-  toastSubtext: "text-xs font-semibold text-white/65",
+  toastSubtext: "text-xs font-semibold text-[#A7C4B8]",
 
   // Icons
   iconSm: "h-4 w-4",
@@ -779,11 +780,9 @@ export const signupPageStyles = {
   // Decorative backgrounds (inline styles)
   decorBg: "absolute inset-0",
   decorGradients: {
-    background:
-      "radial-gradient(circle at top right, rgba(250,204,21,0.24), transparent 30%), radial-gradient(circle at bottom left, rgba(234,179,8,0.16), transparent 34%)",
+    background: "none",
   },
-  decorLine:
-    "absolute bottom-0 left-1/2 h-px w-4/5 -translate-x-1/2 bg-linear-to-r from-transparent via-yellow-300/70 to-transparent",
+  decorLine: "hidden",
 
   // Section
   section:
@@ -791,32 +790,32 @@ export const signupPageStyles = {
 
   // Form
   formWrapper:
-    "mx-auto w-full max-w-md rounded-4xl border border-yellow-300/20 bg-white p-6 text-black shadow-2xl shadow-yellow-500/10 sm:p-8",
+    "mx-auto w-full max-w-md rounded-4xl border border-[#1F3B32] bg-[#0D241D] p-6 text-[#D1FAE5] shadow-2xl shadow-[#34D399]/5 sm:p-8",
   formHeader: "mb-7",
   formLabel:
-    "font-store-label text-sm font-black uppercase tracking-wide text-yellow-600",
+    "font-store-label text-sm font-black uppercase tracking-wide text-[#34D399]",
   formTitle:
-    "font-store-display mt-2 text-3xl font-black tracking-wide text-black",
-  formSubtext: "mt-2 text-sm font-semibold leading-6 text-black/55",
+    "font-store-display mt-2 text-3xl font-black tracking-wide text-[#D1FAE5]",
+  formSubtext: "mt-2 text-sm font-semibold leading-6 text-[#A7C4B8]",
 
   formFields: "space-y-4",
 
   inputLabel:
-    "font-store-label mb-2 block text-sm font-bold text-black/75",
+    "font-store-label mb-2 block text-sm font-bold text-[#D1FAE5]",
   inputWrapper:
-    "flex items-center gap-3 rounded-2xl border border-black/10 bg-white px-4 py-3.5 transition focus-within:border-black/25",
-  inputIcon: "h-5 w-5 text-yellow-600",
+    "flex items-center gap-3 rounded-2xl border border-[#1F3B32] bg-[#071B16]/70 px-4 py-3.5 transition focus-within:border-[#34D399]/60 focus-within:ring-2 focus-within:ring-[#34D399]/10",
+  inputIcon: "h-5 w-5 text-[#34D399]",
   inputField:
-    "auth-field w-full bg-transparent text-sm font-semibold text-black outline-none placeholder:text-black/35",
+    "auth-field w-full bg-transparent text-sm font-semibold text-[#D1FAE5] outline-none placeholder:text-[#A7C4B8]/65",
   togglePasswordButton:
-    "rounded-full p-1 text-black/55 transition hover:bg-yellow-200 hover:text-black",
+    "rounded-full p-1 text-[#A7C4B8] transition hover:bg-[#123128] hover:text-[#6EE7B7]",
 
   submitButton:
-    "font-store-label mt-7 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-black px-5 py-4 text-sm font-black uppercase tracking-wide text-yellow-300 shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:bg-yellow-300 hover:text-black disabled:cursor-wait disabled:opacity-80",
+    "font-store-label mt-7 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#34D399] px-5 py-4 text-sm font-black uppercase tracking-wide text-[#065F46] shadow-lg shadow-[#34D399]/10 transition hover:-translate-y-0.5 hover:bg-[#6EE7B7] disabled:cursor-wait disabled:opacity-80",
 
-  signupPrompt: "mt-6 text-center text-sm font-semibold text-black/60",
+  signupPrompt: "mt-6 text-center text-sm font-semibold text-[#A7C4B8]",
   loginLink:
-    "font-store-label font-black text-black underline decoration-yellow-400 decoration-2 underline-offset-4",
+    "font-store-label font-black text-[#34D399] underline decoration-[#34D399] decoration-2 underline-offset-4 transition hover:text-[#6EE7B7]",
 
   // Right column (hidden on mobile)
   rightColumn: "space-y-8 hidden lg:block xl:block",
@@ -824,29 +823,30 @@ export const signupPageStyles = {
   // Logo
   logoLink: "inline-flex items-center gap-3",
   logoWrapper:
-    "flex h-14 w-14 items-center justify-center rounded-2xl bg-white p-1.5 shadow-xl shadow-yellow-400/15 ring-1 ring-yellow-200/40",
+    "flex h-14 w-14 items-center justify-center rounded-2xl border border-[#1F3B32] bg-[#0D241D] p-1.5 shadow-xl shadow-[#34D399]/10 ring-1 ring-[#34D399]/20",
   logoImage: "h-full w-full object-contain",
   logoText:
-    "font-serif block text-2xl font-black italic tracking-wide",
+    "font-serif block text-2xl font-black italic tracking-wide text-[#D1FAE5]",
   logoSubtext:
-    "font-store-label text-xs font-bold uppercase tracking-wide text-yellow-300",
+    "font-store-label text-xs font-bold uppercase tracking-wide text-[#34D399]",
 
   // Hero
   heroWrapper: "max-w-xl space-y-5",
   heroBadge:
-    "font-store-label inline-flex items-center gap-2 rounded-full border border-yellow-300/30 bg-yellow-300/10 px-4 py-2 text-sm font-bold text-yellow-200",
+    "font-store-label inline-flex items-center gap-2 rounded-full border border-[#34D399]/25 bg-[#34D399]/10 px-4 py-2 text-sm font-bold text-[#6EE7B7]",
   heroHeading:
-    "font-store-display text-4xl font-black leading-tight tracking-wide sm:text-5xl",
-  heroHighlight: "block text-yellow-300",
+    "font-store-display text-4xl font-black leading-tight tracking-wide text-[#D1FAE5] sm:text-5xl",
+  heroHighlight: "block text-[#6EE7B7]",
   heroDescription:
-    "max-w-lg text-base font-medium leading-7 text-white/70",
+    "max-w-lg text-base font-medium leading-7 text-[#A7C4B8]",
 
   // Feature cards
   featureGrid: "grid max-w-xl gap-3 sm:grid-cols-2",
-  featureCard: "rounded-2xl border border-white/10 bg-white/5 p-5",
-  featureIcon: "h-6 w-6 text-yellow-300",
-  featureTitle: "font-store-label mt-4 text-base font-black text-white",
-  featureText: "mt-2 text-sm font-medium leading-6 text-white/60",
+  featureCard:
+    "rounded-2xl border border-[#1F3B32] bg-[#0D241D]/80 p-5",
+  featureIcon: "h-6 w-6 text-[#34D399]",
+  featureTitle: "font-store-label mt-4 text-base font-black text-[#D1FAE5]",
+  featureText: "mt-2 text-sm font-medium leading-6 text-[#A7C4B8]",
 };
 
 export const forgotPasswordStyles = {

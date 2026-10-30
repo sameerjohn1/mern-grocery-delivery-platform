@@ -18,6 +18,7 @@ body,
 }
 
 body {
+  background-color: #000000;
   font-family: var(--font-store-body);
   font-feature-settings: "kern";
   text-rendering: optimizeLegibility;
@@ -91,4 +92,22 @@ input:-webkit-autofill:focus {
 .text-wrap-safe {
   overflow-wrap: anywhere;
   word-break: normal;
+}
+
+.signup-page button:focus-visible,
+.signup-page a:focus-visible {
+  outline: 2px solid #34d399;
+  outline-offset: 3px;
+}
+
+.signup-page .auth-field {
+  caret-color: #34d399;
+}
+
+.signup-page .auth-field:-webkit-autofill,
+.signup-page .auth-field:-webkit-autofill:hover,
+.signup-page .auth-field:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #071b16 inset;
+  -webkit-text-fill-color: #d1fae5;
+  transition: background-color 9999s ease-in-out 0s;
 }
