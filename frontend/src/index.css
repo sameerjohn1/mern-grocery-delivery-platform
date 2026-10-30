@@ -94,19 +94,19 @@ input:-webkit-autofill:focus {
   word-break: normal;
 }
 
-.signup-page button:focus-visible,
-.signup-page a:focus-visible {
+.auth-page button:focus-visible,
+.auth-page a:focus-visible {
   outline: 2px solid #34d399;
   outline-offset: 3px;
 }
 
-.signup-page .auth-field {
+.auth-page .auth-field {
   caret-color: #34d399;
 }
 
-.signup-page .auth-field:-webkit-autofill,
-.signup-page .auth-field:-webkit-autofill:hover,
-.signup-page .auth-field:-webkit-autofill:focus {
+.auth-page .auth-field:-webkit-autofill,
+.auth-page .auth-field:-webkit-autofill:hover,
+.auth-page .auth-field:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0 1000px #071b16 inset;
   -webkit-text-fill-color: #d1fae5;
   transition: background-color 9999s ease-in-out 0s;
