@@ -24,7 +24,7 @@ const Navbar = () => {
 
   useEffect(() => {
     const checkUser = () => {
-      const stored = localStorage.getItem("freshmart_user");
+      const stored = localStorage.getItem("GreenCart_user");
       setUser(stored ? JSON.parse(stored) : null);
     };
     checkUser();
@@ -69,7 +69,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("freshmart_user");
+    localStorage.removeItem("GreenCart_user");
     setUser(null);
     navigate("/login");
   };

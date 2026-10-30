@@ -18,7 +18,7 @@ const buildLineItems = (products = [], totalAmount = 0) => {
     price_data: {
       currency: "pkr",
       product_data: {
-        name: item?.name || "FreshMart Items",
+        name: item?.name || "GreenCart Items",
         images: item?.image ? [getImageUrl(item.image)] : [],
       },
       unit_amount: Math.round(Number(item?.sellingPrice || 0) * 100),

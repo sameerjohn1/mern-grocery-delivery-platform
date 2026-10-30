@@ -48,9 +48,9 @@ const SignupPage = () => {
 
     try {
       setIsSubmitting(true);
-      await registerUser({
+      const { data } = await registerUser({
         name: formData.get("name"),
-        email: formData.get("email"),
+        email: String(formData.get("email")).trim().toLowerCase(),
         phone,
         password: formData.get("password"),
       });
@@ -60,7 +60,7 @@ const SignupPage = () => {
       window.setTimeout(() => {
         navigate("/verify-email", {
           state: {
-            email: formData.get("email"),
+            email: data.email || String(formData.get("email")).trim().toLowerCase(),
           },
         });
       }, 950);
@@ -71,29 +71,11 @@ const SignupPage = () => {
       const errMsg =
         error.response?.data?.message || "Signup failed. Please try again.";
 
-      const isPhoneDuplicate =
-        error.response?.status === 400 &&
-        (errMsg.toLowerCase().includes("phone") ||
-          errMsg.toLowerCase().includes("mobile")) &&
-        (errMsg.toLowerCase().includes("exist") ||
-          errMsg.toLowerCase().includes("duplicate") ||
-          errMsg.toLowerCase().includes("already"));
-
-      if (isPhoneDuplicate) {
-        window.setTimeout(() => {
-          navigate("/verify-email", {
-            state: {
-              email: formData.get("email"),
-            },
-          });
-        }, 500);
-      } else {
-        setErrorMessage(errMsg);
-        setErrorToastVisible(true);
-        setTimeout(() => {
-          setErrorToastVisible(false);
-        }, 3000);
-      }
+      setErrorMessage(errMsg);
+      setErrorToastVisible(true);
+      setTimeout(() => {
+        setErrorToastVisible(false);
+      }, 3000);
     }
   };
 
@@ -110,7 +92,9 @@ const SignupPage = () => {
         </span>
         <span>
           <span className={s.toastTitle}>Signup successful</span>
-          <span className={s.toastSubtext}>Redirecting to login...</span>
+          <span className={s.toastSubtext}>
+            Redirecting to email verification...
+          </span>
         </span>
       </div>
 
@@ -242,7 +226,7 @@ const SignupPage = () => {
             <span className={s.logoWrapper}>
               <img
                 src={GreenCart}
-                alt="FreshMart Grocery logo"
+                alt="GreenCart Grocery logo"
                 className={s.logoImage}
               />
             </span>
@@ -264,7 +248,7 @@ const SignupPage = () => {
             </h2>
 
             <p className={s.heroDescription}>
-              Save your details once, then move through FreshMart with quick
+              Save your details once, then move through GreenCart with quick
               ordering, cleaner checkout, and bright daily deals.
             </p>
           </div>

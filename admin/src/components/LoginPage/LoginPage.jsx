@@ -32,7 +32,7 @@ const LoginPage = () => {
           return;
         }
         localStorage.setItem("token", data.token);
-        localStorage.setItem("freshmart_user", JSON.stringify(data.user));
+        localStorage.setItem("GreenCart_user", JSON.stringify(data.user));
         navigate(from, { replace: true });
       }
     } catch (error) {
@@ -94,7 +94,7 @@ const LoginPage = () => {
                     name="email"
                     type="email"
                     autoComplete="email"
-                    placeholder="admin@freshmart.com"
+                    placeholder="admin@GreenCart.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className={s.fieldInput}

@@ -9,7 +9,7 @@ import AddItem from "./pages/AddItems/AddItem";
 
 const hadAdminSession = () => {
   const token = localStorage.getItem("token");
-  const savedUser = localStorage.getItem("freshmart_user");
+  const savedUser = localStorage.getItem("GreenCart_user");
 
   if (!token || !savedUser) return false;
 
