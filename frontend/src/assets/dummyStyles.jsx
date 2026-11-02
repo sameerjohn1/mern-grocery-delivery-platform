@@ -96,19 +96,19 @@ export const addressPageStyles = {
 };
 
 export const bannerStyles = {
-  section: "relative overflow-hidden bg-[#fff8dc] py-6 sm:py-8",
+  section: "relative overflow-hidden bg-[#F6F3E8] py-6 sm:py-8",
   container: "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8",
   innerContainer:
-    "relative overflow-hidden rounded-4xl border border-yellow-200 bg-[#111111]",
+    "relative overflow-hidden rounded-4xl border border-[#A7E8C1]/25 bg-[#0B2B21]",
 
   // Decorative gradients (inline styles)
   decorGradient1: {
     background:
-      "radial-gradient(circle at top left, rgba(250,204,21,0.18), transparent 28%), radial-gradient(circle at bottom right, rgba(250,204,21,0.10), transparent 32%)",
+      "radial-gradient(circle at top left, rgba(167,232,193,0.16), transparent 28%), radial-gradient(circle at bottom right, rgba(221,244,229,0.10), transparent 32%)",
   },
   decorGradient2: {
     background:
-      "linear-gradient(135deg, rgba(255,255,255,0.03), transparent 40%, rgba(255,255,255,0.02))",
+      "linear-gradient(135deg, rgba(221,244,229,0.04), transparent 40%, rgba(167,232,193,0.04))",
   },
 
   gridContainer:
@@ -116,31 +116,31 @@ export const bannerStyles = {
   leftColumn: "relative z-10 space-y-4 text-white",
 
   badge:
-    "font-store-label inline-flex items-center gap-2 rounded-full border border-yellow-300/40 bg-yellow-300/10 px-4 py-2 text-sm font-bold text-yellow-200 backdrop-blur-sm",
+    "font-store-label inline-flex items-center gap-2 rounded-full border border-[#A7E8C1]/40 bg-[#A7E8C1]/10 px-4 py-2 text-sm font-bold text-[#A7E8C1] backdrop-blur-sm",
   iconSmall: "h-4 w-4",
 
   headingWrapper: "space-y-3",
   heading:
     "font-store-display max-w-xl text-3xl font-black leading-tight tracking-wide sm:text-4xl lg:text-5xl",
-  headingHighlight: "block text-yellow-300",
+  headingHighlight: "block text-[#A7E8C1]",
   description:
-    "max-w-lg text-sm font-medium leading-6 text-white/75 sm:text-base",
+    "max-w-lg text-sm font-medium leading-6 text-[#F6F3E8]/80 sm:text-base",
 
   buttonsWrapper: "flex flex-wrap items-center gap-3",
   primaryButton:
-    "font-store-label inline-flex items-center gap-2 rounded-full bg-yellow-300 px-5 py-2.5 text-sm font-bold text-black shadow-lg shadow-yellow-300/20 transition-transform duration-300 hover:-translate-y-1 hover:bg-yellow-200",
+    "font-store-label inline-flex items-center gap-2 rounded-full bg-[#A7E8C1] px-5 py-2.5 text-sm font-bold text-[#0B2B21] shadow-lg shadow-[#A7E8C1]/20 transition-transform duration-300 hover:-translate-y-1 hover:bg-[#DDF4E5]",
   secondaryButton:
-    "font-store-label inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-bold text-white transition duration-300 hover:border-yellow-300/40 hover:text-yellow-200",
+    "font-store-label inline-flex items-center gap-2 rounded-full border border-[#DDF4E5]/25 bg-[#10392C]/70 px-5 py-2.5 text-sm font-bold text-[#DDF4E5] transition duration-300 hover:border-[#A7E8C1]/60 hover:text-[#A7E8C1]",
 
   cardsContainer: "grid max-w-xl grid-cols-1 gap-3 pt-1 sm:grid-cols-3",
-  card: "rounded-2xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-sm",
-  cardIcon: "h-5 w-5 text-yellow-300",
-  cardTitle: "font-store-label mt-2 text-sm font-bold text-white",
-  cardText: "text-xs font-medium text-white/60",
+  card: "rounded-2xl border border-[#DDF4E5]/10 bg-[#10392C]/75 p-3.5 backdrop-blur-sm",
+  cardIcon: "h-5 w-5 text-[#A7E8C1]",
+  cardTitle: "font-store-label mt-2 text-sm font-bold text-[#F6F3E8]",
+  cardText: "text-xs font-medium text-[#DDF4E5]/70",
 
   trustMessage:
-    "font-store-label flex items-center gap-2 pt-1 text-sm font-bold text-white/70",
-  starIcon: "h-4 w-4 fill-yellow-300 text-yellow-300",
+    "font-store-label flex items-center gap-2 pt-1 text-sm font-bold text-[#F6F3E8]/80",
+  starIcon: "h-4 w-4 fill-[#A7E8C1] text-[#A7E8C1]",
 
   rightColumn:
     "relative z-10 hidden min-h-80 items-center justify-center xl:flex",
