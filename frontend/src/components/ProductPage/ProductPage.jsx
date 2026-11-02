@@ -2,6 +2,12 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getCategories } from "../../api/api";
 import { productsPageStyles as s } from "../../assets/dummyStyles";
+import categoryFallback from "../../assets/P2.png";
+
+const getImageUrl = (image) => {
+  const url = typeof image === "string" ? image : image?.url;
+  return typeof url === "string" && url.trim() ? url.trim() : null;
+};
 
 const ProductPage = () => {
   const [categories, setCategories] = useState([]);
@@ -39,9 +45,14 @@ const ProductPage = () => {
               }}
             >
               <img
-                src={category.image?.url}
+                src={getImageUrl(category.image) || categoryFallback}
                 className={s.categoryImage}
-                alt=""
+                alt={`${category.categoryName} category`}
+                onError={(event) => {
+                  if (event.currentTarget.dataset.fallbackApplied) return;
+                  event.currentTarget.dataset.fallbackApplied = "true";
+                  event.currentTarget.src = categoryFallback;
+                }}
               />
               <h3 className={s.categoryName}>{category.categoryName}</h3>
             </Link>

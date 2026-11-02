@@ -322,64 +322,79 @@ export const footerStyles = {
 
 export const hookahPageStyles = {
   section:
-    "min-h-screen scroll-mt-24 bg-linear-to-br from-yellow-50 via-white to-zinc-100 py-12",
-  container: "mx-auto max-w-9xl px-4 sm:px-6",
-  headerWrapper: "mb-12 text-center",
+    "relative min-h-screen scroll-mt-24 overflow-hidden bg-linear-to-br from-[#071B16] via-[#0B2B21] to-[#123128] px-4 py-14 text-[#F6F3E8] sm:px-6 sm:py-16",
+  container: "relative mx-auto max-w-7xl",
+  ambientGlow:
+    "pointer-events-none absolute -right-36 -top-32 h-96 w-96 rounded-full bg-[#34D399]/10 blur-3xl",
+  headerWrapper: "mx-auto mb-10 max-w-3xl text-center sm:mb-14",
   badge:
-    "font-store-label mb-4 inline-flex items-center rounded-full border border-yellow-300 bg-white px-5 py-2 text-sm font-bold uppercase tracking-[0.18em] text-zinc-700 shadow-sm",
+    "font-store-label mb-5 inline-flex items-center rounded-full border border-[#A7E8C1]/25 bg-[#A7E8C1]/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#A7E8C1] sm:text-sm",
   heading:
-    "font-serif text-4xl font-black italic tracking-wide text-zinc-950 sm:text-5xl md:text-6xl",
+    "font-store-display text-4xl font-black leading-tight tracking-wide text-[#F6F3E8] sm:text-5xl md:text-6xl",
   highlight:
-    "bg-linear-to-r from-yellow-500 via-amber-400 to-yellow-600 bg-clip-text text-transparent",
+    "bg-linear-to-r from-[#A7E8C1] via-[#DDF4E5] to-[#6EE7B7] bg-clip-text text-transparent",
   divider:
-    "mx-auto mt-4 h-1 w-28 rounded-full bg-linear-to-r from-transparent via-yellow-400 to-transparent",
+    "mx-auto mt-6 h-px w-32 bg-linear-to-r from-transparent via-[#A7E8C1]/80 to-transparent",
 
   productGrid:
-    "grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6",
+    "grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5",
+  productGridCompact:
+    "mx-auto grid w-full max-w-4xl grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-5",
 
   productCard:
-    "group relative overflow-hidden rounded-3xl rounded-bl-[5rem] border border-yellow-200 bg-white shadow-[0_18px_50px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_24px_70px_rgba(0,0,0,0.12)]",
+    "group relative overflow-hidden rounded-3xl border border-[#A7E8C1]/15 bg-[#F6F3E8] text-[#10251D] shadow-[0_18px_48px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#A7E8C1]/45 hover:shadow-[0_26px_64px_rgba(0,0,0,0.28)]",
   cardOverlay1:
-    "absolute inset-0 bg-linear-to-br from-yellow-400/10 via-transparent to-yellow-500/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100",
+    "pointer-events-none absolute inset-0 bg-linear-to-br from-[#A7E8C1]/10 via-transparent to-[#34D399]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100",
   cardOverlay2:
-    "absolute -right-10 top-0 h-24 w-24 rounded-full bg-yellow-300/20 blur-2xl",
+    "pointer-events-none absolute -right-10 top-0 h-24 w-24 rounded-full bg-[#34D399]/15 blur-2xl",
   cardOverlay3:
-    "absolute -bottom-10 left-0 h-24 w-24 rounded-full bg-yellow-200/20 blur-2xl",
+    "pointer-events-none absolute -bottom-10 left-0 h-24 w-24 rounded-full bg-[#A7E8C1]/20 blur-2xl",
   cardContent: "relative flex h-full flex-col",
 
-  imageWrapper: "overflow-hidden bg-yellow-50",
-  productImage: "h-40 w-full object-contain transition-transform duration-500",
+  imageWrapper:
+    "relative flex h-48 items-center justify-center overflow-hidden border-b border-[#1F3B32]/8 bg-linear-to-br from-[#DDF4E5] via-[#F6F3E8] to-[#E7F1E8] p-5 sm:h-52",
+  productImage:
+    "h-full w-full object-contain transition-transform duration-500 group-hover:scale-105",
 
-  productInfo: "flex flex-1 flex-col p-4",
+  productInfo: "flex flex-1 flex-col p-4 sm:p-5",
   productName:
-    "font-store-label line-clamp-2 text-base font-black leading-snug tracking-wide text-zinc-900",
-  productCompany: "mt-1 text-sm font-bold text-zinc-500",
+    "font-store-label line-clamp-2 text-base font-black leading-snug tracking-wide text-[#10251D]",
+  productCompany: "mt-1 truncate text-sm font-semibold text-[#527064]",
   sizeBadge:
-    "font-store-label mt-2 inline-flex w-fit rounded-full bg-black px-3 py-1 text-xs font-bold text-white",
+    "font-store-label mt-3 inline-flex w-fit rounded-full border border-[#1F3B32]/10 bg-[#E7F1E8] px-3 py-1 text-xs font-bold text-[#315D49]",
 
-  priceContainer: "mt-4 rounded-2xl bg-zinc-50 px-4 py-3",
+  priceContainer:
+    "mt-4 rounded-2xl border border-[#1F3B32]/8 bg-white/75 px-4 py-3",
   priceRow: "mt-1 flex items-baseline gap-2",
-  priceCurrent: "font-store-display text-2xl font-black text-zinc-900",
-  priceOld: "font-store-label text-sm font-bold text-zinc-400 line-through",
+  priceCurrent: "font-store-display text-2xl font-black text-[#0B2B21]",
+  priceOld: "font-store-label text-sm font-bold text-[#82938A] line-through",
 
-  actionWrapper: "mt-4 flex justify-center",
+  actionWrapper: "mt-auto flex justify-center pt-4",
 
   quantityControls:
-    "font-store-label inline-flex h-11 w-40 items-center justify-between rounded-full border border-yellow-300 bg-black px-2 text-sm font-black text-yellow-300 shadow-md shadow-yellow-200",
+    "font-store-label inline-flex h-11 w-full max-w-48 items-center justify-between rounded-full border border-[#0B2B21] bg-[#0B2B21] px-2 text-sm font-black text-[#DDF4E5] shadow-md shadow-[#0B2B21]/15",
   qtyButton:
-    "inline-flex cursor-pointer h-8 w-8 items-center justify-center rounded-full bg-yellow-300 text-black transition hover:bg-yellow-400",
+    "inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-[#A7E8C1] text-[#0B2B21] transition hover:bg-[#DDF4E5]",
   qtyValue: "min-w-10 text-center",
 
   addButton:
-    "font-store-label inline-flex cursor-pointer h-11 w-40 items-center justify-center gap-2 rounded-full border border-yellow-300 bg-yellow-400 px-3 text-sm font-bold text-zinc-900 shadow-md shadow-yellow-200 transition-all duration-300 hover:-translate-y-0.5 hover:bg-yellow-300 active:scale-[0.98]",
+    "font-store-label inline-flex h-11 w-full max-w-56 cursor-pointer items-center justify-center gap-2 rounded-full bg-[#0B2B21] px-4 text-sm font-bold text-[#F6F3E8] shadow-md shadow-[#0B2B21]/15 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#174533] active:scale-[0.98]",
 
   cardBottomBar:
-    "h-1 w-0 bg-yellow-400 transition-all duration-500 group-hover:w-full",
+    "h-1 w-0 bg-[#34D399] transition-all duration-500 group-hover:w-full",
 
-  viewMoreWrapper: "mt-10 flex justify-center",
+  viewMoreWrapper: "mt-12 flex justify-center",
   viewMoreLink:
-    "font-store-label inline-flex items-center gap-2 rounded-full bg-black px-8 py-3 font-bold text-white shadow-lg transition-all duration-300",
+    "font-store-label group inline-flex items-center gap-2 rounded-full border border-[#A7E8C1]/30 bg-[#A7E8C1]/10 px-7 py-3 font-bold text-[#DDF4E5] shadow-lg shadow-black/10 transition-all duration-300 hover:border-[#A7E8C1]/60 hover:bg-[#A7E8C1]/15 hover:text-white",
   viewMoreArrow: "transition-transform duration-300 group-hover:translate-x-1",
+
+  statePanel:
+    "flex min-h-56 flex-col items-center justify-center rounded-3xl border border-[#A7E8C1]/15 bg-[#10392C]/70 px-6 py-10 text-center shadow-xl shadow-black/10",
+  stateIcon: "h-9 w-9 text-[#A7E8C1]",
+  stateTitle: "font-store-display mt-4 text-xl font-bold text-[#F6F3E8]",
+  stateText: "mt-2 max-w-md text-sm leading-6 text-[#DDF4E5]/70",
+  stateAction:
+    "font-store-label mt-5 inline-flex items-center gap-2 rounded-full bg-[#A7E8C1] px-5 py-2.5 text-sm font-bold text-[#0B2B21] transition hover:bg-[#DDF4E5]",
 };
 
 export const loginPageStyles = {
