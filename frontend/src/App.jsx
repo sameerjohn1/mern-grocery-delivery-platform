@@ -4,6 +4,7 @@ import LoginPage from "./components/LoginPage/LoginPage";
 import SignupPage from "./components/SignupPage/SignupPage";
 import VerifyEmailPage from "./components/VerifyEmailPage/VerifyEmailPage";
 import ProductPage from "./components/ProductPage/ProductPage";
+import GreenCartPage from "./components/GreenCart.jsx/GreenCartPage";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/verify-email" element={<VerifyEmailPage />} />
       <Route path="/products" element={<ProductPage />} />
+      <Route path="/green-cart" element={<GreenCartPage />} />
     </Routes>
   );
 };
