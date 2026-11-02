@@ -96,19 +96,19 @@ export const addressPageStyles = {
 };
 
 export const bannerStyles = {
-  section: "relative overflow-hidden bg-[#fff8dc] py-6 sm:py-8",
+  section: "relative overflow-hidden bg-[#F6F3E8] py-6 sm:py-8",
   container: "mx-auto max-w-7xl px-4 sm:px-6 lg:px-8",
   innerContainer:
-    "relative overflow-hidden rounded-4xl border border-yellow-200 bg-[#111111]",
+    "relative overflow-hidden rounded-4xl border border-[#A7E8C1]/25 bg-[#0B2B21]",
 
   // Decorative gradients (inline styles)
   decorGradient1: {
     background:
-      "radial-gradient(circle at top left, rgba(250,204,21,0.18), transparent 28%), radial-gradient(circle at bottom right, rgba(250,204,21,0.10), transparent 32%)",
+      "radial-gradient(circle at top left, rgba(167,232,193,0.16), transparent 28%), radial-gradient(circle at bottom right, rgba(221,244,229,0.10), transparent 32%)",
   },
   decorGradient2: {
     background:
-      "linear-gradient(135deg, rgba(255,255,255,0.03), transparent 40%, rgba(255,255,255,0.02))",
+      "linear-gradient(135deg, rgba(221,244,229,0.04), transparent 40%, rgba(167,232,193,0.04))",
   },
 
   gridContainer:
@@ -116,31 +116,31 @@ export const bannerStyles = {
   leftColumn: "relative z-10 space-y-4 text-white",
 
   badge:
-    "font-store-label inline-flex items-center gap-2 rounded-full border border-yellow-300/40 bg-yellow-300/10 px-4 py-2 text-sm font-bold text-yellow-200 backdrop-blur-sm",
+    "font-store-label inline-flex items-center gap-2 rounded-full border border-[#A7E8C1]/40 bg-[#A7E8C1]/10 px-4 py-2 text-sm font-bold text-[#A7E8C1] backdrop-blur-sm",
   iconSmall: "h-4 w-4",
 
   headingWrapper: "space-y-3",
   heading:
     "font-store-display max-w-xl text-3xl font-black leading-tight tracking-wide sm:text-4xl lg:text-5xl",
-  headingHighlight: "block text-yellow-300",
+  headingHighlight: "block text-[#A7E8C1]",
   description:
-    "max-w-lg text-sm font-medium leading-6 text-white/75 sm:text-base",
+    "max-w-lg text-sm font-medium leading-6 text-[#F6F3E8]/80 sm:text-base",
 
   buttonsWrapper: "flex flex-wrap items-center gap-3",
   primaryButton:
-    "font-store-label inline-flex items-center gap-2 rounded-full bg-yellow-300 px-5 py-2.5 text-sm font-bold text-black shadow-lg shadow-yellow-300/20 transition-transform duration-300 hover:-translate-y-1 hover:bg-yellow-200",
+    "font-store-label inline-flex items-center gap-2 rounded-full bg-[#A7E8C1] px-5 py-2.5 text-sm font-bold text-[#0B2B21] shadow-lg shadow-[#A7E8C1]/20 transition-transform duration-300 hover:-translate-y-1 hover:bg-[#DDF4E5]",
   secondaryButton:
-    "font-store-label inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-5 py-2.5 text-sm font-bold text-white transition duration-300 hover:border-yellow-300/40 hover:text-yellow-200",
+    "font-store-label inline-flex items-center gap-2 rounded-full border border-[#DDF4E5]/25 bg-[#10392C]/70 px-5 py-2.5 text-sm font-bold text-[#DDF4E5] transition duration-300 hover:border-[#A7E8C1]/60 hover:text-[#A7E8C1]",
 
   cardsContainer: "grid max-w-xl grid-cols-1 gap-3 pt-1 sm:grid-cols-3",
-  card: "rounded-2xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-sm",
-  cardIcon: "h-5 w-5 text-yellow-300",
-  cardTitle: "font-store-label mt-2 text-sm font-bold text-white",
-  cardText: "text-xs font-medium text-white/60",
+  card: "rounded-2xl border border-[#DDF4E5]/10 bg-[#10392C]/75 p-3.5 backdrop-blur-sm",
+  cardIcon: "h-5 w-5 text-[#A7E8C1]",
+  cardTitle: "font-store-label mt-2 text-sm font-bold text-[#F6F3E8]",
+  cardText: "text-xs font-medium text-[#DDF4E5]/70",
 
   trustMessage:
-    "font-store-label flex items-center gap-2 pt-1 text-sm font-bold text-white/70",
-  starIcon: "h-4 w-4 fill-yellow-300 text-yellow-300",
+    "font-store-label flex items-center gap-2 pt-1 text-sm font-bold text-[#F6F3E8]/80",
+  starIcon: "h-4 w-4 fill-[#A7E8C1] text-[#A7E8C1]",
 
   rightColumn:
     "relative z-10 hidden min-h-80 items-center justify-center xl:flex",
@@ -247,15 +247,15 @@ export const cartPageStyles = {
 
 export const footerStyles = {
   footer:
-    "relative overflow-hidden border-t border-yellow-400/20 bg-[#0b0a08] text-white",
+    "relative overflow-hidden border-t border-[#A7E8C1]/20 bg-[#0B2B21] text-[#F6F3E8]",
 
   // Decorative glow backgrounds
   decorGlow1:
-    "absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-yellow-400/20 blur-3xl animate-pulse",
+    "absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[#A7E8C1]/10 blur-3xl animate-pulse",
   decorGlow2:
-    "absolute bottom-0 right-0 h-56 w-56 rounded-full bg-amber-500/15 blur-3xl",
+    "absolute bottom-0 right-0 h-56 w-56 rounded-full bg-[#10392C]/80 blur-3xl",
   decorGlow3:
-    "absolute left-0 top-1/2 h-44 w-44 -translate-y-1/2 rounded-full bg-yellow-300/10 blur-3xl",
+    "absolute left-0 top-1/2 h-44 w-44 -translate-y-1/2 rounded-full bg-[#A7E8C1]/5 blur-3xl",
 
   container: "relative mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8",
   grid: "grid gap-10 md:grid-cols-2 lg:grid-cols-[1.2fr_0.75fr_1.7fr_1fr]",
@@ -264,60 +264,59 @@ export const footerStyles = {
   brandWrapper: "space-y-4",
   brandHeader: "flex items-center gap-3",
   logoContainer:
-    "relative flex h-16 w-16 shrink-0 items-center justify-center rounded-3xl border border-yellow-300/40 bg-white/95 p-1.5 shadow-xl shadow-yellow-500/15",
+    "relative flex h-16 w-16 shrink-0 items-center justify-center rounded-3xl border border-[#A7E8C1]/45 bg-[#F6F3E8] p-1.5 shadow-xl shadow-black/20",
   logoDot:
-    "absolute -right-1 -top-1 h-4 w-4 rounded-full bg-yellow-300 shadow-sm shadow-yellow-300/40",
+    "absolute -right-1 -top-1 h-4 w-4 rounded-full bg-[#A7E8C1] shadow-sm shadow-[#A7E8C1]/40",
   logoImage: "relative h-full w-full object-contain",
   brandTitle:
-    "font-serif text-2xl font-black italic tracking-wide text-white sm:text-3xl",
-  brandHighlight:
-    "bg-linear-to-r from-yellow-500 via-amber-300 to-yellow-600 bg-clip-text text-transparent",
-  brandDescription: "max-w-sm text-sm font-medium leading-6 text-white/70",
+    "font-serif text-2xl font-black italic tracking-wide text-[#F6F3E8] sm:text-3xl",
+  brandHighlight: "text-[#A7E8C1]",
+  brandDescription: "max-w-sm text-sm font-medium leading-6 text-[#F6F3E8]/70",
 
   // Quick Links
   sectionTitle:
-    "font-store-display mb-5 text-xl font-black tracking-wide text-yellow-300",
+    "font-store-display mb-5 text-xl font-black tracking-wide text-[#A7E8C1]",
   linkList: "space-y-3",
   linkItem:
-    "font-store-label group inline-flex items-center gap-2 font-bold text-white/70 transition hover:translate-x-1 hover:text-yellow-300",
+    "font-store-label group inline-flex items-center gap-2 font-bold text-[#F6F3E8]/75 transition hover:translate-x-1 hover:text-[#A7E8C1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#A7E8C1]",
   linkBullet:
-    "h-1.5 w-1.5 rounded-full bg-yellow-400/70 transition group-hover:scale-125",
+    "h-1.5 w-1.5 rounded-full bg-[#A7E8C1]/70 transition group-hover:scale-125",
   linkArrow: "h-4 w-4 opacity-0 transition group-hover:opacity-100",
 
   // Categories
   categoriesTitle:
-    "font-store-display mb-5 w-full border-b border-yellow-400/25 pb-3 text-2xl font-black tracking-wide text-yellow-300",
+    "font-store-display mb-5 w-full border-b border-[#A7E8C1]/25 pb-3 text-2xl font-black tracking-wide text-[#A7E8C1]",
   categoriesGrid:
     "grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3",
   categoryLink:
-    "font-store-label cursor-pointer text-left text-sm font-bold leading-snug text-white/70 transition hover:translate-x-1 hover:text-yellow-200",
+    "font-store-label cursor-pointer text-left text-sm font-bold leading-snug text-[#F6F3E8]/70 transition hover:translate-x-1 hover:text-[#A7E8C1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A7E8C1]",
 
   // Contact
-  contactList: "space-y-4 text-sm font-medium text-white/70",
+  contactList: "space-y-4 text-sm font-medium text-[#F6F3E8]/70",
   contactItem: "flex items-start gap-3",
-  contactIcon: "mt-0.5 h-4 w-4 text-yellow-300",
+  contactIcon: "mt-0.5 h-4 w-4 text-[#A7E8C1]",
   websiteButton:
-    "font-store-label group mt-5 inline-flex items-center gap-2 rounded-2xl border border-yellow-400/20 bg-yellow-400/10 px-4 py-3 font-bold text-yellow-200 shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:border-yellow-300/40 hover:bg-yellow-400/20",
+    "font-store-label group mt-5 inline-flex items-center gap-2 rounded-2xl border border-[#A7E8C1]/25 bg-[#10392C] px-4 py-3 font-bold text-[#DDF4E5] shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:border-[#A7E8C1]/50 hover:bg-[#164735] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A7E8C1]",
   websiteIcon: "h-4 w-4 transition group-hover:rotate-12",
   websiteArrow:
     "h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5",
 
   // Bottom bar
-  bottomBar: "mt-12 border-t border-yellow-400/15 pt-6",
+  bottomBar: "mt-12 border-t border-[#A7E8C1]/15 pt-6",
   bottomBarInner:
     "flex flex-col items-center justify-between gap-4 text-center md:flex-row md:text-left",
-  copyright: "text-sm font-medium text-white/60",
+  copyright: "text-sm font-medium text-[#F6F3E8]/60",
   designerWrapper:
-    "group flex items-center gap-2 text-sm font-medium text-white/70",
-  designerLabel: "text-white/50",
+    "group flex items-center gap-2 text-sm font-medium text-[#F6F3E8]/70",
+  designerLabel: "text-[#F6F3E8]/55",
   designerLink:
-    "font-store-label inline-flex items-center gap-2 font-bold text-yellow-300 transition hover:text-yellow-200",
+    "font-store-label inline-flex items-center gap-2 font-bold text-[#A7E8C1] transition hover:text-[#DDF4E5] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A7E8C1]",
   designerArrow:
     "h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5",
 
   // Glow line (inline style + classes)
   glowLine:
-    "pointer-events-none absolute left-1/2 top-0 h-1 w-40 -translate-x-1/2 rounded-b-full bg-linear-to-r from-transparent via-yellow-300 to-transparent blur-sm",
+    "pointer-events-none absolute left-1/2 top-0 h-1 w-40 -translate-x-1/2 rounded-b-full bg-linear-to-r from-transparent via-[#A7E8C1] to-transparent blur-sm",
   glowAnimation: { animation: "torchMove 4s ease-in-out infinite" },
 };
 
@@ -487,7 +486,7 @@ export const loginPageStyles = {
 export const navbarStyles = {
   // Header (sticky, with conditional visibility)
   headerBase:
-    "sticky top-0 z-50 w-full border-b border-[#34D399]/30 bg-[#071B16]/95 shadow-sm backdrop-blur-md transition-transform duration-300",
+    "sticky top-0 z-50 w-full border-b border-[#A7E8C1]/25 bg-[#0B2B21]/95 shadow-sm backdrop-blur-md transition-transform duration-300",
   headerVisible: "translate-y-0",
   headerHidden: "-translate-y-full",
 
@@ -499,24 +498,24 @@ export const navbarStyles = {
   logoLink: "flex shrink-0 items-center justify-between gap-3 xl:justify-start",
   logoWrapper: "flex items-center gap-3",
   logoImageWrapper:
-    "flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#0D241D] p-1 shadow-md ring-1 ring-[#34D399]/25 sm:h-12 sm:w-12",
+    "flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-[#10392C] p-1 shadow-md ring-1 ring-[#A7E8C1]/25 sm:h-12 sm:w-12",
   logoImage: "h-full w-full object-contain",
   logoTextWrapper: "leading-tight",
   logoTitle:
-    "font-serif italic text-base font-black tracking-wide text-[#6EE7B7] sm:text-xl",
+    "font-serif italic text-base font-black tracking-wide text-[#DDF4E5] sm:text-xl",
   logoSubtitle:
-    "font-store-label text-[10px] font-bold uppercase tracking-wide text-[#A7C4B8] sm:text-xs",
+    "font-store-label text-[10px] font-bold uppercase tracking-wide text-[#A7E8C1]/80 sm:text-xs",
 
   // Search form
   searchForm: "flex w-full flex-1 justify-center",
   searchContainer:
-    "flex w-full max-w-2xl items-center overflow-hidden rounded-full bg-[#0D241D] shadow-md ring-1 ring-[#34D399]/20 transition-all duration-200 focus-within:ring-[#6EE7B7]/60",
+    "flex w-full max-w-2xl items-center overflow-hidden rounded-full bg-[#10392C] shadow-md ring-1 ring-[#A7E8C1]/25 transition-all duration-200 focus-within:ring-[#A7E8C1]/70",
   searchInputWrapper: "flex flex-1 items-center gap-3 px-4",
-  searchIcon: "h-4 w-4 text-[#A7C4B8]",
+  searchIcon: "h-4 w-4 text-[#A7E8C1]/80",
   searchInput:
-    "font-store-label w-full bg-transparent text-sm text-[#D1FAE5] outline-none placeholder:font-medium placeholder:text-[#A7C4B8]",
+    "font-store-label w-full bg-transparent text-sm text-[#F6F3E8] outline-none placeholder:font-medium placeholder:text-[#DDF4E5]/65",
   searchButton:
-    "font-store-label cursor-pointer bg-[#34D399] px-3 py-3 text-sm font-bold text-[#071B16] transition-colors hover:bg-[#6EE7B7] focus-visible:outline-none focus-visible:shadow-[inset_0_0_0_2px_#071B16] sm:px-5",
+    "font-store-label cursor-pointer bg-[#A7E8C1] px-3 py-3 text-sm font-bold text-[#0B2B21] transition-colors hover:bg-[#DDF4E5] focus-visible:outline-none focus-visible:shadow-[inset_0_0_0_2px_#0B2B21] sm:px-5",
 
   // Right side actions
   actionsWrapper:
@@ -524,14 +523,14 @@ export const navbarStyles = {
 
   // Common action button (used for orders, cart, login, account)
   actionButton:
-    "font-store-label inline-flex min-h-11 cursor-pointer items-center justify-center gap-1 rounded-full bg-[#0D241D] px-1.5 py-2.5 text-xs font-bold text-[#D1FAE5] shadow-md ring-1 ring-[#34D399]/25 transition-transform hover:scale-[1.02] hover:bg-[#34D399] hover:text-[#071B16] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6EE7B7] sm:gap-2 sm:px-4 sm:text-sm",
+    "font-store-label inline-flex min-h-11 cursor-pointer items-center justify-center gap-1 rounded-full bg-[#10392C] px-1.5 py-2.5 text-xs font-bold text-[#F6F3E8] shadow-md ring-1 ring-[#A7E8C1]/25 transition-transform hover:scale-[1.02] hover:bg-[#A7E8C1] hover:text-[#0B2B21] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DDF4E5] sm:gap-2 sm:px-4 sm:text-sm",
   actionIcon: "h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4",
 
   // Cart button (extends actionButton but adds background black)
   cartButton:
-    "font-store-label relative inline-flex min-h-11 cursor-pointer items-center justify-center gap-1 rounded-full bg-[#34D399] px-1.5 py-2.5 text-xs font-bold text-[#071B16] shadow-md transition-transform hover:bg-[#6EE7B7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6EE7B7] sm:gap-2 sm:px-4 sm:text-sm",
+    "font-store-label relative inline-flex min-h-11 cursor-pointer items-center justify-center gap-1 rounded-full bg-[#A7E8C1] px-1.5 py-2.5 text-xs font-bold text-[#0B2B21] shadow-md transition-transform hover:bg-[#DDF4E5] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DDF4E5] sm:gap-2 sm:px-4 sm:text-sm",
   cartBadge:
-    "absolute -right-2 -top-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-[#0D241D] px-1.5 text-xs font-black text-[#6EE7B7] ring-2 ring-[#34D399]",
+    "absolute -right-2 -top-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-[#0B2B21] px-1.5 text-xs font-black text-[#DDF4E5] ring-2 ring-[#A7E8C1]",
 
   // Account dropdown
   accountDropdownWrapper: "group relative min-w-0",
@@ -539,12 +538,12 @@ export const navbarStyles = {
     "hidden h-4 w-4 shrink-0 transition group-hover:rotate-180 sm:block",
 
   dropdownMenu:
-    "absolute right-0 top-full z-50 mt-3 w-52 rounded-2xl border border-[#34D399]/40 bg-[#071B16] p-2 shadow-2xl shadow-black/25 transition-all duration-200",
+    "absolute right-0 top-full z-50 mt-3 w-52 rounded-2xl border border-[#A7E8C1]/35 bg-[#0B2B21] p-2 shadow-2xl shadow-black/25 transition-all duration-200",
   dropdownOpen: "visible translate-y-0 opacity-100",
   dropdownClosed: "invisible translate-y-2 opacity-0",
 
   dropdownItem:
-    "font-store-label flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-bold text-[#D1FAE5] transition hover:bg-[#34D399] hover:text-[#071B16] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6EE7B7]",
+    "font-store-label flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left text-sm font-bold text-[#F6F3E8] transition hover:bg-[#A7E8C1] hover:text-[#0B2B21] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DDF4E5]",
   dropdownIcon: "h-4 w-4",
 };
 
