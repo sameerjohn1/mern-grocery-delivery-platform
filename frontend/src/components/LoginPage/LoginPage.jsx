@@ -15,6 +15,7 @@ import {
 import GreenCart from "../../assets/greenCart.png";
 import { loginUser } from "../../api/api";
 import { loginPageStyles as s } from "../../assets/dummyStyles";
+import Footer from "../Footer/Footer";
 
 const LoginPage = () => {
   const location = useLocation();
@@ -92,6 +93,7 @@ const LoginPage = () => {
 
   return (
     <main className={s.mainContainer}>
+      <Footer />
       {/* Success Toast */}
       <div
         className={`${s.toastBase} ${s.toastSuccess} ${toastVisible ? s.toastVisible : s.toastHidden}`}
