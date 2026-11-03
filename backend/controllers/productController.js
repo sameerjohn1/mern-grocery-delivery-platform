@@ -1,5 +1,5 @@
 import Product from "../models/Product.js";
-import cloudinary from "../config/cloudinary.js";
+import { deleteImage } from "../utils/deleteImage.js";
 
 export const addProduct = async (req, res) => {
   try {
@@ -49,7 +49,7 @@ export const getProduct = async (req, res) => {
         .json({ success: false, message: "Product not found" });
     }
 
-    res.status(200).json({ success: false, product });
+    res.status(200).json({ success: true, product });
   } catch (error) {
     return res.status(500).json({ success: false, message: error.message });
   }
@@ -57,7 +57,7 @@ export const getProduct = async (req, res) => {
 
 export const updateProduct = async (req, res) => {
   try {
-    const product = await Product.findByIf(req.params.id);
+    const product = await Product.findById(req.params.id);
     if (!product) {
       return res
         .status(404)
@@ -66,27 +66,27 @@ export const updateProduct = async (req, res) => {
     const { image, name, company, sellingPrice, oldPrice, size, category } =
       req.body;
     let oldImagePublicId = null;
-    if (image?.url && image?.public_id && image.public_id !== image.public_id) {
-      oldImagePublicId = product.image.public_id;
+    if (
+      image?.url &&
+      image?.public_id &&
+      image.public_id !== product.image?.public_id
+    ) {
+      oldImagePublicId = product.image?.public_id;
       product.image = { url: image.url, public_id: image.public_id };
     }
     if (name) product.name = name;
     if (company) product.company = company;
     if (sellingPrice !== undefined) product.sellingPrice = sellingPrice;
     if (oldPrice !== undefined) product.oldPrice = oldPrice;
-    if (price) product.price = price;
+    if (size) product.size = size;
     if (category) product.category = category;
 
     await product.save();
 
     if (oldImagePublicId) {
-      try {
-        await cloudinary.uploader.destroy(oldImagePublicId);
-      } catch (cleanupError) {
-        console.log("Old product image cleanup failed:", cleanupError.message);
-      }
+      await deleteImage(oldImagePublicId);
     }
-    res.staus(200).json({
+    res.status(200).json({
       success: true,
       message: "Product updated successfully",
       product,
@@ -98,14 +98,14 @@ export const updateProduct = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
   try {
-    const product = await Product.findByIf(req.params.id);
+    const product = await Product.findById(req.params.id);
     if (!product) {
       return res
         .status(404)
         .json({ success: false, message: "Product not found" });
     }
     if (product.image?.public_id) {
-      await cloudinary.uploader.destroy(product.image.public_id);
+      await deleteImage(product.image.public_id);
     }
     await Product.findByIdAndDelete(req.params.id);
     res

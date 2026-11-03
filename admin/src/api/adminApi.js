@@ -4,6 +4,9 @@ const API = axios.create({
   baseURL: "http://localhost:5000/api",
 });
 
+export const getApiErrorMessage = (error, fallback = "Something went wrong") =>
+  error?.response?.data?.message || error?.message || fallback;
+
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
 
@@ -35,7 +38,7 @@ export const getCategories = () => API.get("/categories");
 
 export const getCategory = (id) => API.get(`/categories/${id}`);
 
-export const createCategory = (data) => API.post(`/categories/add`, data);
+export const createCategory = (data) => API.post(`/categories`, data);
 
 export const updateCategory = (id, data) => API.put(`/categories/${id}`, data);
 
@@ -46,7 +49,7 @@ export const getProducts = (params = {}) => API.get("/products", { params });
 
 export const getProduct = (id) => API.get(`/products/${id}`);
 
-export const createProducts = (data) => API.post("products/add", data);
+export const createProducts = (data) => API.post("/products", data);
 
 export const updateProduct = (id, data) => API.put(`/products/${id}`, data);
 

@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import "dotenv/config";
+import uploadsDir from "./utils/uploadsDir.js";
 import { connectDB } from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import uploadRoutes from "./routes/uploadRoute.js";
@@ -20,6 +21,7 @@ const app = express();
 // Middlewares
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static(uploadsDir));
 
 // Db
 connectDB();

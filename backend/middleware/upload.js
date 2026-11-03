@@ -1,8 +1,7 @@
 import multer from "multer";
 import path from "path";
 import fs from "fs";
-
-const uploadDir = "uploads";
+import uploadDir from "../utils/uploadsDir.js";
 
 const ensureUploadDirectory = () => {
   try {
