@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import {
   getCatalogProducts,
+  getApiErrorMessage,
   updateCatalogProduct,
   deleteCatalogProduct,
   uploadImage,
@@ -152,7 +153,7 @@ const ProductListPage = () => {
       showToast("Product updated successfully!");
     } catch (error) {
       console.error(error);
-      showToast("Failed to update product.", "error");
+      showToast(getApiErrorMessage(error, "Failed to update product."), "error");
     } finally {
       setSavingId(null);
     }

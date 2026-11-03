@@ -1,6 +1,6 @@
 import Category from "../models/Category.js";
 import Product from "../models/Product.js";
-import cloudinary from "../config/cloudinary.js";
+import { deleteImage } from "../utils/deleteImage.js";
 
 export const addCategory = async (req, res) => {
   try {
@@ -25,7 +25,7 @@ export const addCategory = async (req, res) => {
     console.log("image.url:", image.url);
     console.log("image.public_id:", image.public_id);
 
-    const categoryExists = await Category.find({ categoryName });
+    const categoryExists = await Category.findOne({ categoryName });
     if (categoryExists) {
       return res
         .status(400)
@@ -101,11 +101,7 @@ export const updateCategory = async (req, res) => {
       );
     }
     if (oldImagePublicId) {
-      try {
-        await cloudinary.uploader.destroy(oldImagePublicId);
-      } catch (cleanupError) {
-        console.log("Old category image cleanup failed:", cleanupError.message);
-      }
+      await deleteImage(oldImagePublicId);
     }
     res.status(200).json({
       success: true,
@@ -125,7 +121,7 @@ export const deleteCategory = async (req, res) => {
         .status(404)
         .json({ success: false, message: "Category Not Found" });
     if (category.image?.public_id)
-      await cloudinary.uploader.destroy(category.image.public_id);
+      await deleteImage(category.image.public_id);
     await Category.findByIdAndDelete(req.params.id);
     res
       .status(200)

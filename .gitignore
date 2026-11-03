@@ -12,6 +12,9 @@ node_modules/
 dist/
 build/
 
+# Local uploads (used when Cloudinary upload is unavailable)
+backend/uploads/
+
 # Logs
 npm-debug.log*
 yarn-debug.log*

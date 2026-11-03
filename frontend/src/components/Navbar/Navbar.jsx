@@ -117,13 +117,13 @@ const Navbar = () => {
             <div className={s.logoImageWrapper}>
               <img
                 src={GreenCart}
-                alt="FreshMart Grocery logo"
+                alt="GreenCart Grocery logo"
                 className={s.logoImage}
               />
             </div>
 
             <div className={s.logoTextWrapper}>
-              <h1 className={s.logoTitle}>FreshMart Grocery</h1>
+              <h1 className={s.logoTitle}>GreenCart Grocery</h1>
               <p className={s.logoSubtitle}>Fast Grocery Delivery</p>
             </div>
           </div>

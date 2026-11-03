@@ -1,9 +1,14 @@
 import Hookah from "../models/Hookah.js";
-import cloudinary from "../config/cloudinary.js";
+import { deleteImage } from "../utils/deleteImage.js";
 
 export const addFeaturedProduct = async (req, res) => {
   try {
     const { image, name, company, sellingPrice, oldPrice, size } = req.body;
+    if (!image?.url || !image?.public_id) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Product image is required" });
+    }
     const featuredProduct = await Hookah.create({
       image: { url: image.url, public_id: image.public_id },
       name,
@@ -78,13 +83,7 @@ export const updateFeaturedProduct = async (req, res) => {
 
     await featuredProduct.save();
     if (oldImagePublicId) {
-      try {
-        await cloudinary.uploader.destroy(oldImagePublicId, {
-          invalidate: true,
-        });
-      } catch (cleanupError) {
-        console.log("Old product image cleanup failed:", cleanupError.message);
-      }
+      await deleteImage(oldImagePublicId);
     }
 
     res
@@ -105,9 +104,7 @@ export const deleteFeaturedProduct = async (req, res) => {
         .json({ success: false, message: "Product not found" });
     }
     if (featuredProduct.image?.public_id) {
-      await cloudinary.uploader.destroy(featuredProduct.image.public_id, {
-        invalidate: true,
-      });
+      await deleteImage(featuredProduct.image.public_id);
     }
 
     await Hookah.findByIdAndDelete(req.params.id);
