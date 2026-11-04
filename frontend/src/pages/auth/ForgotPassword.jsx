@@ -1,6 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ArrowLeft, ArrowRight, LoaderCircle, Mail, ShieldCheck } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  LoaderCircle,
+  Mail,
+  ShieldCheck,
+} from "lucide-react";
 import GreenCart from "../../assets/greenCart.png";
 import AuthStageIndicator from "./AuthStageIndicator";
 import { forgotPassword } from "../../api/api";
@@ -10,7 +16,11 @@ const ForgotPassword = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [toast, setToast] = useState({ show: false, type: "success", message: "" });
+  const [toast, setToast] = useState({
+    show: false,
+    type: "success",
+    message: "",
+  });
   const toastTimer = useRef();
   const redirectTimer = useRef();
 
@@ -43,7 +53,8 @@ const ForgotPassword = () => {
         "Request received. This screen can't confirm whether reset instructions were sent.",
       );
       redirectTimer.current = window.setTimeout(
-        () => navigate("/reset-password", { state: { email: normalizedEmail } }),
+        () =>
+          navigate("/reset-password", { state: { email: normalizedEmail } }),
         1100,
       );
     } catch {
@@ -87,7 +98,8 @@ const ForgotPassword = () => {
             Forgot your password?
           </h1>
           <p className={s.subtext}>
-            Enter your email to request a one-time code. We’ll show the same confirmation either way.
+            Enter your email to request a one-time code. We’ll show the same
+            confirmation either way.
           </p>
           <AuthStageIndicator
             steps={["Request code", "New password"]}
@@ -114,7 +126,8 @@ const ForgotPassword = () => {
               />
             </div>
             <p className={s.helperText}>
-              If an account exists, its reset code expires 10 minutes after delivery.
+              If an account exists, its reset code expires 10 minutes after
+              delivery.
             </p>
             <button type="submit" disabled={loading} className={s.submitButton}>
               {loading ? (
@@ -131,7 +144,9 @@ const ForgotPassword = () => {
             Back to login
           </Link>
         </div>
-        <p className={s.footerNote}>Your account and information stay protected.</p>
+        <p className={s.footerNote}>
+          Your account and information stay protected.
+        </p>
       </section>
     </main>
   );

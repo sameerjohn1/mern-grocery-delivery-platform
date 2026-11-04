@@ -189,8 +189,7 @@ export const cartPageStyles = {
 
   productCard:
     "group flex h-fit flex-col overflow-hidden rounded-3xl border border-[#1F3B32] bg-[#0D241D] text-[#D1FAE5] shadow-[0_18px_48px_rgba(0,0,0,0.28)] transition-all duration-300 hover:-translate-y-1 hover:border-[#34D399]/45 hover:shadow-[0_22px_56px_rgba(0,0,0,0.38)]",
-  productImageWrapper:
-    "border-b border-[#1F3B32]/80 bg-[#071B16] p-3",
+  productImageWrapper: "border-b border-[#1F3B32]/80 bg-[#071B16] p-3",
   productImage: "h-24 w-full object-contain",
 
   productContent: "flex flex-1 flex-col p-3",
@@ -611,7 +610,8 @@ export const ordersPageStyles = {
     "rounded-3xl border border-[#1F3B32] bg-[#0D241D]/80 p-4 shadow-xl shadow-black/20",
   statIcon: "h-5 w-5 text-[#34D399]",
   statValue: "font-store-display mt-3 text-xl font-black text-[#D1FAE5]",
-  statLabel: "font-store-label mt-1 text-xs font-black uppercase text-[#A7C4B8]",
+  statLabel:
+    "font-store-label mt-1 text-xs font-black uppercase text-[#A7C4B8]",
 
   // Loading
   loadingContainer:
@@ -635,8 +635,7 @@ export const ordersPageStyles = {
     "font-store-label inline-flex items-center gap-1.5 rounded-full border border-[#34D399]/25 bg-[#071B16] px-3 py-1.5 text-[10px] font-black uppercase text-[#6EE7B7]",
   iconXs: "h-3.5 w-3.5",
 
-  orderItemCount:
-    "font-store-display mt-3 text-xl font-black text-[#D1FAE5]",
+  orderItemCount: "font-store-display mt-3 text-xl font-black text-[#D1FAE5]",
   orderDate: "mt-1 line-clamp-2 text-xs font-bold leading-5 text-[#A7C4B8]",
 
   orderActions: "mt-4 grid grid-cols-[44px_1fr] gap-2",
@@ -952,24 +951,20 @@ export const signupPageStyles = {
 };
 
 const authFlowStyles = {
-  main:
-    "relative flex min-h-screen items-center justify-center overflow-hidden bg-[#000000] px-4 py-10 text-[#D1FAE5] sm:px-6",
+  main: "relative flex min-h-screen items-center justify-center overflow-hidden bg-[#000000] px-4 py-10 text-[#D1FAE5] sm:px-6",
   background: "pointer-events-none absolute inset-0 overflow-hidden",
   gridPattern:
     "absolute inset-0 opacity-[0.14] [background-image:linear-gradient(rgba(52,211,153,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(52,211,153,0.12)_1px,transparent_1px)] [background-size:52px_52px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_78%)]",
-  glow:
-    "absolute -top-56 left-1/2 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-[#34D399]/10 blur-[130px]",
+  glow: "absolute -top-56 left-1/2 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-[#34D399]/10 blur-[130px]",
   bottomGlow:
     "absolute -bottom-64 -right-36 h-[32rem] w-[32rem] rounded-full bg-[#34D399]/[0.07] blur-[120px]",
   shell: "relative z-10 w-full max-w-[31rem]",
   brand:
     "mx-auto mb-7 flex w-fit items-center gap-3 rounded-full px-3 py-1.5 transition hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6EE7B7]",
-  brandLogo:
-    "h-10 w-10 rounded-xl object-cover ring-1 ring-[#34D399]/30",
+  brandLogo: "h-10 w-10 rounded-xl object-cover ring-1 ring-[#34D399]/30",
   brandName:
     "font-store-display text-xl font-black tracking-wide text-[#D1FAE5]",
-  card:
-    "relative overflow-hidden rounded-[1.8rem] border border-[#1F3B32] bg-[#0D241D]/95 p-6 shadow-[0_24px_90px_rgba(16,185,129,0.12)] sm:rounded-[2rem] sm:p-9",
+  card: "relative overflow-hidden rounded-[1.8rem] border border-[#1F3B32] bg-[#0D241D]/95 p-6 shadow-[0_24px_90px_rgba(16,185,129,0.12)] sm:rounded-[2rem] sm:p-9",
   cardAccent:
     "absolute inset-x-10 top-0 h-px bg-linear-to-r from-transparent via-[#34D399]/75 to-transparent",
   iconBadge:
@@ -989,12 +984,10 @@ const authFlowStyles = {
     "relative z-10 flex h-7 w-7 items-center justify-center rounded-full border border-[#1F3B32] bg-[#071710] text-[0.68rem] font-black text-[#A7C4B8]",
   stageMarkerActive:
     "border-[#34D399] bg-[#34D399] text-[#062016] ring-4 ring-[#34D399]/10",
-  stageMarkerComplete:
-    "border-[#34D399]/50 bg-[#34D399]/15 text-[#6EE7B7]",
+  stageMarkerComplete: "border-[#34D399]/50 bg-[#34D399]/15 text-[#6EE7B7]",
   stageLabel:
     "max-w-full px-1 text-[0.65rem] font-semibold leading-4 text-[#A7C4B8] sm:text-xs",
-  stageConnector:
-    "absolute left-1/2 top-3.5 z-0 h-px w-full bg-[#1F3B32]",
+  stageConnector: "absolute left-1/2 top-3.5 z-0 h-px w-full bg-[#1F3B32]",
   stageConnectorComplete: "bg-[#34D399]/70",
   form: "mt-7 space-y-4",
   label:
@@ -1011,8 +1004,7 @@ const authFlowStyles = {
     "mt-6 grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 rounded-2xl border border-[#1F3B32] bg-[#071710]/80 px-4 py-3",
   emailLabel:
     "font-store-label text-[0.68rem] font-black uppercase tracking-[0.14em] text-[#6EE7B7]",
-  emailValue:
-    "min-w-0 break-all text-sm font-semibold text-[#D1FAE5]",
+  emailValue: "min-w-0 break-all text-sm font-semibold text-[#D1FAE5]",
   changeEmailButton:
     "row-span-2 rounded-lg px-2 py-1 text-xs font-bold text-[#6EE7B7] transition hover:bg-[#34D399]/10 hover:text-[#D1FAE5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6EE7B7]",
   toggleButton:
@@ -1028,7 +1020,8 @@ const authFlowStyles = {
   backLink:
     "mt-7 inline-flex min-h-10 items-center gap-2 rounded-lg text-sm font-semibold text-[#A7C4B8] transition hover:text-[#6EE7B7] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6EE7B7]",
   backIcon: "h-4 w-4",
-  footerNote: "mt-6 text-center text-xs font-medium tracking-wide text-[#A7C4B8]/75",
+  footerNote:
+    "mt-6 text-center text-xs font-medium tracking-wide text-[#A7C4B8]/75",
   toast:
     "fixed left-1/2 top-4 z-50 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 rounded-2xl border px-4 py-3 text-sm font-semibold shadow-[0_16px_50px_rgba(0,0,0,0.4)] transition-all duration-300 sm:top-6 sm:px-5 sm:py-4",
   toastVisible: "translate-y-0 opacity-100",
