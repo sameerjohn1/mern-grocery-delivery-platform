@@ -32,7 +32,7 @@ const Footer = () => {
   const quickLinks = [
     { label: "Home", href: "/" },
     { label: "Products", sectionId: "/products" },
-    { label: "GreenCart", sectionId: "/greencart-products" },
+    { label: "GreenCart", href: "/greencart-products" },
     { label: "Contact", sectionId: "contact" },
   ];
 

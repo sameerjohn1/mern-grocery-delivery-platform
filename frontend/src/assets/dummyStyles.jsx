@@ -148,15 +148,15 @@ export const bannerStyles = {
 
 export const cartPageStyles = {
   mainContainer:
-    "relative min-h-screen overflow-hidden bg-[#0b0a08] px-4 py-8 text-white sm:px-6 lg:px-8",
+    "relative min-h-screen overflow-hidden bg-[#000000] px-4 py-8 text-[#D1FAE5] sm:px-6 lg:px-8",
 
   bgGradient1:
-    "absolute inset-x-0 top-0 h-72 bg-linear-to-b from-yellow-300/25 to-transparent",
+    "absolute inset-x-0 top-0 h-80 bg-linear-to-b from-[#34D399]/12 via-[#0D241D]/8 to-transparent",
   bgLine:
-    "absolute left-0 top-28 h-px w-full bg-linear-to-r from-transparent via-yellow-300/50 to-transparent",
+    "absolute left-0 top-28 h-px w-full bg-linear-to-r from-transparent via-[#34D399]/25 to-transparent",
 
   toast:
-    "fixed right-4 top-6 z-50 flex items-center gap-3 rounded-2xl border border-yellow-300/40 bg-yellow-300 px-4 py-3 text-sm font-black text-black shadow-2xl shadow-yellow-500/25",
+    "fixed right-4 top-6 z-50 flex items-center gap-3 rounded-2xl border border-[#34D399]/35 bg-[#0D241D] px-4 py-3 text-sm font-black text-[#D1FAE5] shadow-2xl shadow-[#34D399]/10",
   iconMd: "h-5 w-5",
 
   section: "relative mx-auto max-w-384",
@@ -165,84 +165,87 @@ export const cartPageStyles = {
     "mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between",
 
   badge:
-    "font-store-label inline-flex items-center gap-2 rounded-full border border-yellow-300/30 bg-yellow-300/10 px-4 py-2 text-sm font-black uppercase tracking-wide text-yellow-200",
+    "font-store-label inline-flex items-center gap-2 rounded-full border border-[#34D399]/25 bg-[#34D399]/10 px-4 py-2 text-sm font-black uppercase tracking-wide text-[#6EE7B7]",
   iconSm: "h-4 w-4",
 
   heading:
-    "font-store-display mt-4 text-4xl font-black tracking-wide text-white sm:text-5xl",
-  itemCount: "mt-3 text-sm font-semibold text-white/60",
+    "font-store-display mt-4 text-4xl font-black tracking-wide text-[#D1FAE5] sm:text-5xl",
+  itemCount: "mt-3 text-sm font-semibold text-[#A7C4B8]",
 
   continueButton:
-    "font-store-label inline-flex w-fit items-center justify-center rounded-full bg-yellow-300 px-5 py-3 text-sm font-black text-black transition hover:bg-yellow-400",
+    "font-store-label inline-flex w-fit items-center justify-center rounded-full border border-[#34D399]/30 bg-[#0D241D] px-5 py-3 text-sm font-black text-[#D1FAE5] transition hover:border-[#34D399]/60 hover:bg-[#123128] hover:text-[#6EE7B7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#34D399]",
 
   emptyContainer:
-    "flex min-h-[52vh] flex-col items-center justify-center rounded-4xl border border-white/10 bg-white/5 p-8 text-center",
+    "flex min-h-[52vh] flex-col items-center justify-center rounded-4xl border border-[#1F3B32] bg-[#0D241D]/70 p-8 text-center shadow-2xl shadow-[#34D399]/5",
   emptyIconWrapper:
-    "flex h-20 w-20 items-center justify-center rounded-3xl bg-yellow-300 text-black shadow-xl shadow-yellow-500/20",
+    "flex h-20 w-20 items-center justify-center rounded-3xl border border-[#34D399]/20 bg-[#071B16] text-[#34D399] shadow-xl shadow-[#34D399]/10",
   iconLg: "h-9 w-9",
-  emptyTitle: "font-store-display mt-5 text-3xl font-black",
-  emptySubtext: "mt-2 max-w-md text-sm font-semibold leading-6 text-white/60",
+  emptyTitle: "font-store-display mt-5 text-3xl font-black text-[#D1FAE5]",
+  emptySubtext: "mt-2 max-w-md text-sm font-semibold leading-6 text-[#A7C4B8]",
 
   cartGrid: "grid items-start gap-5 xl:grid-cols-[1fr_320px]",
   productGrid:
     "grid auto-rows-max items-start gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 lg:grid-cols-4 2xl:grid-cols-5",
 
   productCard:
-    "group flex h-fit flex-col overflow-hidden rounded-2xl rounded-bl-[3rem] border border-yellow-200/60 bg-white text-black shadow-[0_14px_36px_rgba(0,0,0,0.2)] transition-all duration-300 hover:-translate-y-1",
-  productImageWrapper: "bg-yellow-50 p-2.5",
+    "group flex h-fit flex-col overflow-hidden rounded-3xl border border-[#1F3B32] bg-[#0D241D] text-[#D1FAE5] shadow-[0_18px_48px_rgba(0,0,0,0.28)] transition-all duration-300 hover:-translate-y-1 hover:border-[#34D399]/45 hover:shadow-[0_22px_56px_rgba(0,0,0,0.38)]",
+  productImageWrapper:
+    "border-b border-[#1F3B32]/80 bg-[#071B16] p-3",
   productImage: "h-24 w-full object-contain",
 
   productContent: "flex flex-1 flex-col p-3",
   productHeader: "flex items-start justify-between gap-2",
   productInfo: "min-w-0",
   productCategory:
-    "font-store-label text-[10px] font-black uppercase tracking-wide text-yellow-700",
+    "font-store-label text-[10px] font-black uppercase tracking-wide text-[#34D399]",
   productName:
-    "font-store-label mt-1 line-clamp-2 text-sm font-black leading-snug text-zinc-950",
-  productCompany: "mt-1 truncate text-xs font-bold text-zinc-500",
+    "font-store-label mt-1 line-clamp-2 text-sm font-black leading-snug text-[#D1FAE5]",
+  productCompany: "mt-1 truncate text-xs font-bold text-[#A7C4B8]",
 
   removeButton:
-    "inline-flex cursor-pointer h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-black text-yellow-300 transition hover:bg-yellow-300 hover:text-black",
+    "inline-flex h-8 w-8 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-[#1F3B32] bg-[#071B16] text-[#A7C4B8] transition hover:border-red-400/35 hover:bg-red-400/10 hover:text-red-200 disabled:cursor-wait disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#34D399]",
 
   sizeWrapper: "mt-2 flex flex-wrap gap-1.5",
   sizeBadge:
-    "font-store-label rounded-full bg-black px-2.5 py-1 text-[11px] font-bold text-white",
+    "font-store-label rounded-full border border-[#1F3B32] bg-[#071B16] px-2.5 py-1 text-[11px] font-bold text-[#A7C4B8]",
 
-  priceContainer: "mt-2 rounded-2xl bg-zinc-50 px-3 py-2",
+  priceContainer:
+    "mt-2 rounded-2xl border border-[#1F3B32]/80 bg-[#071B16] px-3 py-2",
   priceRow: "flex items-baseline gap-2",
-  priceCurrent: "font-store-display text-lg font-black text-zinc-900",
-  priceOld: "font-store-label text-xs font-bold text-zinc-400 line-through",
-  priceTotal: "mt-1 text-xs font-bold text-zinc-500",
+  priceCurrent: "font-store-display text-lg font-black text-[#D1FAE5]",
+  priceOld: "font-store-label text-xs font-bold text-[#A7C4B8]/65 line-through",
+  priceTotal: "mt-1 text-xs font-bold text-[#A7C4B8]",
 
   quantityControls:
-    "font-store-label mt-3 gap-7 flex justify-center inline-flex h-9 w-32 items-center justify-between rounded-full border border-yellow-300 bg-black px-1.5 text-sm font-black text-yellow-300",
+    "font-store-label mt-3 inline-flex h-10 w-32 items-center justify-between rounded-full border border-[#1F3B32] bg-[#071B16] px-1.5 text-sm font-black text-[#D1FAE5]",
   qtyButton:
-    "inline-flex cursor-pointer h-7 w-7 items-center justify-center rounded-full bg-yellow-300 text-black transition hover:bg-yellow-400",
+    "inline-flex h-7 w-7 cursor-pointer items-center justify-center rounded-full bg-[#34D399] text-[#065F46] transition hover:bg-[#6EE7B7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6EE7B7]",
 
   summaryAside:
-    "h-fit rounded-3xl border border-yellow-300/25 bg-white p-5 text-black shadow-2xl shadow-yellow-500/10 xl:sticky xl:top-24",
+    "h-fit rounded-3xl border border-[#1F3B32] bg-[#0D241D] p-5 text-[#D1FAE5] shadow-2xl shadow-[#34D399]/5 xl:sticky xl:top-24",
   summaryLabel:
-    "font-store-label text-xs font-black uppercase tracking-wide text-yellow-700",
-  summaryTitle: "font-store-display mt-2 text-2xl font-black",
+    "font-store-label text-xs font-black uppercase tracking-wide text-[#34D399]",
+  summaryTitle: "font-store-display mt-2 text-2xl font-black text-[#D1FAE5]",
 
   summaryDetails: "mt-5 space-y-3 text-sm font-bold",
-  summaryRow: "flex justify-between text-black/65",
-  summaryDivider: "h-px bg-black/10",
-  summaryTotal: "flex justify-between text-lg font-black text-black",
+  summaryRow: "flex justify-between text-[#A7C4B8]",
+  summaryDivider: "h-px bg-[#1F3B32]",
+  summaryTotal: "flex justify-between text-lg font-black text-[#D1FAE5]",
 
   paymentSection: "mt-6",
   paymentLabel:
-    "font-store-label mb-3 text-sm font-black uppercase tracking-wide text-black/70",
+    "font-store-label mb-3 text-sm font-black uppercase tracking-wide text-[#A7C4B8]",
   paymentOptions: "grid gap-3",
 
   paymentButtonBase:
-    "flex cursor-pointer items-center gap-3 rounded-2xl border px-4 py-3 text-left text-sm font-black transition",
-  paymentButtonActive: "border-black bg-black text-yellow-300",
+    "flex cursor-pointer items-center gap-3 rounded-2xl border px-4 py-3 text-left text-sm font-black transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#34D399]",
+  paymentButtonActive:
+    "border-[#34D399]/45 bg-[#071B16] text-[#6EE7B7] shadow-inner shadow-[#34D399]/5",
   paymentButtonInactive:
-    "border-black/10 bg-white text-black hover:border-yellow-400 hover:bg-yellow-50",
+    "border-[#1F3B32] bg-[#071B16]/50 text-[#A7C4B8] hover:border-[#34D399]/35 hover:bg-[#071B16] hover:text-[#D1FAE5]",
 
   checkoutButton:
-    "font-store-label cursor-pointer mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-black px-5 py-4 text-sm font-black uppercase tracking-wide text-yellow-300 shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:bg-yellow-300 hover:text-black",
+    "font-store-label mt-6 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-2xl bg-[#34D399] px-5 py-4 text-sm font-black uppercase tracking-wide text-[#065F46] shadow-lg shadow-[#34D399]/10 transition hover:-translate-y-0.5 hover:bg-[#6EE7B7] disabled:cursor-wait disabled:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6EE7B7]",
 };
 
 export const footerStyles = {
@@ -565,55 +568,55 @@ export const navbarStyles = {
 export const ordersPageStyles = {
   // Main container
   mainContainer:
-    "relative min-h-screen overflow-hidden bg-[#0b0a08] px-4 py-8 text-white sm:px-6 lg:px-8",
+    "relative min-h-screen overflow-hidden bg-[#000000] px-4 py-8 text-[#D1FAE5] sm:px-6 lg:px-8",
 
   // Decorative backgrounds
   bgGradient1:
-    "absolute inset-x-0 top-0 h-80 bg-linear-to-b from-yellow-300/25 to-transparent",
+    "absolute inset-x-0 top-0 h-80 bg-linear-to-b from-[#34D399]/12 via-[#0D241D]/8 to-transparent",
   bgLine:
-    "absolute left-0 top-28 h-px w-full bg-linear-to-r from-transparent via-yellow-300/50 to-transparent",
+    "absolute left-0 top-28 h-px w-full bg-linear-to-r from-transparent via-[#34D399]/25 to-transparent",
 
   // Toast
   toastContainer:
-    "fixed right-4 top-6 z-50 flex items-center gap-3 rounded-2xl border border-yellow-300/40 bg-yellow-300 px-4 py-3 text-sm font-black text-black shadow-2xl shadow-yellow-500/25",
+    "fixed right-4 top-6 z-50 flex items-center gap-3 rounded-2xl border border-[#34D399]/35 bg-[#0D241D] px-4 py-3 text-sm font-black text-[#D1FAE5] shadow-2xl shadow-[#34D399]/10",
   iconMd: "h-5 w-5",
 
   // Confirm modal
   confirmModal:
-    "fixed right-4 top-6 z-50 w-[calc(100vw-2rem)] max-w-sm rounded-3xl border border-yellow-300/40 bg-white p-4 text-black shadow-2xl shadow-yellow-500/25 sm:right-6",
+    "fixed right-4 top-6 z-50 w-[calc(100vw-2rem)] max-w-sm rounded-3xl border border-[#1F3B32] bg-[#0D241D] p-4 text-[#D1FAE5] shadow-2xl shadow-[#34D399]/10 sm:right-6",
   confirmIconWrapper:
-    "flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-yellow-300 text-black",
-  confirmTitle: "font-store-label text-sm font-black",
-  confirmSubtext: "mt-1 text-xs font-bold leading-5 text-black/60",
+    "flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-amber-400/20 bg-amber-400/10 text-amber-200",
+  confirmTitle: "font-store-label text-sm font-black text-[#D1FAE5]",
+  confirmSubtext: "mt-1 text-xs font-bold leading-5 text-[#A7C4B8]",
   confirmActions: "mt-4 grid grid-cols-2 gap-2",
   confirmKeepButton:
-    "font-store-label cursor-pointer rounded-2xl border border-black/10 px-4 py-3 text-sm font-black text-black transition hover:bg-zinc-50",
+    "font-store-label cursor-pointer rounded-2xl border border-[#1F3B32] bg-[#071B16]/50 px-4 py-3 text-sm font-black text-[#D1FAE5] transition hover:border-[#34D399]/35 hover:bg-[#071B16] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#34D399]",
   confirmCancelButton:
-    "font-store-label cursor-pointer rounded-2xl bg-black px-4 py-3 text-sm font-black text-yellow-300 transition hover:bg-yellow-300 hover:text-black",
+    "font-store-label cursor-pointer rounded-2xl border border-red-400/25 bg-red-400/10 px-4 py-3 text-sm font-black text-red-200 transition hover:bg-red-500/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-300 disabled:cursor-wait disabled:opacity-60",
 
   // Section
   section: "relative mx-auto max-w-384",
   headerGrid: "mb-8 grid gap-5 lg:grid-cols-[1fr_420px] lg:items-end",
 
   badge:
-    "font-store-label inline-flex items-center gap-2 rounded-full border border-yellow-300/30 bg-yellow-300/10 px-4 py-2 text-sm font-black uppercase tracking-wide text-yellow-200",
+    "font-store-label inline-flex items-center gap-2 rounded-full border border-[#34D399]/25 bg-[#34D399]/10 px-4 py-2 text-sm font-black uppercase tracking-wide text-[#6EE7B7]",
   iconSm: "h-4 w-4",
   heading:
-    "font-store-display mt-4 text-4xl font-black tracking-wide text-white sm:text-5xl",
-  subheading: "mt-3 max-w-2xl text-sm font-semibold leading-6 text-white/60",
+    "font-store-display mt-4 text-4xl font-black tracking-wide text-[#D1FAE5] sm:text-5xl",
+  subheading: "mt-3 max-w-2xl text-sm font-semibold leading-6 text-[#A7C4B8]",
 
   // Stats
   statsGrid: "grid grid-cols-1 gap-3 sm:grid-cols-3",
   statCard:
-    "rounded-3xl border border-yellow-300/20 bg-white/8 p-4 shadow-xl shadow-black/20",
-  statIcon: "h-5 w-5 text-yellow-300",
-  statValue: "font-store-display mt-3 text-xl font-black text-white",
-  statLabel: "font-store-label mt-1 text-xs font-black uppercase text-white/45",
+    "rounded-3xl border border-[#1F3B32] bg-[#0D241D]/80 p-4 shadow-xl shadow-black/20",
+  statIcon: "h-5 w-5 text-[#34D399]",
+  statValue: "font-store-display mt-3 text-xl font-black text-[#D1FAE5]",
+  statLabel: "font-store-label mt-1 text-xs font-black uppercase text-[#A7C4B8]",
 
   // Loading
   loadingContainer:
-    "flex min-h-72 items-center justify-center rounded-3xl border border-yellow-300/20 bg-white/8",
-  loadingSpinner: "h-8 w-8 animate-spin text-yellow-300",
+    "flex min-h-72 items-center justify-center rounded-3xl border border-[#1F3B32] bg-[#0D241D]/70",
+  loadingSpinner: "h-8 w-8 animate-spin text-[#34D399]",
 
   // Orders grid
   ordersGrid:
@@ -621,74 +624,76 @@ export const ordersPageStyles = {
 
   // Order card
   orderCard:
-    "overflow-hidden rounded-3xl border border-yellow-300/20 bg-white text-black shadow-2xl shadow-black/25 transition duration-300 hover:-translate-y-1 hover:shadow-yellow-500/10",
-  orderHeader: "border-b border-black/10 bg-yellow-50 p-4",
+    "overflow-hidden rounded-3xl border border-[#1F3B32] bg-[#0D241D] text-[#D1FAE5] shadow-2xl shadow-black/25 transition duration-300 hover:-translate-y-0.5 hover:border-[#34D399]/35 hover:shadow-[#34D399]/5",
+  orderHeader: "border-b border-[#1F3B32] bg-[#0D241D] p-4",
   orderBadges: "flex flex-wrap items-center gap-2",
 
   // Badge base (used for status and payment)
   badgeBase:
     "font-store-label inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[10px] font-black uppercase",
   orderIdBadge:
-    "font-store-label inline-flex items-center gap-1.5 rounded-full bg-black px-3 py-1.5 text-[10px] font-black uppercase text-yellow-300",
+    "font-store-label inline-flex items-center gap-1.5 rounded-full border border-[#34D399]/25 bg-[#071B16] px-3 py-1.5 text-[10px] font-black uppercase text-[#6EE7B7]",
   iconXs: "h-3.5 w-3.5",
 
-  orderItemCount: "font-store-display mt-3 text-xl font-black",
-  orderDate: "mt-1 line-clamp-2 text-xs font-bold leading-5 text-black/55",
+  orderItemCount:
+    "font-store-display mt-3 text-xl font-black text-[#D1FAE5]",
+  orderDate: "mt-1 line-clamp-2 text-xs font-bold leading-5 text-[#A7C4B8]",
 
   orderActions: "mt-4 grid grid-cols-[44px_1fr] gap-2",
 
   eyeButtonBase:
-    "inline-flex h-10 cursor-pointer items-center justify-center rounded-2xl border text-black transition",
-  eyeButtonActive: "border-black bg-yellow-300",
+    "inline-flex h-10 cursor-pointer items-center justify-center rounded-2xl border transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#34D399]",
+  eyeButtonActive: "border-[#34D399]/45 bg-[#071B16] text-[#6EE7B7]",
   eyeButtonInactive:
-    "border-black/10 bg-white hover:border-yellow-400 hover:bg-yellow-50",
+    "border-[#1F3B32] bg-[#071B16]/50 text-[#A7C4B8] hover:border-[#34D399]/35 hover:bg-[#071B16] hover:text-[#D1FAE5]",
 
   statusCancelled:
-    "font-store-label inline-flex h-10 items-center justify-center gap-2 rounded-2xl border border-red-200 bg-red-50 px-4 text-xs font-black uppercase text-red-700",
+    "font-store-label inline-flex h-10 items-center justify-center gap-2 rounded-2xl border border-red-400/25 bg-red-400/10 px-4 text-xs font-black uppercase text-red-200",
   statusDelivered:
-    "font-store-label inline-flex h-10 items-center justify-center gap-2 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 text-xs font-black uppercase text-emerald-700",
+    "font-store-label inline-flex h-10 items-center justify-center gap-2 rounded-2xl border border-emerald-400/25 bg-emerald-400/10 px-4 text-xs font-black uppercase text-emerald-200",
   cancelButton:
-    "font-store-label inline-flex h-10 w-fit cursor-pointer items-center justify-center gap-2 justify-self-end rounded-2xl bg-black px-4 text-xs font-black uppercase text-yellow-300 transition hover:bg-red-600 hover:text-white",
+    "font-store-label inline-flex h-10 w-fit cursor-pointer items-center justify-center gap-2 justify-self-end rounded-2xl border border-[#1F3B32] bg-[#071B16] px-4 text-xs font-black uppercase text-[#A7C4B8] transition hover:border-red-400/35 hover:bg-red-400/10 hover:text-red-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#34D399]",
 
   // Expanded section
-  expandedContainer: "flex flex-col gap-4 p-4",
+  expandedContainer:
+    "flex flex-col gap-4 border-t border-[#1F3B32]/70 bg-[#071B16]/35 p-4",
   expandedItemsGrid:
     "grid auto-rows-fr grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-3 2xl:grid-cols-3",
 
   expandedItem:
-    "group flex h-full min-h-65 min-w-0 flex-col overflow-hidden rounded-2xl border border-yellow-200/70 bg-white text-black shadow-[0_8px_20px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-0.5",
+    "group flex h-full min-h-65 min-w-0 flex-col overflow-hidden rounded-2xl border border-[#1F3B32] bg-[#0D241D] text-[#D1FAE5] shadow-[0_8px_20px_rgba(0,0,0,0.2)] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#34D399]/30",
   expandedItemImageWrapper:
-    "flex h-28 items-center justify-center bg-yellow-50 p-2",
+    "flex h-28 items-center justify-center border-b border-[#1F3B32]/70 bg-[#071B16] p-2",
   expandedItemImage: "h-full w-full object-contain",
   expandedItemContent: "flex flex-1 flex-col p-2",
   expandedItemName:
-    "font-store-label line-clamp-2 min-h-10 text-xs font-black leading-4 text-zinc-950",
+    "font-store-label line-clamp-2 min-h-10 text-xs font-black leading-4 text-[#D1FAE5]",
   expandedItemCompany:
-    "mt-1 truncate text-[10px] font-black uppercase tracking-wide text-yellow-700",
-  expandedItemSize: "mt-1 truncate text-[11px] font-bold text-zinc-500",
+    "mt-1 truncate text-[10px] font-black uppercase tracking-wide text-[#34D399]",
+  expandedItemSize: "mt-1 truncate text-[11px] font-bold text-[#A7C4B8]",
   expandedItemFooter: "mt-auto flex items-center justify-between gap-1 pt-2",
   expandedItemPrice:
-    "font-store-display truncate text-sm font-black text-zinc-950",
+    "font-store-display truncate text-sm font-black text-[#D1FAE5]",
   expandedItemQty:
-    "font-store-label rounded-full bg-yellow-300 px-2 py-0.5 text-[10px] font-black text-black",
+    "font-store-label rounded-full border border-[#34D399]/25 bg-[#34D399]/10 px-2 py-0.5 text-[10px] font-black text-[#6EE7B7]",
 
   // Order summary
   orderSummary:
-    "rounded-2xl border border-yellow-300/35 bg-black p-4 text-white shadow-xl shadow-yellow-500/10",
+    "rounded-2xl border border-[#1F3B32] bg-[#0D241D] p-4 text-[#D1FAE5] shadow-xl shadow-[#34D399]/5",
   summaryTitle:
-    "font-store-label text-[10px] font-black uppercase tracking-wide text-yellow-300",
+    "font-store-label text-[10px] font-black uppercase tracking-wide text-[#34D399]",
   summaryDetails: "mt-3 space-y-2 text-xs font-bold",
-  summaryRow: "flex justify-between text-white/65",
-  summaryDivider: "h-px bg-yellow-300/20",
-  summaryTotal: "flex justify-between text-base font-black text-yellow-300",
+  summaryRow: "flex justify-between text-[#A7C4B8]",
+  summaryDivider: "h-px bg-[#1F3B32]",
+  summaryTotal: "flex justify-between text-base font-black text-[#D1FAE5]",
 
   progressContainer: "mt-4",
   progressLabels:
-    "mb-2 flex items-center justify-between text-[10px] font-black uppercase text-white/50",
+    "mb-2 flex items-center justify-between text-[10px] font-black uppercase text-[#A7C4B8]",
   progressBar: "grid grid-cols-3 gap-2",
   progressStep: "h-2 rounded-full",
-  progressStepActive: "bg-yellow-300",
-  progressStepInactive: "bg-white/15",
+  progressStepActive: "bg-[#34D399]",
+  progressStepInactive: "bg-[#1F3B32]",
 };
 
 export const paymentSuccessPageStyles = {
@@ -766,15 +771,13 @@ export const productItemsPageStyles = {
 
 export const productsPageStyles = {
   section:
-    "relative min-h-[80vh] scroll-mt-24 overflow-hidden bg-[#111111] px-4 py-4 pt-20 sm:px-6 lg:px-8",
+    "relative min-h-[80vh] scroll-mt-24 overflow-hidden bg-[#000000] px-4 py-4 pt-8 text-[#D1FAE5] sm:px-6 sm:pt-10 lg:px-8",
 
   // Inline gradient background
   gradientBackground: {
     background: `
-      radial-gradient(circle at top left, rgba(250,204,21,0.45), transparent 16%),
-      radial-gradient(circle at top right, rgba(250,204,21,0.45), transparent 16%),
-      radial-gradient(circle at bottom left, rgba(250,204,21,0.45), transparent 16%),
-      radial-gradient(circle at bottom right, rgba(250,204,21,0.45), transparent 16%)
+      radial-gradient(circle at top left, rgba(52,211,153,0.06), transparent 28%),
+      radial-gradient(circle at bottom right, rgba(13,36,29,0.3), transparent 38%)
     `,
   },
 
@@ -783,12 +786,12 @@ export const productsPageStyles = {
   grid: "grid auto-rows-fr grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8",
 
   categoryLink:
-    "flex h-full scroll-mt-28 cursor-pointer flex-col overflow-hidden p-1.5 transition-transform duration-300 hover:-translate-y-1 sm:p-2",
+    "flex h-full scroll-mt-28 cursor-pointer flex-col overflow-hidden rounded-3xl border border-[#1F3B32] bg-[#0D241D] p-1.5 transition duration-300 hover:-translate-y-1 hover:border-[#34D399]/40 hover:shadow-lg hover:shadow-[#34D399]/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#34D399] sm:p-2",
 
   categoryImage: "h-32 w-full rounded-2xl object-cover sm:h-36 md:h-32 xl:h-36",
 
   categoryName:
-    "font-store-label mt-2 flex min-h-8 items-center justify-center px-1 text-center text-xs font-bold leading-tight tracking-wide text-[#fff8dc] sm:text-[13px] xl:text-sm",
+    "font-store-label mt-2 flex min-h-8 items-center justify-center px-1 text-center text-xs font-bold leading-tight tracking-wide text-[#D1FAE5] sm:text-[13px] xl:text-sm",
 };
 
 export const searchResultsStyles = {
@@ -948,99 +951,94 @@ export const signupPageStyles = {
   featureText: "mt-2 text-sm font-medium leading-6 text-[#A7C4B8]",
 };
 
-export const forgotPasswordStyles = {
-  main: "flex font-mono min-h-screen items-center justify-center bg-[#0b0a08] px-4",
-
-  // Toast
-  toastBase:
-    "fixed right-5 top-5 z-50 rounded-xl px-5 py-3 text-sm font-semibold shadow-lg transition-all duration-300",
-  toastVisible: "translate-y-0 opacity-100",
-  toastHidden: "-translate-y-5 opacity-0",
-  toastSuccess: "bg-yellow-400 text-black",
-  toastError: "bg-black text-yellow-400 border border-yellow-400",
-
-  // Card
-  card: "w-full max-w-md rounded-3xl border border-yellow-400/30 bg-black/60 p-8 shadow-xl backdrop-blur-sm",
-
-  heading: "text-center text-3xl font-bold text-yellow-400",
-  subtext: "mt-2 text-center text-yellow-400/70",
-
-  form: "mt-8 space-y-5",
-
-  input:
-    "w-full rounded-xl border border-yellow-400/30 bg-black/50 p-4 text-yellow-400 placeholder-yellow-400/50 outline-none focus:border-yellow-400",
-
-  submitButton:
-    "w-full rounded-full cursor-pointer bg-yellow-400 py-4 font-semibold text-black transition hover:bg-yellow-300 hover:text-black disabled:cursor-not-allowed disabled:opacity-70",
-
-  backLinkWrapper: "mt-8 text-center",
-  backLink:
-    "font-semibold text-yellow-400 hover:text-yellow-300 hover:underline",
-};
-
-export const resetPasswordStyles = {
-  main: "flex min-h-screen items-center justify-center bg-[#0b0a08] px-4 font-mono",
-
-  // Toast
-  toastBase:
-    "fixed right-5 top-5 z-50 rounded-xl px-5 py-3 text-sm font-semibold shadow-lg transition-all duration-300",
-  toastVisible: "translate-y-0 opacity-100",
-  toastHidden: "-translate-y-5 opacity-0",
-  toastSuccess: "bg-yellow-400 text-black",
-  toastError: "border border-yellow-400 bg-black text-yellow-400",
-
-  // Card
-  card: "w-full max-w-md rounded-3xl border border-yellow-400/30 bg-black/60 p-8 shadow-xl backdrop-blur-sm",
-
-  heading: "text-center text-3xl font-bold text-yellow-400",
-  subtext: "mt-2 text-center text-yellow-400/70",
-
-  form: "mt-8 space-y-5",
-
-  input:
-    "w-full rounded-xl border border-yellow-400/30 bg-black/50 p-4 text-yellow-400 placeholder-yellow-400/50 outline-none focus:border-yellow-400",
-
-  inputWithIcon:
-    "w-full rounded-xl border border-yellow-400/30 bg-black/50 p-4 pr-12 text-yellow-400 placeholder-yellow-400/50 outline-none focus:border-yellow-400",
-
-  toggleButton:
-    "absolute right-4 top-1/2 -translate-y-1/2 cursor-pointer text-yellow-400 hover:text-yellow-300",
-
-  submitButton:
-    "w-full cursor-pointer rounded-full bg-yellow-400 py-4 font-semibold text-black transition hover:bg-yellow-300 disabled:cursor-not-allowed disabled:opacity-70",
-
-  backLinkWrapper: "mt-8 text-center",
-  backLink:
-    "font-semibold text-yellow-400 hover:text-yellow-300 hover:underline",
-};
-
-export const verifyEmailStyles = {
-  main: "flex min-h-screen items-center justify-center bg-[#0b0a08] px-4",
-
-  // Toast
-  toastBase:
-    "fixed right-5 top-5 z-50 rounded-xl px-5 py-3 text-sm font-semibold shadow-lg transition-all duration-300",
-  toastVisible: "translate-y-0 opacity-100",
-  toastHidden: "-translate-y-5 opacity-0",
-  toastSuccess: "bg-yellow-400 text-black",
-  toastError: "bg-black text-yellow-400 border border-yellow-400",
-
-  // Card
-  card: "w-full max-w-md rounded-3xl border border-yellow-400/30 bg-black/60 p-8 shadow-xl backdrop-blur-sm",
-
-  heading: "text-center text-3xl font-bold text-yellow-400",
-  subtext: "mt-2 text-center text-yellow-400/70",
-  emailDisplay: "text-center font-semibold text-yellow-400",
-
-  form: "mt-8 space-y-5",
-
+const authFlowStyles = {
+  main:
+    "relative flex min-h-screen items-center justify-center overflow-hidden bg-[#000000] px-4 py-10 text-[#D1FAE5] sm:px-6",
+  background: "pointer-events-none absolute inset-0 overflow-hidden",
+  gridPattern:
+    "absolute inset-0 opacity-[0.14] [background-image:linear-gradient(rgba(52,211,153,0.12)_1px,transparent_1px),linear-gradient(90deg,rgba(52,211,153,0.12)_1px,transparent_1px)] [background-size:52px_52px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_78%)]",
+  glow:
+    "absolute -top-56 left-1/2 h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-[#34D399]/10 blur-[130px]",
+  bottomGlow:
+    "absolute -bottom-64 -right-36 h-[32rem] w-[32rem] rounded-full bg-[#34D399]/[0.07] blur-[120px]",
+  shell: "relative z-10 w-full max-w-[31rem]",
+  brand:
+    "mx-auto mb-7 flex w-fit items-center gap-3 rounded-full px-3 py-1.5 transition hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6EE7B7]",
+  brandLogo:
+    "h-10 w-10 rounded-xl object-cover ring-1 ring-[#34D399]/30",
+  brandName:
+    "font-store-display text-xl font-black tracking-wide text-[#D1FAE5]",
+  card:
+    "relative overflow-hidden rounded-[1.8rem] border border-[#1F3B32] bg-[#0D241D]/95 p-6 shadow-[0_24px_90px_rgba(16,185,129,0.12)] sm:rounded-[2rem] sm:p-9",
+  cardAccent:
+    "absolute inset-x-10 top-0 h-px bg-linear-to-r from-transparent via-[#34D399]/75 to-transparent",
+  iconBadge:
+    "flex h-12 w-12 items-center justify-center rounded-2xl border border-[#34D399]/25 bg-[#34D399]/10 text-[#6EE7B7]",
+  heroIcon: "h-6 w-6",
+  eyebrow:
+    "font-store-label mt-6 text-xs font-black uppercase tracking-[0.18em] text-[#6EE7B7]",
+  heading:
+    "font-store-display mt-2 text-3xl font-black leading-tight tracking-wide text-[#D1FAE5] sm:text-4xl",
+  subtext: "mt-3 text-sm font-medium leading-6 text-[#A7C4B8] sm:text-base",
+  stageList: "mt-6 flex w-full items-start",
+  stageItem:
+    "relative z-0 flex min-w-0 flex-1 flex-col items-center gap-2 text-center",
+  stageItemActive: "text-[#D1FAE5]",
+  stageItemComplete: "text-[#A7C4B8]",
+  stageMarker:
+    "relative z-10 flex h-7 w-7 items-center justify-center rounded-full border border-[#1F3B32] bg-[#071710] text-[0.68rem] font-black text-[#A7C4B8]",
+  stageMarkerActive:
+    "border-[#34D399] bg-[#34D399] text-[#062016] ring-4 ring-[#34D399]/10",
+  stageMarkerComplete:
+    "border-[#34D399]/50 bg-[#34D399]/15 text-[#6EE7B7]",
+  stageLabel:
+    "max-w-full px-1 text-[0.65rem] font-semibold leading-4 text-[#A7C4B8] sm:text-xs",
+  stageConnector:
+    "absolute left-1/2 top-3.5 z-0 h-px w-full bg-[#1F3B32]",
+  stageConnectorComplete: "bg-[#34D399]/70",
+  form: "mt-7 space-y-4",
+  label:
+    "font-store-label block text-sm font-bold tracking-wide text-[#D1FAE5]",
+  inputWrapper:
+    "mt-2 flex min-h-14 items-center gap-3 rounded-2xl border border-[#1F3B32] bg-[#071710] px-4 transition focus-within:border-[#34D399] focus-within:ring-4 focus-within:ring-[#34D399]/10",
+  inputIcon: "h-5 w-5 shrink-0 text-[#6EE7B7]",
+  inputField:
+    "w-full bg-transparent py-4 text-sm font-semibold text-[#D1FAE5] outline-none placeholder:text-[#A7C4B8]/55",
   otpInput:
-    "w-full rounded-xl border border-yellow-400/30 bg-black/50 p-4 text-center text-2xl tracking-[12px] text-yellow-400 placeholder-yellow-400/50 outline-none focus:border-yellow-400",
-
+    "w-full rounded-2xl border border-[#1F3B32] bg-[#071710] px-4 py-4 text-center font-mono text-2xl font-bold tracking-[0.55em] text-[#D1FAE5] outline-none transition placeholder:text-[#A7C4B8]/40 focus:border-[#34D399] focus:ring-4 focus:ring-[#34D399]/10",
+  helperText: "text-xs font-medium leading-5 text-[#A7C4B8]",
+  emailPanel:
+    "mt-6 grid grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1 rounded-2xl border border-[#1F3B32] bg-[#071710]/80 px-4 py-3",
+  emailLabel:
+    "font-store-label text-[0.68rem] font-black uppercase tracking-[0.14em] text-[#6EE7B7]",
+  emailValue:
+    "min-w-0 break-all text-sm font-semibold text-[#D1FAE5]",
+  changeEmailButton:
+    "row-span-2 rounded-lg px-2 py-1 text-xs font-bold text-[#6EE7B7] transition hover:bg-[#34D399]/10 hover:text-[#D1FAE5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6EE7B7]",
+  toggleButton:
+    "rounded-lg p-2 text-[#A7C4B8] transition hover:bg-[#34D399]/10 hover:text-[#6EE7B7] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6EE7B7]",
+  toggleIcon: "h-5 w-5",
   submitButton:
-    "w-full rounded-full cursor-pointer bg-yellow-400 py-4 font-semibold text-black transition hover:bg-yellow-300 hover:text-black disabled:cursor-not-allowed disabled:opacity-70",
-
-  resendWrapper: "mt-6 text-center",
-  resendButton:
-    "font-semibold cursor-pointer text-yellow-400 hover:text-yellow-300 hover:underline",
+    "font-store-label flex min-h-14 w-full items-center justify-center gap-2 rounded-2xl bg-[#34D399] px-5 py-3 text-sm font-black uppercase tracking-wide text-[#062016] transition hover:bg-[#6EE7B7] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#6EE7B7] disabled:cursor-not-allowed disabled:opacity-60",
+  buttonIcon: "h-5 w-5",
+  resendRow:
+    "mt-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-center",
+  textButton:
+    "font-store-label rounded-md px-1 text-sm font-bold text-[#6EE7B7] underline decoration-[#34D399]/40 underline-offset-4 transition hover:text-[#D1FAE5] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6EE7B7] disabled:cursor-not-allowed disabled:opacity-60",
+  backLink:
+    "mt-7 inline-flex min-h-10 items-center gap-2 rounded-lg text-sm font-semibold text-[#A7C4B8] transition hover:text-[#6EE7B7] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#6EE7B7]",
+  backIcon: "h-4 w-4",
+  footerNote: "mt-6 text-center text-xs font-medium tracking-wide text-[#A7C4B8]/75",
+  toast:
+    "fixed left-1/2 top-4 z-50 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 rounded-2xl border px-4 py-3 text-sm font-semibold shadow-[0_16px_50px_rgba(0,0,0,0.4)] transition-all duration-300 sm:top-6 sm:px-5 sm:py-4",
+  toastVisible: "translate-y-0 opacity-100",
+  toastHidden: "-translate-y-5 opacity-0 pointer-events-none",
+  toastSuccess: "border-[#34D399]/35 bg-[#0D241D] text-[#D1FAE5]",
+  toastError: "border-rose-400/40 bg-[#24110F] text-rose-100",
 };
+
+export const forgotPasswordStyles = { ...authFlowStyles };
+
+export const resetPasswordStyles = { ...authFlowStyles };
+
+export const verifyEmailStyles = { ...authFlowStyles };

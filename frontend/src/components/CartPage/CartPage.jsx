@@ -66,7 +66,7 @@ const CartPage = () => {
 
     setIsCheckingOut(true);
 
-    let addressId = "";
+    let addressId;
     try {
       const { data } = await getAddresses();
       const addresses = data.addresses || [];
@@ -74,7 +74,13 @@ const CartPage = () => {
         addresses.find((address) => address.isDefault) || addresses[0];
       addressId = deliveryAddress?._id || "";
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      setIsCheckingOut(false);
+      showToast(
+        error.response?.data?.message ||
+          "Unable to load your delivery address. Please try again.",
+      );
+      return;
     }
 
     if (!addressId) {
@@ -127,7 +133,11 @@ const CartPage = () => {
         navigate("/orders");
       }, 1200);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      showToast(
+        error.response?.data?.message ||
+          "Unable to complete checkout. Please try again.",
+      );
     } finally {
       setIsCheckingOut(false);
     }
@@ -153,7 +163,7 @@ const CartPage = () => {
           <div>
             <p className={s.badge}>
               <ShoppingCart className={s.iconSm} />
-              FreshMart cart
+              GreenCart cart
             </p>
             <h1 className={s.heading}>Your selected items</h1>
             <p className={s.itemCount}>

@@ -65,6 +65,7 @@ const AddressPage = () => {
   const [editingId, setEditingId] = useState(null);
   const [showSaved, setShowSaved] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState("");
 
   useEffect(() => {
     let isActive = true;
@@ -109,9 +110,9 @@ const AddressPage = () => {
 
     const nextValue =
       name === "mobile"
-        ? value.replace(/\D/g, "").slice(0, 10)
+        ? value.replace(/\D/g, "").slice(0, 11)
         : name === "pinCode"
-          ? value.replace(/\D/g, "").slice(0, 6)
+          ? value.replace(/\D/g, "").slice(0, 5)
           : value;
 
     setFormData((current) => ({
@@ -150,6 +151,7 @@ const AddressPage = () => {
 
     try {
       setIsSaving(true);
+      setSaveError("");
       const payload = toApiAddress(nextAddress);
       const { data } = editingId
         ? await updateAddressApi(editingId, payload)
@@ -178,7 +180,10 @@ const AddressPage = () => {
         }
       }, 900);
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      setSaveError(
+        error.response?.data?.message || "Unable to save address. Please try again.",
+      );
     } finally {
       setIsSaving(false);
     }
@@ -253,7 +258,7 @@ const AddressPage = () => {
                 </p>
                 <div className={s.selectedDetails}>
                   <p className={s.selectedName}>{selectedAddress.name}</p>
-                  <p>+91 {selectedAddress.mobile}</p>
+                  <p>+92 {selectedAddress.mobile}</p>
                   <p>
                     {selectedAddress.address}
                     {selectedAddress.city ? `, ${selectedAddress.city}` : ""}
@@ -274,6 +279,11 @@ const AddressPage = () => {
                 Address saved successfully
               </div>
             )}
+            {saveError ? (
+              <p className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {saveError}
+              </p>
+            ) : null}
 
             <div className={s.formHeader}>
               <div>
@@ -336,9 +346,9 @@ const AddressPage = () => {
                       onChange={handleChange}
                       required
                       inputMode="numeric"
-                      pattern="[0-9]{10}"
-                      maxLength={10}
-                      placeholder="10 digit number"
+                      pattern="[0-9]{11}"
+                      maxLength={11}
+                      placeholder="11 digit number"
                       className={s.inputField}
                     />
                   </span>
@@ -355,9 +365,9 @@ const AddressPage = () => {
                       onChange={handleChange}
                       required
                       inputMode="numeric"
-                      pattern="[0-9]{6}"
-                      maxLength={6}
-                      placeholder="6 digit pin"
+                      pattern="[0-9]{5}"
+                      maxLength={5}
+                      placeholder="5 digit postal code"
                       className={s.inputField}
                     />
                   </span>
@@ -473,7 +483,7 @@ const AddressPage = () => {
                         </div>
                         <p className={s.addressCardName}>{address.name}</p>
                         <p className={s.addressCardMobile}>
-                          +91 {address.mobile}
+                          +92 {address.mobile}
                         </p>
                       </div>
 

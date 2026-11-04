@@ -42,7 +42,8 @@ const isDemoPlaceholderUrl = (imageUrl) => {
   }
 };
 
-const getProductFallback = (index) => hookahFallbacks[index % hookahFallbacks.length];
+const getProductFallback = (index) =>
+  hookahFallbacks[index % hookahFallbacks.length];
 
 const GreenCartPage = ({ expanded = false }) => {
   const { addItem, decreaseItem, getQuantity } = useCart();
@@ -155,9 +156,7 @@ const GreenCartPage = ({ expanded = false }) => {
         {renderStatus() || (
           <div
             className={
-              visibleProducts.length <= 2
-                ? s.productGridCompact
-                : s.productGrid
+              visibleProducts.length <= 2 ? s.productGridCompact : s.productGrid
             }
           >
             {visibleProducts.map((item, index) => {
@@ -172,7 +171,7 @@ const GreenCartPage = ({ expanded = false }) => {
                 source: "GreenCart",
                 category: "GreenCart Products",
                 id: item._id,
-                productModel: "GreenCart",
+                productModel: "Hookah",
                 image: imageUrl,
                 name: item.name,
                 company: item.company,
@@ -260,7 +259,7 @@ const GreenCartPage = ({ expanded = false }) => {
 
         {hasMoreProducts && (
           <div className={s.viewMoreWrapper}>
-            <Link to="/hookah-products" className={s.viewMoreLink}>
+            <Link to="/greencart-products" className={s.viewMoreLink}>
               View More Products
               <ArrowRight size={18} className={s.viewMoreArrow} />
             </Link>

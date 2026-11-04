@@ -62,6 +62,7 @@ const LoginPage = () => {
         navigate("/verify-email", {
           state: {
             email: String(formData.get("email")).trim().toLowerCase(),
+            returnTo: "/login",
           },
         });
 

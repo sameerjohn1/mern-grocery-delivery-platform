@@ -2,6 +2,27 @@ import stripe from "../config/stripe.js";
 import Order from "../models/Order.js";
 import Address from "../models/Address.js";
 
+const getClientUrl = (requestOrigin) => {
+  const clientUrl = (
+    requestOrigin ||
+    process.env.CLIENT_URL ||
+    "http://localhost:5173"
+  )
+    .trim()
+    .replace(/\/+$/, "");
+
+  try {
+    const url = new URL(clientUrl);
+    if (!["http:", "https:"].includes(url.protocol)) throw new Error();
+  } catch {
+    throw new Error(
+      "CLIENT_URL must be an absolute HTTP or HTTPS URL, such as http://localhost:5173",
+    );
+  }
+
+  return new URL(clientUrl).origin;
+};
+
 const handle = (fn) => async (req, res) => {
   try {
     await fn(req, res);
@@ -10,16 +31,12 @@ const handle = (fn) => async (req, res) => {
   }
 };
 
-const getImageUrl = (image) =>
-  typeof image === "string" ? image : image?.url || "";
-
 const buildLineItems = (products = [], totalAmount = 0) => {
   const item = products.map((item) => ({
     price_data: {
       currency: "pkr",
       product_data: {
         name: item?.name || "GreenCart Items",
-        images: item?.image ? [getImageUrl(item.image)] : [],
       },
       unit_amount: Math.round(Number(item?.sellingPrice || 0) * 100),
     },
@@ -63,12 +80,12 @@ export const createCheckoutSession = handle(async (req, res) => {
     return res
       .status(400)
       .json({ success: false, message: "Please add a delivery address first" });
+  const clientUrl = getClientUrl(req.get("origin"));
   const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
     line_items: buildLineItems(order.products, order.totalAmount),
     mode: "payment",
-    success_url: `${process.env.CLIENT_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${process.env.CLIENT_URL}/payment-cancel`,
+    success_url: `${clientUrl}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${clientUrl}/payment-cancel`,
     metadata: {
       userId: req.user._id.toString(),
       address: order.address.toString(),

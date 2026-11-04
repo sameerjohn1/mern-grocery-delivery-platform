@@ -13,7 +13,7 @@ import {
   Truck,
   XCircle,
 } from "lucide-react";
-import { cancelOrder, getMyOrders } from "../../api/api";
+import { cancelOrder, getMyOrder } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import { formatShortOrderId } from "../../utils/orderIds";
 import { ordersPageStyles as s } from "../../assets/dummyStyles";
@@ -88,8 +88,8 @@ const getPaymentDetails = (order) => {
     label: isOnline ? "Online payment" : "Cash on delivery",
     status: isOnline ? "Paid " : "COD",
     className: isOnline
-      ? "border-emerald-200 bg-emerald-50 text-emerald-700"
-      : "border-yellow-300 bg-yellow-100 text-yellow-800",
+      ? "border-emerald-400/25 bg-emerald-400/10 text-emerald-200"
+      : "border-[#34D399]/25 bg-[#34D399]/10 text-[#6EE7B7]",
   };
 };
 
@@ -98,22 +98,22 @@ const getOrderStatusDetails = (status) => {
     processing: {
       icon: Clock3,
       label: "Processing",
-      className: "border-yellow-300 bg-yellow-300 text-black",
+      className: "border-amber-400/25 bg-amber-400/10 text-amber-200",
     },
     shipped: {
       icon: Truck,
       label: "On the way",
-      className: "border-sky-200 bg-sky-50 text-sky-700",
+      className: "border-sky-400/25 bg-sky-400/10 text-sky-200",
     },
     delivered: {
       icon: CheckCircle2,
       label: "Delivered",
-      className: "border-emerald-200 bg-emerald-50 text-emerald-700",
+      className: "border-emerald-400/25 bg-emerald-400/10 text-emerald-200",
     },
     cancelled: {
       icon: XCircle,
       label: "Cancelled",
-      className: "border-red-200 bg-red-50 text-red-700",
+      className: "border-red-400/25 bg-red-400/10 text-red-200",
     },
   };
 
@@ -159,7 +159,7 @@ const OrdersPage = () => {
       }
 
       try {
-        const { data } = await getMyOrders();
+        const { data } = await getMyOrder();
         if (isActive) setOrders((data.orders || []).map(toUiOrder));
       } catch (error) {
         console.error(error);
@@ -286,7 +286,7 @@ const OrdersPage = () => {
           <div>
             <p className={s.badge}>
               <PackageCheck className={s.iconSm} />
-              FreshMart orders
+              GreenCart orders
             </p>
             <h1 className={s.heading}>My orders</h1>
             <p className={s.subheading}>
