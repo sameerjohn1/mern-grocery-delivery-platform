@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   ShoppingCart,
   ArrowRight,
@@ -42,10 +43,28 @@ const isDemoPlaceholderUrl = (imageUrl) => {
   }
 };
 
-const getProductFallback = (index) => hookahFallbacks[index % hookahFallbacks.length];
+const getProductFallback = (index) =>
+  hookahFallbacks[index % hookahFallbacks.length];
+
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.05, delayChildren: 0.05 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 const GreenCartPage = ({ expanded = false }) => {
   const { addItem, decreaseItem, getQuantity } = useCart();
+  const prefersReducedMotion = useReducedMotion();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
@@ -153,11 +172,13 @@ const GreenCartPage = ({ expanded = false }) => {
         </div>
 
         {renderStatus() || (
-          <div
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.05 }}
+            variants={containerVariants}
             className={
-              visibleProducts.length <= 2
-                ? s.productGridCompact
-                : s.productGrid
+              visibleProducts.length <= 2 ? s.productGridCompact : s.productGrid
             }
           >
             {visibleProducts.map((item, index) => {
@@ -172,7 +193,7 @@ const GreenCartPage = ({ expanded = false }) => {
                 source: "GreenCart",
                 category: "GreenCart Products",
                 id: item._id,
-                productModel: "GreenCart",
+                productModel: "Hookah",
                 image: imageUrl,
                 name: item.name,
                 company: item.company,
@@ -183,84 +204,92 @@ const GreenCartPage = ({ expanded = false }) => {
               const quantity = getQuantity(cartItem.cartId);
 
               return (
-                <div key={cartItem.cartId} className={s.productCard}>
-                  <div className={s.cardOverlay1} />
-                  <div className={s.cardOverlay2} />
-                  <div className={s.cardOverlay3} />
+                <motion.div
+                  key={cartItem.cartId}
+                  variants={itemVariants}
+                  whileHover={prefersReducedMotion ? undefined : { y: -4 }}
+                  className={s.cardMotion}
+                >
+                  <div className={s.productCard}>
+                    <div className={s.cardOverlay1} />
+                    <div className={s.cardOverlay2} />
+                    <div className={s.cardOverlay3} />
 
-                  <div className={s.cardContent}>
-                    <div className={s.imageWrapper}>
-                      <img
-                        src={imageUrl}
-                        alt={item.name}
-                        className={s.productImage}
-                        onError={(event) =>
-                          handleImageError(event, fallbackImage)
-                        }
-                      />
-                    </div>
-
-                    <div className={s.productInfo}>
-                      <h3 className={s.productName}>{item.name}</h3>
-                      <p className={s.productCompany}>{item.company}</p>
-
-                      <div className={s.sizeBadge}>{item.size}</div>
-
-                      <div className={s.priceContainer}>
-                        <div className={s.priceRow}>
-                          <span className={s.priceCurrent}>
-                            {item.sellingPrice}
-                          </span>
-                          <span className={s.priceOld}>{item.oldPrice}</span>
-                        </div>
+                    <div className={s.cardContent}>
+                      <div className={s.imageWrapper}>
+                        <img
+                          src={imageUrl}
+                          alt={item.name}
+                          loading="lazy"
+                          className={s.productImage}
+                          onError={(event) =>
+                            handleImageError(event, fallbackImage)
+                          }
+                        />
                       </div>
 
-                      <div className={s.actionWrapper}>
-                        {quantity > 0 ? (
-                          <div className={s.quantityControls}>
-                            <button
-                              type="button"
-                              onClick={() => decreaseItem(cartItem.cartId)}
-                              className={s.qtyButton}
-                              aria-label={`Decrease ${item.name} quantity`}
-                            >
-                              <Minus size={16} />
-                            </button>
-                            <span className={s.qtyValue}>{quantity}</span>
+                      <div className={s.productInfo}>
+                        <h3 className={s.productName}>{item.name}</h3>
+                        <p className={s.productCompany}>{item.company}</p>
+
+                        <div className={s.sizeBadge}>{item.size}</div>
+
+                        <div className={s.priceContainer}>
+                          <div className={s.priceRow}>
+                            <span className={s.priceCurrent}>
+                              {item.sellingPrice}
+                            </span>
+                            <span className={s.priceOld}>{item.oldPrice}</span>
+                          </div>
+                        </div>
+
+                        <div className={s.actionWrapper}>
+                          {quantity > 0 ? (
+                            <div className={s.quantityControls}>
+                              <button
+                                type="button"
+                                onClick={() => decreaseItem(cartItem.cartId)}
+                                className={s.qtyButton}
+                                aria-label={`Decrease ${item.name} quantity`}
+                              >
+                                <Minus size={16} />
+                              </button>
+                              <span className={s.qtyValue}>{quantity}</span>
+                              <button
+                                type="button"
+                                onClick={() => addItem(cartItem)}
+                                className={s.qtyButton}
+                                aria-label={`Increase ${item.name} quantity`}
+                              >
+                                <Plus size={16} />
+                              </button>
+                            </div>
+                          ) : (
                             <button
                               type="button"
                               onClick={() => addItem(cartItem)}
-                              className={s.qtyButton}
-                              aria-label={`Increase ${item.name} quantity`}
+                              className={s.addButton}
                             >
-                              <Plus size={16} />
+                              <ShoppingCart size={16} />
+                              Add to Cart
+                              <ArrowRight size={16} />
                             </button>
-                          </div>
-                        ) : (
-                          <button
-                            type="button"
-                            onClick={() => addItem(cartItem)}
-                            className={s.addButton}
-                          >
-                            <ShoppingCart size={16} />
-                            Add to Cart
-                            <ArrowRight size={16} />
-                          </button>
-                        )}
+                          )}
+                        </div>
                       </div>
-                    </div>
 
-                    <div className={s.cardBottomBar} />
+                      <div className={s.cardBottomBar} />
+                    </div>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         )}
 
         {hasMoreProducts && (
           <div className={s.viewMoreWrapper}>
-            <Link to="/hookah-products" className={s.viewMoreLink}>
+            <Link to="/greencart-products" className={s.viewMoreLink}>
               View More Products
               <ArrowRight size={18} className={s.viewMoreArrow} />
             </Link>

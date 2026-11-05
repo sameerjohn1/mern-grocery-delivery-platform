@@ -4,9 +4,11 @@ import cloudinary from "../config/cloudinary.js";
 import uploadsDir from "./uploadsDir.js";
 
 export const LOCAL_PUBLIC_ID_PREFIX = "local:";
+const FRONTEND_STATIC_PUBLIC_ID_PREFIX = "frontend-static:";
 
 export const deleteImage = async (publicId) => {
   if (!publicId) return;
+  if (publicId.startsWith(FRONTEND_STATIC_PUBLIC_ID_PREFIX)) return;
 
   try {
     if (publicId.startsWith(LOCAL_PUBLIC_ID_PREFIX)) {

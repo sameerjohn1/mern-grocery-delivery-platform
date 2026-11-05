@@ -1,12 +1,20 @@
 import { useLayoutEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-
-import LoginPage from "./components/LoginPage/LoginPage";
-import SignupPage from "./components/SignupPage/SignupPage";
-import VerifyEmailPage from "./components/VerifyEmailPage/VerifyEmailPage";
-import ProductPage from "./components/ProductPage/ProductPage";
-import GreenCartPage from "./components/GreenCart.jsx/GreenCartPage";
 import Home from "./pages/Home/Home";
+import ProductItems from "./pages/ProductItems/ProductItems";
+import GreenCart from "./pages/GreenCart/GreenCart";
+import Login from "./pages/Login/Login";
+import Signup from "./pages/Signup/Signup";
+import Address from "./pages/Address/Address";
+import Orders from "./pages/Orders/Orders";
+import Cart from "./pages/Cart/Cart";
+import {
+  PaymentCancelPage,
+  PaymentSuccessPage,
+} from "./components/PaymentReturnPage/PaymentReturnPage";
+import VerifyEmail from "./pages/auth/VerifyEmail";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -30,11 +38,18 @@ const App = () => {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
-        <Route path="/verify-email" element={<VerifyEmailPage />} />
-        <Route path="/products" element={<ProductPage />} />
-        <Route path="/green-cart" element={<GreenCartPage />} />
+        <Route path="/product/:id" element={<ProductItems />} />
+        <Route path="/greencart-products" element={<GreenCart />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/address" element={<Address />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/orders" element={<Orders />} />
+        <Route path="/payment-success" element={<PaymentSuccessPage />} />
+        <Route path="/payment-cancel" element={<PaymentCancelPage />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     </>
   );

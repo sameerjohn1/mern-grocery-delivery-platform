@@ -14,7 +14,7 @@ export const placeOrder = async (req, res) => {
       user: req.user._id,
     });
     if (!address) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         message: "Please add a delivery address first",
       });

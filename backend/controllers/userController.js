@@ -14,6 +14,15 @@ const handle = (fn) => async (req, res) => {
 };
 
 const normalizeEmail = (email) => String(email).trim().toLowerCase();
+const dummyResetOtpHash =
+  "$2b$10$m52Bku3NU63UEEpivJ6uC.EB4Ca8vDLJAqlWQu0yOIgNNiJwMfZt6";
+const waitForMinimumResponseTime = async (startedAt, minimumMs) => {
+  // This floor mitigates fast-path timing differences; it is not constant-time.
+  const remainingMs = minimumMs - (Date.now() - startedAt);
+  if (remainingMs > 0) {
+    await new Promise((resolve) => setTimeout(resolve, remainingMs));
+  }
+};
 
 const normalizePhone = (phone) => {
   const digits = String(phone).replace(/\D/g, "");
@@ -180,25 +189,51 @@ export const loginUser = handle(async (req, res) => {
 });
 
 export const forgotPassword = handle(async (req, res) => {
+  const requestStartedAt = Date.now();
   const { email } = req.body;
   if (!email)
     return res
       .status(400)
       .json({ success: false, message: "Email is required" });
-  const user = await User.findOne({ email: normalizeEmail(email) });
-  if (!user)
-    return res.status(404).json({ success: false, message: "User not found" });
-  const otp = generateOtp();
-  user.resetOtp = await bcrypt.hash(otp, 10);
-  user.resetOtpExpire = new Date(Date.now() + 10 * 60 * 1000);
-  await user.save();
-  await sendResetOTP(user.email, user.name, otp);
-  res
-    .status(200)
-    .json({ success: true, message: "Password reset OTP sent successfully." });
+  let user;
+  let previousResetOtp;
+  let previousResetOtpExpire;
+  let resetCodeSaved = false;
+
+  try {
+    user = await User.findOne({ email: normalizeEmail(email) });
+    if (user) {
+      previousResetOtp = user.resetOtp;
+      previousResetOtpExpire = user.resetOtpExpire;
+      const otp = generateOtp();
+      user.resetOtp = await bcrypt.hash(otp, 10);
+      user.resetOtpExpire = new Date(Date.now() + 10 * 60 * 1000);
+      resetCodeSaved = true;
+      await user.save();
+      await sendResetOTP(user.email, user.name, otp);
+    }
+  } catch (error) {
+    console.error("Password reset request processing failed:", error);
+    if (user && resetCodeSaved) {
+      user.resetOtp = previousResetOtp;
+      user.resetOtpExpire = previousResetOtpExpire;
+      try {
+        await user.save();
+      } catch (restoreError) {
+        console.error("Failed to restore password reset code:", restoreError);
+      }
+    }
+  }
+  await waitForMinimumResponseTime(requestStartedAt, 1000);
+  res.status(202).json({
+    success: true,
+    message:
+      "Request received. This response does not confirm whether reset instructions were sent.",
+  });
 });
 
 export const resetPassword = handle(async (req, res) => {
+  const requestStartedAt = Date.now();
   const { email, otp, password } = req.body;
   if (!email || !otp || !password)
     return res.status(400).json({
@@ -206,20 +241,21 @@ export const resetPassword = handle(async (req, res) => {
       message: "Email, OTP and password are required",
     });
   const user = await User.findOne({ email: normalizeEmail(email) });
-  if (!user)
-    return res.status(404).json({ success: false, message: "User not found" });
-  if (
-    !user.resetOtp ||
-    !user.resetOtpExpire ||
-    user.resetOtpExpire < Date.now()
-  )
-    return res.status(400).json({
-      success: false,
-      message: "OTP expired. Please request a new OTP.",
-    });
-  const isOtpValid = await bcrypt.compare(otp, user.resetOtp);
-  if (!isOtpValid)
-    return res.status(400).json({ success: false, message: "Invalid OTP" });
+  const invalidOtpResponse = {
+    success: false,
+    message: "Invalid or expired reset code. Request a new code and try again.",
+  };
+  const hasResetCode = Boolean(user?.resetOtp);
+  const isOtpValid = await bcrypt.compare(
+    otp,
+    hasResetCode ? user.resetOtp : dummyResetOtpHash,
+  );
+  const isExpired =
+    !user?.resetOtpExpire || user.resetOtpExpire < Date.now();
+  if (!user || !hasResetCode || isExpired || !isOtpValid) {
+    await waitForMinimumResponseTime(requestStartedAt, 400);
+    return res.status(400).json(invalidOtpResponse);
+  }
   user.password = await bcrypt.hash(password, 10);
   user.resetOtp = null;
   user.resetOtpExpire = null;

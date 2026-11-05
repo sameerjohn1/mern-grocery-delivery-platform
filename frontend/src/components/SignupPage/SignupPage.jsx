@@ -61,6 +61,7 @@ const SignupPage = () => {
         navigate("/verify-email", {
           state: {
             email: data.email || String(formData.get("email")).trim().toLowerCase(),
+            returnTo: "/signup",
           },
         });
       }, 950);
@@ -263,7 +264,7 @@ const SignupPage = () => {
               {
                 icon: Zap,
                 title: "Fast checkout",
-                text: "Signup redirects you straight to login.",
+                text: "Verify your email to activate your account.",
               },
             ].map((item) => {
               const Icon = item.icon;

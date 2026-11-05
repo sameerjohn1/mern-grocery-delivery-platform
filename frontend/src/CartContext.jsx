@@ -13,7 +13,14 @@ const CartContext = createContext(null);
 
 const loadCart = () => {
   const savedCart = localStorage.getItem(CART_STORAGE_KEY);
-  return savedCart ? JSON.parse(savedCart) : [];
+  if (!savedCart) return [];
+
+  const cartItems = JSON.parse(savedCart);
+  return cartItems.map((item) =>
+    item.productModel === "GreenCart"
+      ? { ...item, productModel: "Hookah" }
+      : item,
+  );
 };
 
 export const CartProvider = ({ children }) => {
@@ -71,7 +78,7 @@ export const CartProvider = ({ children }) => {
       (total, item) => total + item.quantity,
       0,
     );
-    const subTotal = cartItems.reduce(
+    const subtotal = cartItems.reduce(
       (total, item) => total + item.price * item.quantity,
       0,
     );
@@ -79,7 +86,7 @@ export const CartProvider = ({ children }) => {
     return {
       cartItems,
       totalItems,
-      subTotal,
+      subtotal,
       addItem,
       decreaseItem,
       removeItem,

@@ -2,7 +2,7 @@ import { useSearchParams } from "react-router-dom";
 import Banner from "../../components/Banner/Banner";
 import Navbar from "../../components/Navbar/Navbar";
 import ProductPage from "../../components/ProductPage/ProductPage";
-import GreenCartPage from "../../components/GreenCart.jsx/GreenCartPage";
+import GreenCartPage from "../../components/GreenCart/GreenCartPage";
 import Footer from "../../components/Footer/Footer";
 import SearchResults from "../../components/SearchResults/SearchResults";
 

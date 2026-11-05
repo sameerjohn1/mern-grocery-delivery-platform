@@ -40,13 +40,13 @@ export const getHookahs = () => API.get("/hookahs");
 
 export const getAddresses = () => API.get("/address");
 
-export const addAddress = (data) => API.post("/address/add", data);
+export const addAddress = (data) => API.post("/address", data);
 
 export const updateAddress = (id, data) => API.put(`/address/${id}`, data);
 
 export const deleteAddress = (id, data) => API.delete(`/address/${id}`, data);
 
-export const placeOrder = (data) => API.post("/orders/place", data);
+export const placeOrder = (data) => API.post("/orders", data);
 
 export const getMyOrder = () => API.get("/orders/my-orders");
 
