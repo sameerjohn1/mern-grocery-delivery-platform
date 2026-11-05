@@ -1,8 +1,18 @@
+import { lazy, Suspense } from "react";
 import { useSearchParams } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
-import GreenCartPage from "../../components/GreenCart/GreenCartPage";
 import Footer from "../../components/Footer/Footer";
-import SearchResults from "../../components/SearchResults/SearchResults";
+import {
+  ProductsSectionSkeleton,
+  SearchSectionSkeleton,
+} from "../../components/Skeletons/SkeletonBlocks";
+
+const GreenCartPage = lazy(
+  () => import("../../components/GreenCart/GreenCartPage"),
+);
+const SearchResults = lazy(
+  () => import("../../components/SearchResults/SearchResults"),
+);
 
 const GreenCart = () => {
   const [searchParams] = useSearchParams();
@@ -11,7 +21,15 @@ const GreenCart = () => {
   return (
     <div>
       <Navbar />
-      {isSearching ? <SearchResults query={query} /> : <GreenCartPage />}
+      {isSearching ? (
+        <Suspense fallback={<SearchSectionSkeleton />}>
+          <SearchResults query={query} />
+        </Suspense>
+      ) : (
+        <Suspense fallback={<ProductsSectionSkeleton />}>
+          <GreenCartPage />
+        </Suspense>
+      )}
       <Footer />
     </div>
   );

@@ -1,10 +1,23 @@
+import { lazy, Suspense } from "react";
 import { useSearchParams } from "react-router-dom";
 import Banner from "../../components/Banner/Banner";
 import Navbar from "../../components/Navbar/Navbar";
-import ProductPage from "../../components/ProductPage/ProductPage";
-import GreenCartPage from "../../components/GreenCart/GreenCartPage";
 import Footer from "../../components/Footer/Footer";
-import SearchResults from "../../components/SearchResults/SearchResults";
+import {
+  CategoriesSectionSkeleton,
+  ProductsSectionSkeleton,
+  SearchSectionSkeleton,
+} from "../../components/Skeletons/SkeletonBlocks";
+
+const ProductPage = lazy(
+  () => import("../../components/ProductPage/ProductPage"),
+);
+const GreenCartPage = lazy(
+  () => import("../../components/GreenCart/GreenCartPage"),
+);
+const SearchResults = lazy(
+  () => import("../../components/SearchResults/SearchResults"),
+);
 
 const Home = () => {
   const [searchParams] = useSearchParams();
@@ -16,12 +29,18 @@ const Home = () => {
       <Navbar />
 
       {isSearching ? (
-        <SearchResults query={query} />
+        <Suspense fallback={<SearchSectionSkeleton />}>
+          <SearchResults query={query} />
+        </Suspense>
       ) : (
         <>
           <Banner />
-          <ProductPage />
-          <GreenCartPage />
+          <Suspense fallback={<CategoriesSectionSkeleton />}>
+            <ProductPage />
+          </Suspense>
+          <Suspense fallback={<ProductsSectionSkeleton />}>
+            <GreenCartPage />
+          </Suspense>
         </>
       )}
 

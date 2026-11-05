@@ -6,13 +6,13 @@ import {
   ArrowRight,
   Minus,
   Plus,
-  LoaderCircle,
   PackageOpen,
   RefreshCw,
 } from "lucide-react";
 import { useCart } from "../../CartContext";
 import { getHookahs } from "../../api/api";
 import { hookahPageStyles as s } from "../../assets/dummyStyles";
+import { ProductGridSkeleton } from "../Skeletons/SkeletonBlocks";
 import hookahFallback from "../../assets/product-images/hookah-001.png";
 import hookahFallbackTwo from "../../assets/product-images/hookah-002.png";
 import hookahFallbackThree from "../../assets/product-images/hookah-003.png";
@@ -107,15 +107,7 @@ const GreenCartPage = ({ expanded = false }) => {
 
   const renderStatus = () => {
     if (loading) {
-      return (
-        <div className={s.statePanel} role="status">
-          <LoaderCircle className={`${s.stateIcon} animate-spin`} />
-          <p className={s.stateTitle}>Gathering the collection</p>
-          <p className={s.stateText}>
-            Our signature picks will be ready in just a moment.
-          </p>
-        </div>
-      );
+      return <ProductGridSkeleton count={8} />;
     }
 
     if (loadError) {

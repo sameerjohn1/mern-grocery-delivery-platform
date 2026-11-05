@@ -1,14 +1,10 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import {
-  ArrowUpRight,
-  LoaderCircle,
-  RefreshCw,
-  Sparkles,
-} from "lucide-react";
+import { ArrowUpRight, RefreshCw, Sparkles } from "lucide-react";
 import { getCategories } from "../../api/api";
 import { productsPageStyles as s } from "../../assets/dummyStyles";
+import { CategoryCardSkeleton } from "../Skeletons/SkeletonBlocks";
 import categoryFallback from "../../assets/P2.png";
 import { resolveCatalogImageUrl } from "../../utils/imageUrls";
 
@@ -96,16 +92,9 @@ const ProductPage = () => {
           className={s.grid}
         >
           {loading ? (
-            <div
-              className="col-span-full flex min-h-52 flex-col items-center justify-center gap-3 rounded-3xl border border-[#A7E8C1]/15 bg-[#0D241D]/70 p-6 text-center"
-              role="status"
-              aria-live="polite"
-            >
-              <LoaderCircle className="h-7 w-7 animate-spin text-[#A7E8C1]" />
-              <p className="text-sm font-bold text-[#A7C4B8]">
-                Loading categories...
-              </p>
-            </div>
+            Array.from({ length: 10 }).map((_, index) => (
+              <CategoryCardSkeleton key={index} />
+            ))
           ) : loadError ? (
             <div
               className="col-span-full flex min-h-52 flex-col items-center justify-center gap-3 rounded-3xl border border-red-400/20 bg-[#0D241D]/70 p-6 text-center"

@@ -16,6 +16,7 @@ import { getProducts } from "../../api/api";
 import { productItemsPageStyles as s } from "../../assets/dummyStyles";
 import productFallback from "../../assets/P2.png";
 import { resolveCatalogImageUrl } from "../../utils/imageUrls";
+import { ProductCardSkeleton } from "../Skeletons/SkeletonBlocks";
 
 const containerVariants = {
   hidden: {},
@@ -120,13 +121,9 @@ const ProductItemsPage = () => {
             variants={containerVariants}
           >
             {loading ? (
-              <div
-                className="col-span-full flex min-h-48 items-center justify-center gap-3 rounded-3xl border border-[#A7E8C1]/15 bg-[#0D241D]/70 text-sm font-bold text-[#A7C4B8]"
-                role="status"
-              >
-                <LoaderCircle className="h-5 w-5 animate-spin text-[#A7E8C1]" />
-                Loading products...
-              </div>
+              Array.from({ length: 8 }).map((_, index) => (
+                <ProductCardSkeleton key={index} />
+              ))
             ) : loadError ? (
               <div
                 className="col-span-full flex min-h-48 flex-col items-center justify-center gap-3 rounded-3xl border border-red-400/20 bg-[#0D241D]/70 p-6 text-center"

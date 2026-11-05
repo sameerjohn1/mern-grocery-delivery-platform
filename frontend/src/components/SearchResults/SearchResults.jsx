@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   ArrowRight,
-  Loader2,
   Minus,
   Plus,
   RefreshCw,
@@ -11,6 +10,7 @@ import {
 import { useCart } from "../../CartContext";
 import { getHookahs, getProducts } from "../../api/api";
 import { searchResultsStyles as s } from "../../assets/dummyStyles";
+import { ProductGridSkeleton } from "../Skeletons/SkeletonBlocks";
 import productFallback from "../../assets/P2.png";
 import { resolveCatalogImageUrl } from "../../utils/imageUrls";
 
@@ -122,9 +122,7 @@ const SearchResults = ({ query }) => {
         </div>
 
         {loading ? (
-          <div className={s.loadingContainer}>
-            <Loader2 className={s.loaderIcon} />
-          </div>
+          <ProductGridSkeleton count={8} gridClass={s.resultsGrid} />
         ) : loadError ? (
           <div className={s.emptyContainer} role="alert">
             <SearchX className={s.emptyIcon} />

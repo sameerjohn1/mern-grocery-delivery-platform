@@ -7,7 +7,6 @@ import {
   Clock3,
   CreditCard,
   Eye,
-  Loader2,
   PackageCheck,
   ReceiptText,
   Truck,
@@ -19,6 +18,7 @@ import { formatShortOrderId } from "../../utils/orderIds";
 import { ordersPageStyles as s } from "../../assets/dummyStyles";
 import { resolveCatalogImageUrl } from "../../utils/imageUrls";
 import { storeRedirect } from "../../auth/authStorage";
+import { OrdersGridSkeleton } from "../Skeletons/SkeletonBlocks";
 
 const deliveryFee = 10;
 
@@ -319,9 +319,7 @@ const OrdersPage = () => {
         </div>
 
         {loading ? (
-          <div className={s.loadingContainer}>
-            <Loader2 className={s.loadingSpinner} />
-          </div>
+          <OrdersGridSkeleton count={6} />
         ) : (
           <div className={s.ordersGrid}>
             {orders.map((order) => {
