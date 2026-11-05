@@ -1,7 +1,16 @@
 import axios from "axios";
 
+const configuredApiUrl = import.meta.env.VITE_API_URL;
+const productionApiUrl = "https://mern-grocery-delivery-platform.vercel.app/api";
+const isLocalApiUrl = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?(\/|$)/i.test(
+  configuredApiUrl || "",
+);
+
 export const API_BASE_URL =
-  import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+  import.meta.env.PROD && isLocalApiUrl
+    ? productionApiUrl
+    : configuredApiUrl ||
+      (import.meta.env.PROD ? productionApiUrl : "http://localhost:5000/api");
 
 const API = axios.create({
   baseURL: API_BASE_URL,
