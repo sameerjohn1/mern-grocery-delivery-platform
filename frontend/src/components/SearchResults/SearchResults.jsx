@@ -10,15 +10,12 @@ import {
 import { useCart } from "../../CartContext";
 import { getHookahs, getProducts } from "../../api/api";
 import { searchResultsStyles as s } from "../../assets/dummyStyles";
+import { resolveCatalogImageUrl } from "../../utils/imageUrls";
 
 const normalize = (value) =>
   String(value || "")
     .trim()
     .toLowerCase();
-
-const getImageUrl = (image) => {
-  typeof image === "string" ? image : image?.url || "";
-};
 
 const toProductSearchItem = (item) => ({
   id: item._id,
@@ -26,7 +23,7 @@ const toProductSearchItem = (item) => ({
   source: "Product",
   productModel: "Product",
   category: item.category || "Grocery",
-  image: getImageUrl(item.image),
+  image: resolveCatalogImageUrl(item.image),
   name: item.name || "",
   company: item.company || "",
   price: item.sellingPrice || 0,
@@ -40,7 +37,7 @@ const toHookahSearchItem = (item) => ({
   source: "Hookah",
   productModel: "Hookah",
   category: "Hookah Products",
-  image: getImageUrl(item.image),
+  image: resolveCatalogImageUrl(item.image),
   name: item.name || "",
   company: item.company || "",
   price: item.sellingPrice || 0,

@@ -17,6 +17,7 @@ import hookahFallback from "../../assets/product-images/hookah-001.png";
 import hookahFallbackTwo from "../../assets/product-images/hookah-002.png";
 import hookahFallbackThree from "../../assets/product-images/hookah-003.png";
 import hookahFallbackFour from "../../assets/product-images/hookah-004.png";
+import { resolveCatalogImageUrl } from "../../utils/imageUrls";
 
 const hookahFallbacks = [
   hookahFallback,
@@ -24,11 +25,6 @@ const hookahFallbacks = [
   hookahFallbackThree,
   hookahFallbackFour,
 ];
-
-const getImageUrl = (image) => {
-  const url = typeof image === "string" ? image : image?.url;
-  return typeof url === "string" && url.trim() ? url.trim() : null;
-};
 
 const isDemoPlaceholderUrl = (imageUrl) => {
   try {
@@ -183,7 +179,7 @@ const GreenCartPage = ({ expanded = false }) => {
           >
             {visibleProducts.map((item, index) => {
               const fallbackImage = getProductFallback(index);
-              const requestedImageUrl = getImageUrl(item.image);
+              const requestedImageUrl = resolveCatalogImageUrl(item.image);
               const imageUrl =
                 requestedImageUrl && !isDemoPlaceholderUrl(requestedImageUrl)
                   ? requestedImageUrl

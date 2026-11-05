@@ -5,11 +5,7 @@ import { ArrowUpRight, Sparkles } from "lucide-react";
 import { getCategories } from "../../api/api";
 import { productsPageStyles as s } from "../../assets/dummyStyles";
 import categoryFallback from "../../assets/P2.png";
-
-const getImageUrl = (image) => {
-  const url = typeof image === "string" ? image : image?.url;
-  return typeof url === "string" && url.trim() ? url.trim() : null;
-};
+import { resolveCatalogImageUrl } from "../../utils/imageUrls";
 
 const containerVariants = {
   hidden: {},
@@ -97,7 +93,9 @@ const ProductPage = () => {
                 <div className={s.imageWrapper}>
                   <span className={s.imageGlow} aria-hidden="true" />
                   <img
-                    src={getImageUrl(category.image) || categoryFallback}
+                    src={
+                      resolveCatalogImageUrl(category.image) || categoryFallback
+                    }
                     className={s.categoryImage}
                     alt={`${category.categoryName} category`}
                     loading="lazy"

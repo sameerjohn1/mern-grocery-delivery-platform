@@ -15,6 +15,7 @@ import { useCart } from "../../CartContext";
 import { useNavigate } from "react-router-dom";
 import { createCheckoutSession, getAddresses, placeOrder } from "../../api/api";
 import { cartPageStyles as s } from "../../assets/dummyStyles";
+import { resolveCatalogImageUrl } from "../../utils/imageUrls";
 
 const deliveryFee = 10;
 const PENDING_ONLINE_ORDER_KEY = "freshmart-pending-online-order";
@@ -195,7 +196,7 @@ const CartPage = () => {
                 <article key={item.cartId} className={s.productCard}>
                   <div className={s.productImageWrapper}>
                     <img
-                      src={item.image}
+                      src={resolveCatalogImageUrl(item.image)}
                       alt={item.name}
                       className={s.productImage}
                     />

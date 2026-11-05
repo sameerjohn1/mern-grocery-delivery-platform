@@ -13,6 +13,7 @@ import { useCart } from "../../CartContext";
 import { getProducts } from "../../api/api";
 import { productItemsPageStyles as s } from "../../assets/dummyStyles";
 import productFallback from "../../assets/P2.png";
+import { resolveCatalogImageUrl } from "../../utils/imageUrls";
 
 const containerVariants = {
   hidden: {},
@@ -102,7 +103,8 @@ const ProductItemsPage = () => {
             variants={containerVariants}
           >
             {products.map((item) => {
-              const imageUrl = item.image?.url || productFallback;
+              const imageUrl =
+                resolveCatalogImageUrl(item.image) || productFallback;
               const cartItem = {
                 cartId: item._id,
                 source: "Product",

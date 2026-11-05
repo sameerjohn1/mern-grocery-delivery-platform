@@ -17,6 +17,7 @@ import { cancelOrder, getMyOrder } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import { formatShortOrderId } from "../../utils/orderIds";
 import { ordersPageStyles as s } from "../../assets/dummyStyles";
+import { resolveCatalogImageUrl } from "../../utils/imageUrls";
 
 const deliveryFee = 10;
 
@@ -35,9 +36,7 @@ const toUiOrder = (order) => {
   const items = (order.products || []).map((item) => {
     const product = item.product || item;
     const image =
-      typeof product.image === "string"
-        ? product.image
-        : product.image?.url || "";
+      resolveCatalogImageUrl(product.image);
     const price = product.sellingPrice || 0;
 
     return {
