@@ -4,8 +4,10 @@ import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowLeft,
   ArrowRight,
+  LoaderCircle,
   Minus,
   Plus,
+  RefreshCw,
   ShoppingBag,
   ShoppingCart,
 } from "lucide-react";
@@ -36,6 +38,8 @@ const ProductItemsPage = () => {
   const categoryName = decodeURIComponent(id);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const { addItem, decreaseItem, getQuantity } = useCart();
   const prefersReducedMotion = useReducedMotion();
 
@@ -44,6 +48,7 @@ const ProductItemsPage = () => {
 
     const fetchProducts = async () => {
       setLoading(true);
+      setLoadError(false);
       try {
         const { data } = await getProducts({
           category: categoryName,
@@ -52,6 +57,7 @@ const ProductItemsPage = () => {
         if (isCurrent) setProducts(data.products || []);
       } catch (error) {
         console.error(error);
+        if (isCurrent) setLoadError(true);
       } finally {
         if (isCurrent) setLoading(false);
       }
@@ -61,9 +67,9 @@ const ProductItemsPage = () => {
     return () => {
       isCurrent = false;
     };
-  }, [categoryName]);
+  }, [categoryName, loadAttempt]);
 
-  if (!loading && products.length === 0) {
+  if (!loading && !loadError && products.length === 0) {
     return (
       <section className={s.emptySection}>
         <h1 className={s.emptyHeading}>No Products Found</h1>
@@ -90,8 +96,20 @@ const ProductItemsPage = () => {
               <h2 className={s.categoryTitle}>Explore the Collection</h2>
             </div>
             <span className={s.countBadge}>
-              <ShoppingBag size={14} className="mr-2" />
-              {products.length} {products.length === 1 ? "Product" : "Products"}
+              {loading ? (
+                <>
+                  <LoaderCircle size={14} className="mr-2 animate-spin" />
+                  Loading products
+                </>
+              ) : loadError ? (
+                "Products unavailable"
+              ) : (
+                <>
+                  <ShoppingBag size={14} className="mr-2" />
+                  {products.length}{" "}
+                  {products.length === 1 ? "Product" : "Products"}
+                </>
+              )}
             </span>
           </div>
 
@@ -102,7 +120,32 @@ const ProductItemsPage = () => {
             viewport={{ once: true, amount: 0.05 }}
             variants={containerVariants}
           >
-            {products.map((item) => {
+            {loading ? (
+              <div
+                className="col-span-full flex min-h-48 items-center justify-center gap-3 rounded-3xl border border-[#A7E8C1]/15 bg-[#0D241D]/70 text-sm font-bold text-[#A7C4B8]"
+                role="status"
+              >
+                <LoaderCircle className="h-5 w-5 animate-spin text-[#A7E8C1]" />
+                Loading products...
+              </div>
+            ) : loadError ? (
+              <div
+                className="col-span-full flex min-h-48 flex-col items-center justify-center gap-3 rounded-3xl border border-red-400/20 bg-[#0D241D]/70 p-6 text-center"
+                role="alert"
+              >
+                <p className="font-bold text-[#F6F3E8]">
+                  Products could not be loaded.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setLoadAttempt((attempt) => attempt + 1)}
+                  className="inline-flex items-center gap-2 rounded-full bg-[#A7E8C1] px-4 py-2 text-sm font-bold text-[#0B2B21] transition hover:bg-[#DDF4E5]"
+                >
+                  <RefreshCw size={15} />
+                  Try again
+                </button>
+              </div>
+            ) : products.map((item) => {
               const imageUrl =
                 resolveCatalogImageUrl(item.image) || productFallback;
               const cartItem = {
