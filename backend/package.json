@@ -6,7 +6,10 @@
   "scripts": {
     "start": "nodemon server.js",
     "seed:demo": "node scripts/seedDemoData.js",
-    "seed:catalog": "node scripts/seedCatalog.js"
+    "seed:catalog": "node scripts/seedCatalog.js",
+    "upload:catalog": "node scripts/uploadCatalogImages.js",
+    "upload:catalog:dry": "node scripts/uploadCatalogImages.js --dry-run",
+    "upload:catalog:run": "node scripts/uploadCatalogImages.js --allow-remote"
   },
   "keywords": [],
   "author": "",

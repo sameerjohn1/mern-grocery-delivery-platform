@@ -16,6 +16,9 @@ const publicImageDirectory = path.resolve(
   "../../frontend/public/catalog",
 );
 const seedPrefix = "frontend-static:catalog/";
+const cloudinaryPrefix = "GreenCart-Images/catalog/";
+const isSeedManagedImage = (publicId = "") =>
+  publicId.startsWith(seedPrefix) || publicId.startsWith(cloudinaryPrefix);
 const remoteOptIn = process.argv.includes("--allow-remote");
 const dryRun = process.argv.includes("--dry-run");
 
@@ -236,10 +239,10 @@ const assertNoCatalogConflicts = async () => {
   ]);
 
   const categoryConflicts = existingCategories.filter(
-    (category) => !category.image?.public_id?.startsWith(seedPrefix),
+    (category) => !isSeedManagedImage(category.image?.public_id),
   );
   const productConflicts = existingProducts.filter(
-    (product) => !product.image?.public_id?.startsWith(seedPrefix),
+    (product) => !isSeedManagedImage(product.image?.public_id),
   );
 
   if (categoryConflicts.length || productConflicts.length) {
@@ -329,7 +332,7 @@ const main = async () => {
       for (let index = 0; index < products.length; index += 1) {
         const { imageIndex, ...product } = products[index];
         await Product.updateOne(
-          { "image.public_id": productImages[index].public_id },
+          { name: product.name, category: product.category },
           { $set: { ...product, image: productImages[index] } },
           { upsert: true, runValidators: true, session },
         );
