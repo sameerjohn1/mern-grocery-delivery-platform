@@ -15,7 +15,7 @@ import paymentRoutes from "./routes/paymentRoute.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import adminOrderRoutes from "./routes/adminOrderRoutes.js";
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 const app = express();
 
 // Middlewares
@@ -23,8 +23,18 @@ app.use(cors());
 app.use(express.json());
 app.use("/uploads", express.static(uploadsDir));
 
-// Db
-connectDB();
+// Ensure a database connection exists for every request (required on serverless)
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    console.error("Database connection failed:", error.message);
+    res
+      .status(500)
+      .json({ success: false, message: "Database connection failed" });
+  }
+});
 
 // Routes
 app.use("/api/users", userRoutes);
@@ -43,6 +53,18 @@ app.get("/", (req, res) => {
   res.send("API Working");
 });
 
-app.listen(PORT, () => {
-  console.log(`Server Started on http://localhost:${PORT}`);
-});
+// Locally we start a long-running server. On Vercel, server.js is used as the handler.
+if (!process.env.VERCEL) {
+  connectDB()
+    .then(() => {
+      app.listen(PORT, () => {
+        console.log(`Server Started on http://localhost:${PORT}`);
+      });
+    })
+    .catch((error) => {
+      console.error(`Failed to connect to MongoDB: ${error.message}`);
+      process.exit(1);
+    });
+}
+
+export default app;

@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { LogIn, Mail, Lock, Eye, EyeOff } from "lucide-react";
 import greenCartLogo from "../../assets/greenCart.png";
 import axios from "axios";
+import { API_BASE_URL } from "../../api/adminApi";
 import { adminLoginStyles as s } from "../../assets/dummyStyles";
 
 const LoginPage = () => {
@@ -22,10 +23,10 @@ const LoginPage = () => {
     setIsLoading(true);
 
     try {
-      const { data } = await axios.post(
-        "http://localhost:5000/api/users/login",
-        { email, password },
-      );
+      const { data } = await axios.post(`${API_BASE_URL}/users/login`, {
+        email,
+        password,
+      });
       if (data.success) {
         if (data.user?.role !== "admin") {
           setError("This account does not have admin access.");

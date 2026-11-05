@@ -14,7 +14,7 @@ const ensureUploadDirectory = () => {
   }
 };
 
-const storage = multer.diskStorage({
+const diskStorage = multer.diskStorage({
   destination: (req, file, cb) => {
     try {
       ensureUploadDirectory();
@@ -31,6 +31,10 @@ const storage = multer.diskStorage({
     }
   },
 });
+
+// Vercel's filesystem is read-only/ephemeral, so keep uploaded files in memory
+// there and stream them straight to Cloudinary.
+const storage = process.env.VERCEL ? multer.memoryStorage() : diskStorage;
 
 const upload = multer({ storage });
 export default upload;
