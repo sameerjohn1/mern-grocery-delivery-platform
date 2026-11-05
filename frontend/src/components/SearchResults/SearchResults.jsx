@@ -106,6 +106,21 @@ const SearchResults = ({ query }) => {
   return (
     <section className={s.section}>
       <div className={s.container}>
+        <div className={s.headerWrapper}>
+          <div>
+            <p className={s.eyebrow}>Search results</p>
+            <h2 className={s.heading}>
+              Results for{" "}
+              <span className={s.queryHighlight}>&quot;{trimedQuery}&quot;</span>
+            </h2>
+          </div>
+          {!loading && !loadError ? (
+            <span className={s.countBadge}>
+              {result.length} {result.length === 1 ? "item" : "items"}
+            </span>
+          ) : null}
+        </div>
+
         {loading ? (
           <div className={s.loadingContainer}>
             <Loader2 className={s.loaderIcon} />
@@ -120,7 +135,7 @@ const SearchResults = ({ query }) => {
             <button
               type="button"
               onClick={() => setLoadAttempt((attempt) => attempt + 1)}
-              className="mt-5 inline-flex items-center gap-2 rounded-full bg-black px-5 py-2.5 text-sm font-bold text-white transition hover:bg-zinc-800"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#A7E8C1] px-5 py-2.5 text-sm font-bold text-[#0B2B21] transition hover:bg-[#DDF4E5]"
             >
               <RefreshCw className="h-4 w-4" />
               Try again
