@@ -4,9 +4,11 @@ export const resolveCatalogImageUrl = (image) => {
 
   try {
     const url = new URL(imageUrl);
-    const isLocalHost = ["localhost", "127.0.0.1"].includes(url.hostname);
 
-    if (isLocalHost && url.pathname.startsWith("/catalog/")) {
+    // Catalog images ship with the storefront build, so always load them from
+    // the current origin. This keeps seeded data working even if the database
+    // still contains a localhost or old deployment origin.
+    if (url.pathname.startsWith("/catalog/")) {
       return `${url.pathname}${url.search}${url.hash}`;
     }
   } catch {

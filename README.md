@@ -89,6 +89,13 @@ hookahs, and accounts untouched. For a remote database, first review the plan
 with `node scripts/seedCatalog.js --dry-run --allow-remote`, then run
 `node scripts/seedCatalog.js --allow-remote`. Production seeding is disabled.
 
+### Move catalog images to Cloudinary
+
+Preview the migration with `npm run upload:catalog:dry`, then upload and update
+the database with `npm run upload:catalog:run`. The Cloudinary API key must have
+**Upload/Create** permission. Images already served from Cloudinary are skipped,
+so the migration can be rerun safely.
+
 ## Author
 
 **Sameer**, Full Stack Developer (React, Next.js, Node.js, MongoDB)
