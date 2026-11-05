@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getToken, clearSession } from "../auth/authStorage";
 
 const configuredApiUrl = import.meta.env.VITE_API_URL;
 const productionApiUrl = "https://mern-grocery-delivery-platform.vercel.app/api";
@@ -32,6 +33,16 @@ API.interceptors.request.use(
     return config;
   },
   (error) => Promise.reject(error),
+);
+
+API.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401 && getToken()) {
+      clearSession();
+    }
+    return Promise.reject(error);
+  },
 );
 
 export const registerUser = (data) => API.post("/users/register", data);
