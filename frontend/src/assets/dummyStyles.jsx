@@ -339,48 +339,50 @@ export const hookahPageStyles = {
     "mx-auto mt-6 h-px w-32 bg-linear-to-r from-transparent via-[#A7E8C1]/80 to-transparent",
 
   productGrid:
-    "grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-5 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5",
+    "grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-5 md:grid-cols-3 lg:grid-cols-4",
   productGridCompact:
     "mx-auto grid w-full max-w-4xl grid-cols-1 items-stretch gap-4 sm:grid-cols-2 sm:gap-5",
+  cardMotion: "h-full",
 
   productCard:
-    "group relative overflow-hidden rounded-3xl border border-[#A7E8C1]/15 bg-[#F6F3E8] text-[#10251D] shadow-[0_18px_48px_rgba(0,0,0,0.18)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#A7E8C1]/45 hover:shadow-[0_26px_64px_rgba(0,0,0,0.28)]",
+    "group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-[#A7E8C1]/12 bg-[#0D241D] text-[#F6F3E8] shadow-[0_18px_48px_rgba(0,0,0,0.3)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#A7E8C1]/45 hover:shadow-[0_26px_64px_rgba(0,0,0,0.45)]",
   cardOverlay1:
-    "pointer-events-none absolute inset-0 bg-linear-to-br from-[#A7E8C1]/10 via-transparent to-[#34D399]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100",
+    "pointer-events-none absolute inset-0 bg-linear-to-br from-[#A7E8C1]/8 via-transparent to-[#34D399]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100",
   cardOverlay2:
-    "pointer-events-none absolute -right-10 top-0 h-24 w-24 rounded-full bg-[#34D399]/15 blur-2xl",
+    "pointer-events-none absolute -right-10 top-0 h-24 w-24 rounded-full bg-[#34D399]/12 blur-2xl",
   cardOverlay3:
-    "pointer-events-none absolute -bottom-10 left-0 h-24 w-24 rounded-full bg-[#A7E8C1]/20 blur-2xl",
+    "pointer-events-none absolute -bottom-10 left-0 h-24 w-24 rounded-full bg-[#A7E8C1]/12 blur-2xl",
   cardContent: "relative flex h-full flex-col",
 
   imageWrapper:
-    "relative flex h-48 items-center justify-center overflow-hidden border-b border-[#1F3B32]/8 bg-linear-to-br from-[#DDF4E5] via-[#F6F3E8] to-[#E7F1E8] p-5 sm:h-52",
+    "relative flex h-56 items-center justify-center overflow-hidden border-b border-[#A7E8C1]/10 bg-linear-to-br from-[#10392C] via-[#0B2B21] to-[#071B16] p-5 sm:h-64",
   productImage:
-    "h-full w-full object-contain transition-transform duration-500 group-hover:scale-105",
+    "h-full w-full object-contain transition-transform duration-500 group-hover:scale-110",
 
   productInfo: "flex flex-1 flex-col p-4 sm:p-5",
   productName:
-    "font-store-label line-clamp-2 text-base font-black leading-snug tracking-wide text-[#10251D]",
-  productCompany: "mt-1 truncate text-sm font-semibold text-[#527064]",
+    "font-store-label line-clamp-2 text-base font-black leading-snug tracking-wide text-[#F6F3E8]",
+  productCompany: "mt-1 truncate text-sm font-semibold text-[#A7C4B8]",
   sizeBadge:
-    "font-store-label mt-3 inline-flex w-fit rounded-full border border-[#1F3B32]/10 bg-[#E7F1E8] px-3 py-1 text-xs font-bold text-[#315D49]",
+    "font-store-label mt-3 inline-flex w-fit rounded-full border border-[#A7E8C1]/20 bg-[#A7E8C1]/10 px-3 py-1 text-xs font-bold text-[#A7E8C1]",
 
   priceContainer:
-    "mt-4 rounded-2xl border border-[#1F3B32]/8 bg-white/75 px-4 py-3",
+    "mt-4 rounded-2xl border border-[#A7E8C1]/10 bg-[#071B16] px-4 py-3",
   priceRow: "mt-1 flex items-baseline gap-2",
-  priceCurrent: "font-store-display text-2xl font-black text-[#0B2B21]",
-  priceOld: "font-store-label text-sm font-bold text-[#82938A] line-through",
+  priceCurrent: "font-store-display text-2xl font-black text-[#F6F3E8]",
+  priceOld:
+    "font-store-label text-sm font-bold text-[#A7C4B8]/60 line-through",
 
   actionWrapper: "mt-auto flex justify-center pt-4",
 
   quantityControls:
-    "font-store-label inline-flex h-11 w-full max-w-48 items-center justify-between rounded-full border border-[#0B2B21] bg-[#0B2B21] px-2 text-sm font-black text-[#DDF4E5] shadow-md shadow-[#0B2B21]/15",
+    "font-store-label inline-flex h-11 w-full max-w-48 items-center justify-between rounded-full border border-[#A7E8C1]/20 bg-[#071B16] px-2 text-sm font-black text-[#DDF4E5] shadow-md shadow-black/20",
   qtyButton:
     "inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-[#A7E8C1] text-[#0B2B21] transition hover:bg-[#DDF4E5]",
   qtyValue: "min-w-10 text-center",
 
   addButton:
-    "font-store-label inline-flex h-11 w-full max-w-56 cursor-pointer items-center justify-center gap-2 rounded-full bg-[#0B2B21] px-4 text-sm font-bold text-[#F6F3E8] shadow-md shadow-[#0B2B21]/15 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#174533] active:scale-[0.98]",
+    "font-store-label inline-flex h-11 w-full max-w-56 cursor-pointer items-center justify-center gap-2 rounded-full bg-[#A7E8C1] px-4 text-sm font-bold text-[#0B2B21] shadow-lg shadow-[#A7E8C1]/15 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#DDF4E5] active:scale-[0.98]",
 
   cardBottomBar:
     "h-1 w-0 bg-[#34D399] transition-all duration-500 group-hover:w-full",
@@ -704,93 +706,136 @@ export const paymentSuccessPageStyles = {
 
 export const productItemsPageStyles = {
   // Empty state
-  emptySection: "bg-yellow-50 px-4 py-20 text-center",
-  emptyHeading: "font-serif text-4xl font-black italic text-zinc-950",
+  emptySection:
+    "flex min-h-[70vh] flex-col items-center justify-center bg-linear-to-br from-[#071B16] via-[#0B2B21] to-[#123128] px-4 py-24 text-center text-[#F6F3E8]",
+  emptyHeading:
+    "font-store-display text-4xl font-black tracking-wide text-[#F6F3E8]",
   emptyLink:
-    "font-store-label mt-6 inline-flex rounded-full bg-black px-6 py-3 font-bold text-white",
+    "font-store-label mt-6 inline-flex items-center gap-2 rounded-full bg-[#A7E8C1] px-6 py-3 font-bold text-[#0B2B21] shadow-lg shadow-[#A7E8C1]/15 transition hover:-translate-y-0.5 hover:bg-[#DDF4E5]",
 
   // Main section
   section:
-    "min-h-screen bg-linear-to-br from-yellow-50 via-white to-zinc-100 px-4 py-10 sm:px-6 lg:px-8",
-  container: "mx-auto max-w-450",
+    "min-h-screen bg-linear-to-br from-[#071B16] via-[#0B2B21] to-[#123128] px-4 py-12 text-[#F6F3E8] sm:px-6 sm:py-16 lg:px-8",
+  container: "mx-auto max-w-7xl",
 
   backLink:
-    "font-store-label mb-6 inline-flex items-center gap-2 text-sm font-bold text-zinc-600 hover:text-zinc-950",
+    "font-store-label mb-8 inline-flex items-center gap-2 rounded-full border border-[#A7E8C1]/20 bg-[#A7E8C1]/5 px-4 py-2.5 text-sm font-bold text-[#A7E8C1] transition hover:border-[#A7E8C1]/50 hover:bg-[#A7E8C1]/10",
 
-  contentWrapper: "mt-10 p-5 sm:p-7",
+  contentWrapper: "mt-2",
 
+  headerWrapper:
+    "mb-8 flex flex-col gap-4 border-b border-[#A7E8C1]/10 pb-6 sm:flex-row sm:items-end sm:justify-between",
   categoryLabel:
-    "font-store-label text-xs font-black uppercase tracking-[0.2em] text-black",
+    "font-store-label text-xs font-black uppercase tracking-[0.2em] text-[#A7E8C1]",
   categoryTitle:
-    "font-serif text-3xl font-black italic tracking-wide text-black",
+    "font-store-display mt-2 text-3xl font-black tracking-wide text-[#F6F3E8] sm:text-4xl",
+  countBadge:
+    "font-store-label inline-flex w-fit items-center rounded-full border border-[#A7E8C1]/20 bg-[#A7E8C1]/10 px-4 py-2 text-xs font-bold uppercase tracking-wide text-[#DDF4E5]",
 
   productGrid:
-    "mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6",
+    "grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 xl:grid-cols-4",
+  cardMotion: "h-full",
 
-  // Product card (shared with HookahPage but slightly different)
+  // Product card
   productCard:
-    "group relative overflow-hidden rounded-3xl rounded-bl-[5rem] border border-yellow-200 bg-white shadow-[0_18px_50px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_24px_70px_rgba(0,0,0,0.12)]",
+    "group relative flex h-full flex-col overflow-hidden rounded-[1.75rem] border border-[#A7E8C1]/12 bg-[#0D241D] text-[#F6F3E8] shadow-[0_18px_48px_rgba(0,0,0,0.28)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#A7E8C1]/45 hover:shadow-[0_26px_64px_rgba(0,0,0,0.42)]",
   cardOverlay1:
-    "absolute inset-0 bg-linear-to-br from-yellow-400/10 via-transparent to-yellow-500/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100",
+    "pointer-events-none absolute inset-0 bg-linear-to-br from-[#A7E8C1]/8 via-transparent to-[#34D399]/5 opacity-0 transition-opacity duration-500 group-hover:opacity-100",
   cardOverlay2:
-    "absolute -right-10 top-0 h-24 w-24 rounded-full bg-yellow-300/20 blur-2xl",
+    "pointer-events-none absolute -right-10 top-0 h-24 w-24 rounded-full bg-[#34D399]/12 blur-2xl",
   cardOverlay3:
-    "absolute -bottom-10 left-0 h-24 w-24 rounded-full bg-yellow-200/20 blur-2xl",
+    "pointer-events-none absolute -bottom-10 left-0 h-24 w-24 rounded-full bg-[#A7E8C1]/12 blur-2xl",
 
   cardContent: "relative flex h-full flex-col",
 
-  imageWrapper: "overflow-hidden bg-yellow-50",
-  productImage: "h-40 w-full object-contain transition-transform duration-500",
+  imageWrapper:
+    "relative flex h-52 items-center justify-center overflow-hidden border-b border-[#A7E8C1]/10 bg-linear-to-br from-[#10392C] via-[#0B2B21] to-[#071B16] p-5 sm:h-60",
+  productImage:
+    "h-full w-full object-contain transition-transform duration-500 group-hover:scale-110",
 
-  productInfo: "flex flex-1 flex-col p-4",
+  productInfo: "flex flex-1 flex-col p-4 sm:p-5",
   productName:
-    "font-store-label line-clamp-2 text-base font-black leading-snug tracking-wide text-zinc-900",
-  productCompany: "mt-1 text-sm font-bold text-zinc-500",
+    "font-store-label line-clamp-2 text-base font-black leading-snug tracking-wide text-[#F6F3E8]",
+  productCompany: "mt-1 truncate text-sm font-semibold text-[#A7C4B8]",
   sizeBadge:
-    "font-store-label mt-2 inline-flex w-fit rounded-full bg-black px-3 py-1 text-xs font-bold text-white",
+    "font-store-label mt-3 inline-flex w-fit rounded-full border border-[#A7E8C1]/20 bg-[#A7E8C1]/10 px-3 py-1 text-xs font-bold text-[#A7E8C1]",
 
-  priceContainer: "mt-4 rounded-2xl bg-zinc-50 px-4 py-3",
+  priceContainer:
+    "mt-4 rounded-2xl border border-[#A7E8C1]/10 bg-[#071B16] px-4 py-3",
   priceRow: "mt-1 flex items-baseline gap-2",
-  priceCurrent: "font-store-display text-2xl font-black text-zinc-900",
-  priceOld: "font-store-label text-sm font-bold text-zinc-400 line-through",
+  priceCurrent: "font-store-display text-2xl font-black text-[#F6F3E8]",
+  priceOld:
+    "font-store-label text-sm font-bold text-[#A7C4B8]/60 line-through",
 
-  actionWrapper: "mt-4 flex justify-center",
+  actionWrapper: "mt-auto flex justify-center pt-4",
 
   quantityControls:
-    "font-store-label inline-flex h-11 w-40 items-center justify-between rounded-full border border-yellow-300 bg-black px-2 text-sm font-black text-yellow-300 shadow-md shadow-yellow-200",
+    "font-store-label inline-flex h-11 w-full max-w-48 items-center justify-between rounded-full border border-[#A7E8C1]/20 bg-[#071B16] px-2 text-sm font-black text-[#DDF4E5] shadow-md shadow-black/20",
   qtyButton:
-    "inline-flex h-8 w-8 items-center justify-center rounded-full bg-yellow-300 text-black",
+    "inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-[#A7E8C1] text-[#0B2B21] transition hover:bg-[#DDF4E5]",
+  qtyValue: "min-w-10 text-center",
 
   addButton:
-    "font-store-label inline-flex h-11 w-40 items-center justify-center gap-2 rounded-full border border-yellow-300 bg-yellow-400 px-3 text-sm font-bold text-black transition hover:bg-yellow-300",
+    "font-store-label inline-flex h-11 w-full max-w-56 cursor-pointer items-center justify-center gap-2 rounded-full bg-[#A7E8C1] px-4 text-sm font-bold text-[#0B2B21] shadow-lg shadow-[#A7E8C1]/15 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#DDF4E5] active:scale-[0.98]",
 
   cardBottomBar:
-    "h-1 w-0 bg-yellow-400 transition-all duration-500 group-hover:w-full",
+    "h-1 w-0 bg-[#34D399] transition-all duration-500 group-hover:w-full",
 };
 
 export const productsPageStyles = {
   section:
-    "relative min-h-[80vh] scroll-mt-24 overflow-hidden bg-[#000000] px-4 py-4 pt-8 text-[#D1FAE5] sm:px-6 sm:pt-10 lg:px-8",
+    "relative min-h-[80vh] scroll-mt-24 overflow-hidden bg-linear-to-br from-[#071B16] via-[#0B2B21] to-[#123128] px-4 py-14 text-[#F6F3E8] sm:px-6 sm:py-16 lg:px-8",
 
   // Inline gradient background
   gradientBackground: {
     background: `
-      radial-gradient(circle at top left, rgba(52,211,153,0.06), transparent 28%),
-      radial-gradient(circle at bottom right, rgba(13,36,29,0.3), transparent 38%)
+      radial-gradient(circle at top left, rgba(52,211,153,0.08), transparent 32%),
+      radial-gradient(circle at bottom right, rgba(13,36,29,0.35), transparent 42%)
     `,
   },
 
+  ambientGlow:
+    "pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-[#34D399]/10 blur-3xl",
+  ambientGlowTwo:
+    "pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-[#A7E8C1]/8 blur-3xl",
+
   innerContainer: "relative mx-auto max-w-7xl",
 
-  grid: "grid auto-rows-fr grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8",
+  headerWrapper: "mx-auto mb-10 max-w-3xl text-center sm:mb-14",
+  badge:
+    "font-store-label mb-5 inline-flex items-center gap-2 rounded-full border border-[#A7E8C1]/25 bg-[#A7E8C1]/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.18em] text-[#A7E8C1] sm:text-sm",
+  badgeIcon: "h-4 w-4",
+  heading:
+    "font-store-display text-4xl font-black leading-tight tracking-wide text-[#F6F3E8] sm:text-5xl md:text-6xl",
+  highlight:
+    "bg-linear-to-r from-[#A7E8C1] via-[#DDF4E5] to-[#6EE7B7] bg-clip-text text-transparent",
+  subheading:
+    "mx-auto mt-4 max-w-2xl text-sm font-medium leading-7 text-[#DDF4E5]/65 sm:text-base",
+  divider:
+    "mx-auto mt-6 h-px w-32 bg-linear-to-r from-transparent via-[#A7E8C1]/80 to-transparent",
+
+  grid: "grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5",
+  cardMotion: "h-full",
 
   categoryLink:
-    "flex h-full scroll-mt-28 cursor-pointer flex-col overflow-hidden rounded-3xl border border-[#1F3B32] bg-[#0D241D] p-1.5 transition duration-300 hover:-translate-y-1 hover:border-[#34D399]/40 hover:shadow-lg hover:shadow-[#34D399]/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#34D399] sm:p-2",
+    "group relative flex h-full scroll-mt-28 cursor-pointer flex-col overflow-hidden rounded-3xl border border-[#A7E8C1]/12 bg-[#0D241D] p-2 shadow-[0_18px_48px_rgba(0,0,0,0.28)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#A7E8C1]/45 hover:shadow-[0_26px_64px_rgba(0,0,0,0.42)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#A7E8C1] sm:p-2.5",
 
-  categoryImage: "h-32 w-full rounded-2xl object-cover sm:h-36 md:h-32 xl:h-36",
+  imageWrapper:
+    "relative flex h-40 items-center justify-center overflow-hidden rounded-2xl border border-[#A7E8C1]/10 bg-linear-to-br from-[#10392C] via-[#0B2B21] to-[#071B16] p-3 sm:h-48",
+  imageGlow:
+    "pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(167,232,193,0.18),transparent_62%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100",
+  categoryImage:
+    "relative h-full w-full rounded-xl object-cover transition-transform duration-500 group-hover:scale-110",
 
+  categoryFooter:
+    "mt-3 flex items-center justify-between gap-2 px-1.5 pb-1",
   categoryName:
-    "font-store-label mt-2 flex min-h-8 items-center justify-center px-1 text-center text-xs font-bold leading-tight tracking-wide text-[#D1FAE5] sm:text-[13px] xl:text-sm",
+    "font-store-label line-clamp-2 text-left text-xs font-black leading-tight tracking-wide text-[#F6F3E8] sm:text-sm",
+  categoryArrow:
+    "inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#A7E8C1]/20 bg-[#A7E8C1]/10 text-[#A7E8C1] transition-all duration-300 group-hover:bg-[#A7E8C1] group-hover:text-[#0B2B21]",
+  categoryArrowIcon: "h-4 w-4",
+  cardBottomBar:
+    "h-1 w-0 bg-[#34D399] transition-all duration-500 group-hover:w-full",
 };
 
 export const searchResultsStyles = {
