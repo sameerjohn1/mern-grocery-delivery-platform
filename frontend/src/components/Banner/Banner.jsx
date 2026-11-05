@@ -15,6 +15,7 @@ import {
   Star,
   Truck,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { bannerData } from "./bannerdata";
 import GroceryScene from "./GroceryScene";
 
@@ -48,6 +49,7 @@ const cardStagger = {
 };
 
 const Banner = () => {
+  const navigate = useNavigate();
   const prefersReducedMotion = useReducedMotion();
 
   const pointerX = useMotionValue(0);
@@ -151,6 +153,7 @@ const Banner = () => {
               <motion.div variants={fadeUp} className="mt-6 flex flex-wrap items-center gap-3">
                 <motion.button
                   type="button"
+                  onClick={() => navigate(bannerData.buttons[0].to)}
                   whileHover={prefersReducedMotion ? undefined : { y: -3, scale: 1.02 }}
                   whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
                   className="font-store-label group inline-flex items-center gap-2 rounded-full bg-[#A7E8C1] px-6 py-3.5 text-sm font-bold text-[#0B2B21] shadow-lg shadow-[#A7E8C1]/20 transition-colors hover:bg-[#DDF4E5] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DDF4E5]"
@@ -161,6 +164,7 @@ const Banner = () => {
 
                 <motion.button
                   type="button"
+                  onClick={() => navigate(bannerData.buttons[1].to)}
                   whileHover={prefersReducedMotion ? undefined : { y: -3 }}
                   whileTap={prefersReducedMotion ? undefined : { scale: 0.97 }}
                   className="font-store-label group inline-flex items-center gap-2 rounded-full border border-[#DDF4E5]/25 bg-[#10392C]/70 px-6 py-3.5 text-sm font-bold text-[#DDF4E5] backdrop-blur-sm transition-colors hover:border-[#A7E8C1]/60 hover:text-[#A7E8C1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DDF4E5]"

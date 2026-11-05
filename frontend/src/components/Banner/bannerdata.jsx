@@ -10,8 +10,8 @@ export const bannerData = {
     "Farm-fresh vegetables, juicy fruits, and everyday essentials picked at peak quality and dropped at your doorstep — fresh, fast, and fuss-free.",
 
   buttons: [
-    { label: "Shop Now", type: "primary" },
-    { label: "View Fresh Picks", type: "secondary" },
+    { label: "Shop Now", type: "primary", to: "/greencart-products" },
+    { label: "View Fresh Picks", type: "secondary", to: "/greencart-products" },
   ],
 
   cards: [
