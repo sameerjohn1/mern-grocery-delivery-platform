@@ -116,8 +116,7 @@ const ProductItemsPage = () => {
           <motion.div
             className={s.productGrid}
             initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, amount: 0.05 }}
+            animate="show"
             variants={containerVariants}
           >
             {loading ? (

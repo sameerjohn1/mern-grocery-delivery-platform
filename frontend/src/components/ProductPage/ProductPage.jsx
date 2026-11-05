@@ -71,8 +71,7 @@ const ProductPage = () => {
       <div className={s.innerContainer}>
         <motion.div
           initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.4 }}
+          animate="show"
           variants={containerVariants}
           className={s.headerWrapper}
         >
@@ -92,8 +91,7 @@ const ProductPage = () => {
 
         <motion.div
           initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.1 }}
+          animate="show"
           variants={containerVariants}
           className={s.grid}
         >
