@@ -545,18 +545,27 @@ export const navbarStyles = {
 
   // Right side actions
   actionsWrapper:
-    "grid w-full shrink-0 grid-cols-3 gap-1.5 sm:flex sm:items-center sm:justify-center sm:gap-2 xl:w-auto",
+    "grid w-full shrink-0 grid-cols-2 gap-1.5 sm:flex sm:items-center sm:justify-center sm:gap-2 xl:w-auto",
 
   // Common action button (used for orders, cart, login, account)
   actionButton:
     "font-store-label inline-flex min-h-11 cursor-pointer items-center justify-center gap-1 rounded-full bg-[#10392C] px-1.5 py-2.5 text-xs font-bold text-[#F6F3E8] shadow-md ring-1 ring-[#A7E8C1]/25 transition-transform hover:scale-[1.02] hover:bg-[#A7E8C1] hover:text-[#0B2B21] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DDF4E5] sm:gap-2 sm:px-4 sm:text-sm",
+  actionButtonActive:
+    "font-store-label inline-flex min-h-11 cursor-pointer items-center justify-center gap-1 rounded-full bg-[#A7E8C1] px-1.5 py-2.5 text-xs font-bold text-[#0B2B21] shadow-md ring-1 ring-[#A7E8C1]/70 transition-transform hover:scale-[1.02] hover:bg-[#DDF4E5] hover:text-[#0B2B21] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DDF4E5] sm:gap-2 sm:px-4 sm:text-sm",
   actionIcon: "h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4",
 
-  // Cart button (extends actionButton but adds background black)
+  // Cart button (only highlighted when the cart route is active)
   cartButton:
-    "font-store-label relative inline-flex min-h-11 cursor-pointer items-center justify-center gap-1 rounded-full bg-[#A7E8C1] px-1.5 py-2.5 text-xs font-bold text-[#0B2B21] shadow-md transition-transform hover:bg-[#DDF4E5] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DDF4E5] sm:gap-2 sm:px-4 sm:text-sm",
+    "font-store-label relative inline-flex min-h-11 cursor-pointer items-center justify-center gap-1 rounded-full bg-[#10392C] px-1.5 py-2.5 text-xs font-bold text-[#F6F3E8] shadow-md ring-1 ring-[#A7E8C1]/25 transition-transform hover:scale-[1.02] hover:bg-[#A7E8C1] hover:text-[#0B2B21] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DDF4E5] sm:gap-2 sm:px-4 sm:text-sm",
+  cartButtonActive:
+    "font-store-label relative inline-flex min-h-11 cursor-pointer items-center justify-center gap-1 rounded-full bg-[#A7E8C1] px-1.5 py-2.5 text-xs font-bold text-[#0B2B21] shadow-md ring-1 ring-[#A7E8C1]/70 transition-transform hover:bg-[#DDF4E5] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#DDF4E5] sm:gap-2 sm:px-4 sm:text-sm",
   cartBadge:
     "absolute -right-2 -top-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-[#0B2B21] px-1.5 text-xs font-black text-[#DDF4E5] ring-2 ring-[#A7E8C1]",
+
+  // Logout toast
+  logoutToast:
+    "fixed right-4 top-20 z-[60] flex items-center gap-3 rounded-2xl border border-[#34D399]/35 bg-[#0D241D] px-4 py-3 text-sm font-black text-[#D1FAE5] shadow-2xl shadow-[#34D399]/10",
+  logoutToastIcon: "h-4 w-4 text-[#34D399]",
 
   // Account dropdown
   accountDropdownWrapper: "group relative min-w-0",

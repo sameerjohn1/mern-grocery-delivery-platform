@@ -15,6 +15,7 @@ import {
 import VerifyEmail from "./pages/auth/VerifyEmail";
 import ForgotPassword from "./pages/auth/ForgotPassword";
 import ResetPassword from "./pages/auth/ResetPassword";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -42,9 +43,30 @@ const App = () => {
         <Route path="/greencart-products" element={<GreenCart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/address" element={<Address />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/orders" element={<Orders />} />
+        <Route
+          path="/address"
+          element={
+            <ProtectedRoute>
+              <Address />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute>
+              <Orders />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/payment-success" element={<PaymentSuccessPage />} />
         <Route path="/payment-cancel" element={<PaymentCancelPage />} />
         <Route path="/verify-email" element={<VerifyEmail />} />

@@ -17,6 +17,7 @@ import {
   updateAddress as updateAddressApi,
 } from "../../api/api";
 import { addressPageStyles as s } from "../../assets/dummyStyles";
+import { storeRedirect } from "../../auth/authStorage";
 
 const emptyAddress = {
   id: "",
@@ -72,10 +73,7 @@ const AddressPage = () => {
 
     const fetchAddresses = async () => {
       if (!localStorage.getItem("token")) {
-        localStorage.setItem(
-          "freshmart-redirect-after-login",
-          `${location.pathname}${location.search}`,
-        );
+        storeRedirect(`${location.pathname}${location.search}`);
         navigate("/login");
         return;
       }

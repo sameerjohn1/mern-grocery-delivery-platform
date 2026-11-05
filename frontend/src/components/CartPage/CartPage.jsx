@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom";
 import { createCheckoutSession, getAddresses, placeOrder } from "../../api/api";
 import { cartPageStyles as s } from "../../assets/dummyStyles";
 import { resolveCatalogImageUrl } from "../../utils/imageUrls";
+import { storeRedirect } from "../../auth/authStorage";
 
 const deliveryFee = 10;
 const PENDING_ONLINE_ORDER_KEY = "freshmart-pending-online-order";
@@ -60,7 +61,7 @@ const CartPage = () => {
     if (cartItems.length === 0) return;
 
     if (!localStorage.getItem("token")) {
-      localStorage.setItem("freshmart-redirect-after-login", "/cart");
+      storeRedirect("/cart");
       showToast("Login first", "/login");
       return;
     }

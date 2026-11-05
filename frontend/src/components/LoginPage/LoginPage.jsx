@@ -15,10 +15,13 @@ import {
 import GreenCart from "../../assets/greenCart.png";
 import { loginUser } from "../../api/api";
 import { loginPageStyles as s } from "../../assets/dummyStyles";
+import { useAuth } from "../../auth/AuthContext";
+import { consumeRedirect } from "../../auth/authStorage";
 
 const LoginPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [toastVisible, setToastVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -38,16 +41,15 @@ const LoginPage = () => {
         password: formData.get("password"),
       });
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("GreenCart-user", JSON.stringify(data.user));
-      localStorage.setItem("GreenCart-auth", "true");
-      window.dispatchEvent(new Event("GreenCart-auth-change"));
+      login(data.token, data.user);
+
+      const storedRedirect = consumeRedirect("/");
+      const redirectTo = location.state?.from || storedRedirect;
 
       setToastVisible(true);
       setIsSubmitting(false);
       window.setTimeout(() => {
-        navigate(localStorage.getItem("GreenCart-redirect-after-login") || "/");
-        localStorage.removeItem("GreenCart-redirect-after-login");
+        navigate(redirectTo === "/login" ? "/" : redirectTo, { replace: true });
       }, 700);
     } catch (error) {
       console.log(error);
@@ -104,7 +106,9 @@ const LoginPage = () => {
         </span>
         <span>
           <span className={s.toastTitle}>Login successful</span>
-          <span className={s.toastSubtext}>Redirecting to home...</span>
+          <span className={s.toastSubtext}>
+            Redirecting to your page...
+          </span>
         </span>
       </div>
 

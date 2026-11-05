@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import {
+  CheckCircle2,
   ChevronDown,
   LogOut,
   LogIn,
@@ -11,16 +12,39 @@ import {
   UserRound,
 } from "lucide-react";
 import { useCart } from "../../CartContext";
+import { useAuth } from "../../auth/AuthContext";
 import GreenCart from "../../assets/greenCart.png";
 import { Link } from "react-router-dom";
 import { navbarStyles as s } from "../../assets/dummyStyles";
 
+const LOGOUT_TOAST_KEY = "gc:logout-toast";
+const LOGOUT_TOAST_MESSAGE = "Logged out successfully";
+
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { totalItems } = useCart();
+  const { totalItems, clearCart } = useCart();
+  const { isAuthenticated, user, logout } = useAuth();
   const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState(searchParams.get("q") || "");
+  const [toastMessage, setToastMessage] = useState(
+    () => sessionStorage.getItem(LOGOUT_TOAST_KEY) || "",
+  );
+  const isCartActive = location.pathname === "/cart";
+  const isOrdersActive = location.pathname === "/orders";
+
+  const showToast = (message) => setToastMessage(message);
+
+  useEffect(() => {
+    sessionStorage.removeItem(LOGOUT_TOAST_KEY);
+  }, []);
+
+  useEffect(() => {
+    if (!toastMessage) return undefined;
+
+    const timer = window.setTimeout(() => setToastMessage(""), 2600);
+    return () => window.clearTimeout(timer);
+  }, [toastMessage]);
   const [accountState, setAccountState] = useState({
     pathname: location.pathname,
     open: false,
@@ -34,23 +58,6 @@ const Navbar = () => {
   const isNavbarHidden =
     navbarState.pathname === location.pathname && navbarState.hidden;
   const lastScrollY = useRef(0);
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    () => localStorage.getItem("freshmart-auth") === true,
-  );
-
-  useEffect(() => {
-    const syncAuth = () => {
-      setIsLoggedIn(localStorage.getItem("freshmart-auth") === "true");
-    };
-
-    window.addEventListener("storage", syncAuth);
-    window.addEventListener("freshmart-auth-change", syncAuth);
-
-    return () => {
-      window.removeEventListener("storage", syncAuth);
-      window.removeEventListener("freshmart-auth-change", syncAuth);
-    };
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -98,134 +105,157 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("freshmart-auth");
-    localStorage.removeItem("freshmart-user");
-    window.dispatchEvent(new Event("freshmart-auth-change"));
+    logout();
+    clearCart();
     setAccountState({ pathname: location.pathname, open: false });
-    navigate("/login");
+
+    if (location.pathname === "/") {
+      showToast(LOGOUT_TOAST_MESSAGE);
+    } else {
+      sessionStorage.setItem(LOGOUT_TOAST_KEY, LOGOUT_TOAST_MESSAGE);
+    }
+
+    navigate("/", { replace: true });
   };
 
   return (
-    <header
-      className={`${s.headerBase} ${isNavbarHidden ? s.headerHidden : s.headerVisible} `}
-    >
-      <div className={s.container}>
-        {/* Left: Logo + Store Name */}
-        <Link to="/" className={s.logoLink}>
-          <div className={s.logoWrapper}>
-            <div className={s.logoImageWrapper}>
-              <img
-                src={GreenCart}
-                alt="GreenCart Grocery logo"
-                className={s.logoImage}
-              />
+    <>
+      <header
+        className={`${s.headerBase} ${isNavbarHidden ? s.headerHidden : s.headerVisible} `}
+      >
+        <div className={s.container}>
+          {/* Left: Logo + Store Name */}
+          <Link to="/" className={s.logoLink}>
+            <div className={s.logoWrapper}>
+              <div className={s.logoImageWrapper}>
+                <img
+                  src={GreenCart}
+                  alt="GreenCart Grocery logo"
+                  className={s.logoImage}
+                />
+              </div>
+
+              <div className={s.logoTextWrapper}>
+                <h1 className={s.logoTitle}>GreenCart Grocery</h1>
+                <p className={s.logoSubtitle}>Fast Grocery Delivery</p>
+              </div>
             </div>
+          </Link>
 
-            <div className={s.logoTextWrapper}>
-              <h1 className={s.logoTitle}>GreenCart Grocery</h1>
-              <p className={s.logoSubtitle}>Fast Grocery Delivery</p>
-            </div>
-          </div>
-        </Link>
+          {/* Center: Search Bar */}
+          <form onSubmit={handleSearch} className={s.searchForm}>
+            <div className={s.searchContainer}>
+              <div className={s.searchInputWrapper}>
+                <Search className={s.searchIcon} />
+                <input
+                  type="text"
+                  placeholder="Search for products, brands, categories..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  className={s.searchInput}
+                />
+              </div>
 
-        {/* Center: Search Bar */}
-        <form onSubmit={handleSearch} className={s.searchForm}>
-          <div className={s.searchContainer}>
-            <div className={s.searchInputWrapper}>
-              <Search className={s.searchIcon} />
-              <input
-                type="text"
-                placeholder="Search for products, brands, categories..."
-                value={searchTerm}
-                onChange={handleSearchChange}
-                className={s.searchInput}
-              />
-            </div>
-
-            <button type="submit" className={s.searchButton}>
-              Search
-            </button>
-          </div>
-        </form>
-
-        {/* Right: Login + Cart */}
-        <div className={s.actionsWrapper}>
-          <button
-            onClick={() => navigate("/orders")}
-            className={s.actionButton}
-          >
-            <PackageCheck className={s.actionIcon} />
-            <span className="truncate">My Orders</span>
-          </button>
-
-          <button onClick={() => navigate("/cart")} className={s.cartButton}>
-            <ShoppingCart className={s.actionIcon} />
-            <span>Cart</span>
-            {totalItems > 0 ? (
-              <span className={s.cartBadge}>{totalItems}</span>
-            ) : null}
-          </button>
-
-          {isLoggedIn ? (
-            <div className={s.accountDropdownWrapper}>
-              <button
-                type="button"
-                onClick={() =>
-                  setAccountState({
-                    pathname: location.pathname,
-                    open: !accountOpen,
-                  })
-                }
-                className={s.actionButton}
-                aria-expanded={accountOpen}
-              >
-                <UserRound className={s.actionIcon} />
-                <span className="truncate">Account</span>
-                <ChevronDown className={s.dropdownChevron} />
+              <button type="submit" className={s.searchButton}>
+                Search
               </button>
+            </div>
+          </form>
 
-              <div
-                className={`${s.dropdownMenu} ${accountOpen ? s.dropdownOpen : s.dropdownClosed}`}
+          {/* Right: Login + Cart */}
+          <div className={s.actionsWrapper}>
+            {isAuthenticated ? (
+              <button
+                onClick={() => navigate("/orders")}
+                className={
+                  isOrdersActive ? s.actionButtonActive : s.actionButton
+                }
               >
-                <button
-                  type="button"
-                  onClick={() => {
-                    setAccountState({
-                      pathname: location.pathname,
-                      open: false,
-                    });
-                    navigate("/address");
-                  }}
-                  className={s.dropdownItem}
-                >
-                  <MapPinPlus className={s.dropdownIcon} />
-                  Add Address
-                </button>
+                <PackageCheck className={s.actionIcon} />
+                <span className="truncate">My Orders</span>
+              </button>
+            ) : null}
+
+            <button
+              onClick={() => navigate("/cart")}
+              className={isCartActive ? s.cartButtonActive : s.cartButton}
+            >
+              <ShoppingCart className={s.actionIcon} />
+              <span>Cart</span>
+              {totalItems > 0 ? (
+                <span className={s.cartBadge}>{totalItems}</span>
+              ) : null}
+            </button>
+
+            {isAuthenticated ? (
+              <>
+                <div className={s.accountDropdownWrapper}>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setAccountState({
+                        pathname: location.pathname,
+                        open: !accountOpen,
+                      })
+                    }
+                    className={s.actionButton}
+                    aria-expanded={accountOpen}
+                  >
+                    <UserRound className={s.actionIcon} />
+                    <span className="truncate">{user?.name || "Account"}</span>
+                    <ChevronDown className={s.dropdownChevron} />
+                  </button>
+
+                  <div
+                    className={`${s.dropdownMenu} ${accountOpen ? s.dropdownOpen : s.dropdownClosed}`}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAccountState({
+                          pathname: location.pathname,
+                          open: false,
+                        });
+                        navigate("/address");
+                      }}
+                      className={s.dropdownItem}
+                    >
+                      <MapPinPlus className={s.dropdownIcon} />
+                      Add Address
+                    </button>
+                  </div>
+                </div>
 
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className={s.dropdownItem}
+                  className={s.actionButton}
                 >
-                  <LogOut className={s.dropdownIcon} />
-                  Logout
+                  <LogOut className={s.actionIcon} />
+                  <span>Logout</span>
                 </button>
-              </div>
-            </div>
-          ) : (
-            <button
-              type="button"
-              onClick={() => navigate("/login")}
-              className={s.actionButton}
-            >
-              <LogIn className={s.actionIcon} />
-              <span>Login</span>
-            </button>
-          )}
+              </>
+            ) : (
+              <button
+                type="button"
+                onClick={() => navigate("/login")}
+                className={s.actionButton}
+              >
+                <LogIn className={s.actionIcon} />
+                <span>Login</span>
+              </button>
+            )}
+          </div>
         </div>
-      </div>
-    </header>
+      </header>
+
+      {toastMessage ? (
+        <div className={s.logoutToast} role="status" aria-live="polite">
+          <CheckCircle2 className={s.logoutToastIcon} />
+          <span>{toastMessage}</span>
+        </div>
+      ) : null}
+    </>
   );
 };
 

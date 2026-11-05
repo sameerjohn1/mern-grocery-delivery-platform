@@ -6,6 +6,9 @@ import {
   useMemo,
   useState,
 } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "./auth/AuthContext";
+import { REDIRECT_KEY } from "./auth/authStorage";
 
 const CART_STORAGE_KEY = "GreenCart-cart";
 
@@ -24,29 +27,46 @@ const loadCart = () => {
 };
 
 export const CartProvider = ({ children }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { isAuthenticated } = useAuth();
   const [cartItems, setCartItems] = useState(loadCart);
 
   useEffect(() => {
     localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
   }, [cartItems]);
 
-  const addItem = (item) => {
-    setCartItems((current) => {
-      const existingItem = current.find(
-        (cartItem) => cartItem.cartId === item.cartId,
-      );
-
-      if (existingItem) {
-        return current.map((cartItem) =>
-          cartItem.cartId === item.cartId
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem,
-        );
+  const addItem = useCallback(
+    (item) => {
+      if (!isAuthenticated) {
+        const redirectPath = `${location.pathname}${location.search}`;
+        localStorage.setItem(REDIRECT_KEY, redirectPath);
+        navigate("/login", {
+          state: { from: redirectPath, reason: "login-required" },
+        });
+        return false;
       }
 
-      return [{ ...item, quantity: 1 }, ...current];
-    });
-  };
+      setCartItems((current) => {
+        const existingItem = current.find(
+          (cartItem) => cartItem.cartId === item.cartId,
+        );
+
+        if (existingItem) {
+          return current.map((cartItem) =>
+            cartItem.cartId === item.cartId
+              ? { ...cartItem, quantity: cartItem.quantity + 1 }
+              : cartItem,
+          );
+        }
+
+        return [{ ...item, quantity: 1 }, ...current];
+      });
+
+      return true;
+    },
+    [isAuthenticated, location.pathname, location.search, navigate],
+  );
 
   const decreaseItem = (cartId) => {
     setCartItems((current) =>
@@ -93,7 +113,7 @@ export const CartProvider = ({ children }) => {
       clearCart,
       getQuantity,
     };
-  }, [cartItems, getQuantity]);
+  }, [cartItems, addItem, getQuantity]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };

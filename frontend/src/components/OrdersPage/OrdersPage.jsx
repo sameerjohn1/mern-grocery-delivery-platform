@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { formatShortOrderId } from "../../utils/orderIds";
 import { ordersPageStyles as s } from "../../assets/dummyStyles";
 import { resolveCatalogImageUrl } from "../../utils/imageUrls";
+import { storeRedirect } from "../../auth/authStorage";
 
 const deliveryFee = 10;
 
@@ -152,7 +153,7 @@ const OrdersPage = () => {
 
     const fetchOrders = async () => {
       if (!localStorage.getItem("token")) {
-        localStorage.setItem("freshmart-redirect-after-login", "/orders");
+        storeRedirect("/orders");
         navigate("/login");
         return;
       }
