@@ -280,7 +280,7 @@ const AddressPage = () => {
               </div>
             )}
             {saveError ? (
-              <p className="mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+              <p className="mb-4 rounded-2xl border border-red-400/25 bg-red-400/10 px-4 py-3 text-sm font-semibold text-red-200">
                 {saveError}
               </p>
             ) : null}
@@ -408,8 +408,8 @@ const AddressPage = () => {
 
               <label className="block">
                 <span className={s.labelText}>Address</span>
-                <span className="flex items-start gap-3 rounded-2xl border border-black/10 bg-white px-4 py-3.5 transition focus-within:border-black/25">
-                  <Home className="mt-0.5 h-5 w-5 shrink-0 text-yellow-600" />
+                <span className="flex items-start gap-3 rounded-2xl border border-[#1F3B32] bg-[#071B16]/70 px-4 py-3.5 transition focus-within:border-[#34D399]/60 focus-within:ring-2 focus-within:ring-[#34D399]/10">
+                  <Home className="mt-0.5 h-5 w-5 shrink-0 text-[#34D399]" />
                   <textarea
                     name="address"
                     value={formData.address}

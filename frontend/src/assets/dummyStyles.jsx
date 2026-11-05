@@ -1,98 +1,105 @@
 export const addressPageStyles = {
-  mainContainer: "min-h-screen bg-[#0b0a08] text-white",
+  mainContainer:
+    "relative min-h-screen overflow-hidden bg-[#000000] text-[#D1FAE5]",
   section:
     "relative overflow-hidden px-3 py-8 sm:px-5 sm:py-10 lg:px-6 xl:px-8",
   bgGradient1:
-    "absolute inset-x-0 top-0 h-72 bg-linear-to-b from-yellow-300/25 to-transparent",
+    "absolute inset-x-0 top-0 h-72 bg-linear-to-b from-[#34D399]/12 via-[#0D241D]/8 to-transparent",
   bgLine:
-    "absolute left-0 top-28 h-px w-full bg-linear-to-r from-transparent via-yellow-300/50 to-transparent",
+    "absolute left-0 top-28 h-px w-full bg-linear-to-r from-transparent via-[#34D399]/25 to-transparent",
   gridContainer:
     "relative mx-auto grid max-w-6xl gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-start xl:gap-8",
   leftColumn: "space-y-5 lg:space-y-6",
   badge:
-    "inline-flex items-center gap-2 rounded-full border border-yellow-300/30 bg-yellow-300/10 px-4 py-2 text-sm font-bold text-yellow-200",
+    "font-store-label inline-flex items-center gap-2 rounded-full border border-[#34D399]/25 bg-[#34D399]/10 px-4 py-2 text-sm font-black uppercase tracking-wide text-[#6EE7B7]",
   iconBadge: "h-4 w-4",
   heading:
-    "font-store-display text-3xl font-black tracking-wide text-white sm:text-4xl xl:text-5xl",
-  headingSpan: "block text-yellow-300",
-  subheading: "mt-4 max-w-xl text-base font-medium leading-7 text-white/65",
+    "font-store-display text-3xl font-black tracking-wide text-[#D1FAE5] sm:text-4xl xl:text-5xl",
+  headingSpan: "block text-[#6EE7B7]",
+  subheading: "mt-4 max-w-xl text-base font-semibold leading-7 text-[#A7C4B8]",
   infoGrid: "grid gap-3 md:grid-cols-2",
-  infoCard: "rounded-2xl border border-white/10 bg-white/5 p-4 lg:p-5",
+  infoCard:
+    "rounded-2xl border border-[#1F3B32] bg-[#0D241D]/80 p-4 shadow-xl shadow-black/20 lg:p-5",
   infoLabel:
-    "font-store-label text-xs font-black uppercase tracking-wide text-yellow-300",
-  infoValue: "mt-2 text-sm font-semibold text-white/70",
+    "font-store-label text-xs font-black uppercase tracking-wide text-[#34D399]",
+  infoValue: "mt-2 text-sm font-semibold text-[#A7C4B8]",
   selectedContainer:
-    "rounded-3xl border border-yellow-300/20 bg-yellow-300/10 p-4 lg:p-5",
+    "rounded-3xl border border-[#34D399]/25 bg-[#0D241D] p-4 shadow-xl shadow-black/20 lg:p-5",
   selectedLabel:
-    "font-store-label text-sm font-black uppercase tracking-wide text-yellow-300",
+    "font-store-label text-sm font-black uppercase tracking-wide text-[#34D399]",
   selectedTypeBadge:
-    "mt-2 inline-flex rounded-full bg-yellow-300 px-3 py-1 text-xs font-black text-black",
-  selectedDetails: "mt-3 text-sm leading-6 text-white/80",
-  selectedName: "font-bold text-white",
+    "mt-2 inline-flex rounded-full bg-[#34D399] px-3 py-1 text-xs font-black text-[#065F46]",
+  selectedDetails: "mt-3 text-sm leading-6 text-[#A7C4B8]",
+  selectedName: "font-bold text-[#D1FAE5]",
   formContainer:
-    "rounded-4xl border border-yellow-300/20 bg-white p-4 text-black shadow-2xl shadow-yellow-500/10 sm:p-6 xl:p-7",
+    "rounded-4xl border border-[#1F3B32] bg-[#0D241D] p-4 text-[#D1FAE5] shadow-2xl shadow-[#34D399]/5 sm:p-6 xl:p-7",
   savedAlert:
-    "mb-5 flex items-center gap-3 rounded-2xl border border-yellow-300/40 bg-yellow-100 px-4 py-3 text-sm font-bold text-black",
-  iconSuccess: "h-5 w-5 text-yellow-700",
+    "mb-5 flex items-center gap-3 rounded-2xl border border-[#34D399]/40 bg-[#34D399]/10 px-4 py-3 text-sm font-bold text-[#6EE7B7]",
+  iconSuccess: "h-5 w-5 text-[#34D399]",
   formHeader: "mb-6 flex items-start justify-between gap-4",
   formLabel:
-    "font-store-label text-sm font-black uppercase tracking-wide text-yellow-600",
+    "font-store-label text-sm font-black uppercase tracking-wide text-[#34D399]",
   formTitle:
-    "font-store-display mt-2 text-2xl font-black tracking-wide sm:text-3xl",
+    "font-store-display mt-2 text-2xl font-black tracking-wide text-[#D1FAE5] sm:text-3xl",
   addButton:
-    "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-black text-yellow-300 transition hover:bg-yellow-300 hover:text-black",
+    "inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#34D399] text-[#065F46] transition hover:bg-[#6EE7B7]",
   form: "space-y-4",
-  labelText: "font-store-label mb-2 block text-sm font-bold text-black/75",
+  labelText:
+    "font-store-label mb-2 block text-sm font-bold text-[#D1FAE5]",
   selectInput:
-    "w-full rounded-2xl border border-black/10 bg-white px-4 py-3.5 text-sm font-semibold text-black outline-none focus:border-black/25",
+    "w-full rounded-2xl border border-[#1F3B32] bg-[#071B16]/70 px-4 py-3.5 text-sm font-semibold text-[#D1FAE5] outline-none transition focus:border-[#34D399]/60 focus:ring-2 focus:ring-[#34D399]/10 [&>option]:bg-[#0D241D] [&>option]:text-[#D1FAE5]",
   inputWrapper:
-    "flex items-center gap-3 rounded-2xl border border-black/10 bg-white px-4 py-3.5 transition focus-within:border-black/25",
-  iconInput: "h-5 w-5 text-yellow-600",
+    "flex items-center gap-3 rounded-2xl border border-[#1F3B32] bg-[#071B16]/70 px-4 py-3.5 transition focus-within:border-[#34D399]/60 focus-within:ring-2 focus-within:ring-[#34D399]/10",
+  iconInput: "h-5 w-5 text-[#34D399]",
   inputField:
-    "w-full bg-transparent text-sm font-semibold text-black outline-none placeholder:text-black/35",
+    "w-full bg-transparent text-sm font-semibold text-[#D1FAE5] outline-none placeholder:text-[#A7C4B8]/65",
   textareaField:
-    "w-full resize-none bg-transparent text-sm font-semibold leading-6 text-black outline-none placeholder:text-black/35",
+    "w-full resize-none bg-transparent text-sm font-semibold leading-6 text-[#D1FAE5] outline-none placeholder:text-[#A7C4B8]/65",
   submitButton:
-    "font-store-label inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-black px-5 py-4 text-sm font-black uppercase tracking-wide text-yellow-300 shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:bg-yellow-300 hover:text-black",
+    "font-store-label inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#34D399] px-5 py-4 text-sm font-black uppercase tracking-wide text-[#065F46] shadow-lg shadow-[#34D399]/10 transition hover:-translate-y-0.5 hover:bg-[#6EE7B7] disabled:cursor-wait disabled:opacity-70",
   loaderIcon: "h-5 w-5 animate-spin",
   iconSm: "h-5 w-5",
   addressBookContainer: "relative mx-auto mt-10 max-w-7xl",
   addressBookHeader:
     "mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between",
   addressBookLabel:
-    "font-store-label text-xs font-black uppercase tracking-wide text-yellow-300",
-  addressBookTitle: "font-store-display mt-1 text-2xl font-black text-white",
-  addressCount: "text-sm font-semibold text-white/55",
-  emptyState: "rounded-3xl border border-white/10 bg-white/5 p-6 text-white/70",
+    "font-store-label text-xs font-black uppercase tracking-wide text-[#34D399]",
+  addressBookTitle:
+    "font-store-display mt-1 text-2xl font-black text-[#D1FAE5]",
+  addressCount: "text-sm font-semibold text-[#A7C4B8]",
+  emptyState:
+    "rounded-3xl border border-[#1F3B32] bg-[#0D241D]/70 p-6 text-[#A7C4B8]",
   addressGrid: "grid auto-rows-fr gap-4 md:grid-cols-2 lg:grid-cols-3 xl:gap-5",
   addressCardBase:
     "group flex h-full min-h-72 flex-col rounded-[1.35rem] border p-4 shadow-xl backdrop-blur transition hover:-translate-y-1 lg:min-h-76 xl:p-5",
   addressCardSelected:
-    "border-yellow-300/70 bg-linear-to-br from-yellow-300/18 via-yellow-300/10 to-white/5 shadow-yellow-500/15",
+    "border-[#34D399]/60 bg-linear-to-br from-[#34D399]/18 via-[#34D399]/10 to-[#071B16] shadow-[#34D399]/10",
   addressCardDefault:
-    "border-white/10 bg-white/[0.07] shadow-black/25 hover:border-yellow-300/35 hover:bg-white/10",
+    "border-[#1F3B32] bg-[#0D241D] shadow-black/25 hover:border-[#34D399]/35 hover:bg-[#0D241D]",
   addressCardTop: "flex items-start justify-between gap-3",
   addressCardInfo: "min-w-0",
   addressCardIcon:
-    "mb-3 inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-yellow-300 text-black shadow-lg shadow-yellow-500/20",
-  addressCardName: "font-store-label truncate text-lg font-black text-white",
-  addressCardMobile: "mt-1 text-sm font-bold text-white/55",
+    "mb-3 inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-[#34D399] text-[#065F46] shadow-lg shadow-[#34D399]/20",
+  addressCardName:
+    "font-store-label truncate text-lg font-black text-[#D1FAE5]",
+  addressCardMobile: "mt-1 text-sm font-bold text-[#A7C4B8]",
   addressCardBadges: "flex shrink-0 flex-col items-end gap-2",
   selectedBadge:
-    "rounded-full border border-yellow-300/40 bg-yellow-300/15 px-3 py-1 text-xs font-black text-yellow-200",
+    "rounded-full border border-[#34D399]/40 bg-[#34D399]/15 px-3 py-1 text-xs font-black text-[#6EE7B7]",
   typeBadge:
-    "rounded-full bg-yellow-300 px-3 py-1 text-xs font-black text-black",
+    "rounded-full bg-[#34D399] px-3 py-1 text-xs font-black text-[#065F46]",
   addressCardDetails:
-    "mt-4 flex-1 rounded-2xl border border-white/10 bg-black/20 p-3 text-sm leading-6 text-white/75 xl:p-4",
-  pinText: "font-bold text-white/85",
-  landmarkText: "mt-1 text-white/55",
+    "mt-4 flex-1 rounded-2xl border border-[#1F3B32] bg-[#071B16] p-3 text-sm leading-6 text-[#A7C4B8] xl:p-4",
+  pinText: "font-bold text-[#D1FAE5]",
+  landmarkText: "mt-1 text-[#A7C4B8]",
   addressCardActions: "mt-4 grid grid-cols-[1fr_auto] gap-3",
   useAddressButtonBase:
     "inline-flex min-h-11 items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-black transition",
-  useAddressButtonSelected: "bg-white/10 text-white ring-1 ring-white/10",
-  useAddressButtonDefault: "bg-yellow-300 text-black hover:bg-yellow-400",
+  useAddressButtonSelected:
+    "bg-[#071B16] text-[#A7C4B8] ring-1 ring-[#1F3B32]",
+  useAddressButtonDefault: "bg-[#34D399] text-[#065F46] hover:bg-[#6EE7B7]",
   editButton:
-    "inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white transition hover:border-yellow-300 hover:bg-yellow-300 hover:text-black",
+    "inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-[#1F3B32] bg-[#071B16] text-[#A7C4B8] transition hover:border-[#34D399] hover:bg-[#34D399] hover:text-[#065F46]",
 };
 
 export const bannerStyles = {
