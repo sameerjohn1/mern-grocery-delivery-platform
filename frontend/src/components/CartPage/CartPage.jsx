@@ -39,14 +39,44 @@ const CartPage = () => {
 
   const orderTotal = subtotal > 0 ? subtotal + deliveryFee : 0;
 
-  const showToast = (message, redirectTo) => {
+  const showToast = (message, redirectTo, duration = 900) => {
     setToastMessage(message);
     window.setTimeout(() => {
       if (redirectTo) {
         navigate(redirectTo);
       }
       setToastMessage("");
-    }, 900);
+    }, duration);
+  };
+
+  const handlePaymentModeChange = async (mode) => {
+    if (mode !== "online") {
+      setPaymentMode(mode);
+      return;
+    }
+
+    try {
+      const { data } = await getAddresses();
+      const addresses = data.addresses || [];
+
+      if (addresses.length === 0) {
+        showToast(
+          "Please add a delivery address first, then you can checkout online.",
+          "/address?redirect=/cart",
+          2000,
+        );
+        return;
+      }
+
+      setPaymentMode("online");
+    } catch (error) {
+      showToast(
+        error.response?.data?.message ||
+          "Unable to check your delivery address. Please try again.",
+        null,
+        2000,
+      );
+    }
   };
 
   const handleRemoveItem = (cartId) => {
@@ -87,7 +117,11 @@ const CartPage = () => {
 
     if (!addressId) {
       setIsCheckingOut(false);
-      showToast("Add delivery address first", "/address?redirect=/cart");
+      showToast(
+        "Please add a delivery address first, then you can checkout.",
+        "/address?redirect=/cart",
+        2000,
+      );
       return;
     }
 
@@ -300,7 +334,7 @@ const CartPage = () => {
                       <button
                         key={option.id}
                         type="button"
-                        onClick={() => setPaymentMode(option.id)}
+                        onClick={() => handlePaymentModeChange(option.id)}
                         className={`${s.paymentButtonBase} ${
                           isActive
                             ? s.paymentButtonActive
