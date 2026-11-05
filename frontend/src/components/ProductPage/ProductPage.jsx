@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import {
+  ArrowUpRight,
+  LoaderCircle,
+  RefreshCw,
+  Sparkles,
+} from "lucide-react";
 import { getCategories } from "../../api/api";
 import { productsPageStyles as s } from "../../assets/dummyStyles";
 import categoryFallback from "../../assets/P2.png";
@@ -25,20 +30,33 @@ const itemVariants = {
 
 const ProductPage = () => {
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
+    let isCurrent = true;
+
     const fetchCategories = async () => {
+      setLoading(true);
+      setLoadError(false);
       try {
         const { data } = await getCategories();
-        setCategories(data.categories);
+        if (isCurrent) setCategories(data.categories || []);
       } catch (error) {
         console.error("Error fetching categories:", error);
+        if (isCurrent) setLoadError(true);
+      } finally {
+        if (isCurrent) setLoading(false);
       }
     };
 
     fetchCategories();
-  }, []);
+    return () => {
+      isCurrent = false;
+    };
+  }, [loadAttempt]);
 
   return (
     <section id="products" className={s.section}>
@@ -79,43 +97,84 @@ const ProductPage = () => {
           variants={containerVariants}
           className={s.grid}
         >
-          {categories.map((category) => (
-            <motion.div
-              key={category._id}
-              variants={itemVariants}
-              className={s.cardMotion}
-              whileHover={prefersReducedMotion ? undefined : { y: -4 }}
+          {loading ? (
+            <div
+              className="col-span-full flex min-h-52 flex-col items-center justify-center gap-3 rounded-3xl border border-[#A7E8C1]/15 bg-[#0D241D]/70 p-6 text-center"
+              role="status"
+              aria-live="polite"
             >
-              <Link
-                to={`/product/${encodeURIComponent(category.categoryName)}`}
-                className={s.categoryLink}
+              <LoaderCircle className="h-7 w-7 animate-spin text-[#A7E8C1]" />
+              <p className="text-sm font-bold text-[#A7C4B8]">
+                Loading categories...
+              </p>
+            </div>
+          ) : loadError ? (
+            <div
+              className="col-span-full flex min-h-52 flex-col items-center justify-center gap-3 rounded-3xl border border-red-400/20 bg-[#0D241D]/70 p-6 text-center"
+              role="alert"
+            >
+              <p className="font-bold text-[#F6F3E8]">
+                Categories could not be loaded.
+              </p>
+              <p className="text-sm text-[#A7C4B8]">
+                Please check your connection and try again.
+              </p>
+              <button
+                type="button"
+                onClick={() => setLoadAttempt((attempt) => attempt + 1)}
+                className="inline-flex items-center gap-2 rounded-full bg-[#A7E8C1] px-4 py-2 text-sm font-bold text-[#0B2B21] transition hover:bg-[#DDF4E5]"
               >
-                <div className={s.imageWrapper}>
-                  <span className={s.imageGlow} aria-hidden="true" />
-                  <img
-                    src={
-                      resolveCatalogImageUrl(category.image) || categoryFallback
-                    }
-                    className={s.categoryImage}
-                    alt={`${category.categoryName} category`}
-                    loading="lazy"
-                    onError={(event) => {
-                      if (event.currentTarget.dataset.fallbackApplied) return;
-                      event.currentTarget.dataset.fallbackApplied = "true";
-                      event.currentTarget.src = categoryFallback;
-                    }}
-                  />
-                </div>
-                <div className={s.categoryFooter}>
-                  <h3 className={s.categoryName}>{category.categoryName}</h3>
-                  <span className={s.categoryArrow}>
-                    <ArrowUpRight className={s.categoryArrowIcon} />
-                  </span>
-                </div>
-                <div className={s.cardBottomBar} />
-              </Link>
-            </motion.div>
-          ))}
+                <RefreshCw className="h-4 w-4" />
+                Try again
+              </button>
+            </div>
+          ) : categories.length === 0 ? (
+            <div className="col-span-full flex min-h-52 flex-col items-center justify-center gap-2 rounded-3xl border border-[#A7E8C1]/15 bg-[#0D241D]/70 p-6 text-center">
+              <p className="font-bold text-[#F6F3E8]">No categories found</p>
+              <p className="text-sm text-[#A7C4B8]">
+                Categories will appear here once they are added.
+              </p>
+            </div>
+          ) : (
+            categories.map((category) => (
+              <motion.div
+                key={category._id}
+                variants={itemVariants}
+                className={s.cardMotion}
+                whileHover={prefersReducedMotion ? undefined : { y: -4 }}
+              >
+                <Link
+                  to={`/product/${encodeURIComponent(category.categoryName)}`}
+                  className={s.categoryLink}
+                >
+                  <div className={s.imageWrapper}>
+                    <span className={s.imageGlow} aria-hidden="true" />
+                    <img
+                      src={
+                        resolveCatalogImageUrl(category.image) ||
+                        categoryFallback
+                      }
+                      className={s.categoryImage}
+                      alt={`${category.categoryName} category`}
+                      loading="lazy"
+                      onError={(event) => {
+                        if (event.currentTarget.dataset.fallbackApplied) return;
+                        event.currentTarget.dataset.fallbackApplied = "true";
+                        event.currentTarget.src = categoryFallback;
+                      }}
+                    />
+                  </div>
+                  <div className={s.categoryFooter}>
+                    <h3 className={s.categoryName}>{category.categoryName}</h3>
+                    <span className={s.categoryArrow}>
+                      <ArrowUpRight className={s.categoryArrowIcon} />
+                    </span>
+                  </div>
+                  <div className={s.cardBottomBar} />
+                </Link>
+              </motion.div>
+            ))
+          )}
         </motion.div>
       </div>
     </section>

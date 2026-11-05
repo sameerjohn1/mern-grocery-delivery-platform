@@ -4,12 +4,14 @@ import {
   Loader2,
   Minus,
   Plus,
+  RefreshCw,
   SearchX,
   ShoppingCart,
 } from "lucide-react";
 import { useCart } from "../../CartContext";
 import { getHookahs, getProducts } from "../../api/api";
 import { searchResultsStyles as s } from "../../assets/dummyStyles";
+import productFallback from "../../assets/P2.png";
 import { resolveCatalogImageUrl } from "../../utils/imageUrls";
 
 const normalize = (value) =>
@@ -55,31 +57,44 @@ const SearchResults = ({ query }) => {
   const { addItem, decreaseItem, getQuantity } = useCart();
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState(false);
+  const [loadAttempt, setLoadAttempt] = useState(0);
   const trimedQuery = query.trim();
 
   useEffect(() => {
+    let isCurrent = true;
+
     const fetchSearchItems = async () => {
+      setLoading(true);
+      setLoadError(false);
       try {
-        setLoading(true);
         const [productResponse, hookahs] = await Promise.all([
           getProducts(),
           getHookahs(),
         ]);
 
-        setItems([
-          ...(productResponse.data.products || []).map(toProductSearchItem),
-          ...(hookahs.data.hookahs || []).map(toHookahSearchItem),
-        ]);
+        if (isCurrent) {
+          setItems([
+            ...(productResponse.data.products || []).map(toProductSearchItem),
+            ...(hookahs.data.hookahs || []).map(toHookahSearchItem),
+          ]);
+        }
       } catch (error) {
         console.log(error);
-        setItems([]);
+        if (isCurrent) {
+          setItems([]);
+          setLoadError(true);
+        }
       } finally {
-        setLoading(false);
+        if (isCurrent) setLoading(false);
       }
     };
 
     fetchSearchItems();
-  }, []);
+    return () => {
+      isCurrent = false;
+    };
+  }, [loadAttempt]);
 
   const result = useMemo(
     () => items.filter((item) => matchQuery(item, trimedQuery)),
@@ -94,6 +109,22 @@ const SearchResults = ({ query }) => {
         {loading ? (
           <div className={s.loadingContainer}>
             <Loader2 className={s.loaderIcon} />
+          </div>
+        ) : loadError ? (
+          <div className={s.emptyContainer} role="alert">
+            <SearchX className={s.emptyIcon} />
+            <h3 className={s.emptyTitle}>Search results could not be loaded</h3>
+            <p className={s.emptySubtext}>
+              Please check your connection and try again.
+            </p>
+            <button
+              type="button"
+              onClick={() => setLoadAttempt((attempt) => attempt + 1)}
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-black px-5 py-2.5 text-sm font-bold text-white transition hover:bg-zinc-800"
+            >
+              <RefreshCw className="h-4 w-4" />
+              Try again
+            </button>
           </div>
         ) : result.length === 0 ? (
           <div className={s.emptyContainer}>
@@ -131,9 +162,16 @@ const SearchResults = ({ query }) => {
                   <div className={s.cardContent}>
                     <div className={s.imageWrapper}>
                       <img
-                        src={item.image}
+                        src={item.image || productFallback}
                         alt={item.name}
                         className={s.productImage}
+                        loading="lazy"
+                        onError={(event) => {
+                          if (event.currentTarget.dataset.fallbackApplied)
+                            return;
+                          event.currentTarget.dataset.fallbackApplied = "true";
+                          event.currentTarget.src = productFallback;
+                        }}
                       />
                     </div>
 
