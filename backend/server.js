@@ -19,9 +19,18 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 // Middlewares
+app.disable("etag");
 app.use(cors());
 app.use(express.json());
 app.use("/uploads", express.static(uploadsDir));
+
+// API data is dynamic, so never let browsers/CDNs serve a stale 304 response
+app.use((req, res, next) => {
+  res.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+  res.set("Pragma", "no-cache");
+  res.set("Expires", "0");
+  next();
+});
 
 // Ensure a database connection exists for every request (required on serverless)
 app.use(async (req, res, next) => {

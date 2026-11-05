@@ -24,6 +24,11 @@ API.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
 
+    // Bust stale browser/CDN caches (prevents empty "304 Not Modified" data)
+    if ((config.method || "get").toLowerCase() === "get") {
+      config.params = { ...(config.params || {}), _t: Date.now() };
+    }
+
     return config;
   },
   (error) => Promise.reject(error),
