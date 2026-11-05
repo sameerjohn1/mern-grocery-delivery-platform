@@ -23,6 +23,7 @@ import {
   updateOrderStatus as updateOrderStatusApi,
 } from "../../api/adminApi";
 import { adminOrdersViewStyles as s } from "../../assets/dummyStyles";
+import { DashboardContentSkeleton } from "../Skeletons/AdminSkeletons";
 
 const statusOptions = [
   "All",
@@ -322,11 +323,7 @@ function AdminOrdersView({
   };
 
   if (loading) {
-    return (
-      <div className={s.loadingState}>
-        Loading {showSummary ? "Dashboard" : "Orders"}...
-      </div>
-    );
+    return <DashboardContentSkeleton showSummary={showSummary} />;
   }
 
   if (loadError && !orders.length && !dashboard) {

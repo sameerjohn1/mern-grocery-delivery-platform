@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Wallet,
   CheckCircle2,
@@ -95,12 +95,12 @@ const ItemListPage = () => {
   const [savingEditId, setSavingEditId] = useState(null);
   const [deletingId, setDeletingId] = useState(null);
 
-  const showToast = (message, type = "success", action) => {
+  const showToast = useCallback((message, type = "success", action) => {
     setToast({ message, type, action });
     if (!action) setTimeout(() => setToast(null), 2200);
-  };
+  }, []);
 
-  const fetchListData = async () => {
+  const fetchListData = useCallback(async () => {
     try {
       const [categoryResponse, productResponse] = await Promise.all([
         getCategories(),
@@ -119,11 +119,12 @@ const ItemListPage = () => {
       console.error("Failed to fetch item list:", error);
       showToast("Failed to load items", "danger");
     }
-  };
+  }, [showToast]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchListData();
-  }, []);
+  }, [fetchListData]);
 
   const visibleItems = useMemo(() => {
     const query = search.toLowerCase().trim();

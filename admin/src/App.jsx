@@ -1,11 +1,15 @@
+import { lazy, Suspense } from "react";
 import { Navigate, Routes, Route, useLocation } from "react-router-dom";
-import Login from "./pages/Login/Login";
-import AddProduct from "./pages/AddProduct/AddProduct";
-import Home from "./pages/Home/Home";
-import ProductList from "./pages/ProductList/ProductList";
-import ItemList from "./pages/ItemListPage/ItemList";
-import Orders from "./pages/Orders/Orders";
-import AddItem from "./pages/AddItems/AddItem";
+import DashboardLayout from "./components/layout/DashboardLayout";
+import { AppSkeleton } from "./components/Skeletons/AdminSkeletons";
+
+const Login = lazy(() => import("./pages/Login/Login"));
+const Home = lazy(() => import("./pages/Home/Home"));
+const ProductList = lazy(() => import("./pages/ProductList/ProductList"));
+const ItemList = lazy(() => import("./pages/ItemListPage/ItemList"));
+const Orders = lazy(() => import("./pages/Orders/Orders"));
+const AddItem = lazy(() => import("./pages/AddItems/AddItem"));
+const AddProduct = lazy(() => import("./pages/AddProduct/AddProduct"));
 
 const hadAdminSession = () => {
   const token = localStorage.getItem("token");
@@ -34,84 +38,54 @@ const PublicOnlyRoute = ({ children }) =>
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Navigate to={"/login"} replace />} />
-      <Route
-        path="/login"
-        element={
-          <PublicOnlyRoute>
-            <Login />
-          </PublicOnlyRoute>
-        }
-      />
+    <Suspense fallback={<AppSkeleton />}>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Navigate
+              to={hadAdminSession() ? "/dashboard" : "/login"}
+              replace
+            />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <PublicOnlyRoute>
+              <Login />
+            </PublicOnlyRoute>
+          }
+        />
 
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/add-items"
-        element={
-          <ProtectedRoute>
-            <AddItem />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/add-item"
-        element={
-          <ProtectedRoute>
-            <AddItem />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/orders"
-        element={
-          <ProtectedRoute>
-            <Orders />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/item-list"
-        element={
-          <ProtectedRoute>
-            <ItemList />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/add-product"
-        element={
-          <ProtectedRoute>
-            <AddProduct />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/product-list"
-        element={
-          <ProtectedRoute>
-            <ProductList />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/add-hookah"
-        element={<Navigate to="/add-product" replace />}
-      />
-      <Route
-        path="/hookah-list"
-        element={<Navigate to="/product-list" replace />}
-      />
+        <Route
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/dashboard" element={<Home />} />
+          <Route path="/add-items" element={<AddItem />} />
+          <Route path="/add-item" element={<AddItem />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/item-list" element={<ItemList />} />
+          <Route path="/add-product" element={<AddProduct />} />
+          <Route path="/product-list" element={<ProductList />} />
+        </Route>
 
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        <Route
+          path="/add-hookah"
+          element={<Navigate to="/add-product" replace />}
+        />
+        <Route
+          path="/hookah-list"
+          element={<Navigate to="/product-list" replace />}
+        />
+
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Suspense>
   );
 };
 
