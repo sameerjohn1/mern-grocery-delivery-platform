@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import {
   ArrowRight,
   Minus,
@@ -8,7 +8,7 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import { useCart } from "../../CartContext";
-import { getHookahs, getProducts } from "../../api/api";
+import { useHookahsQuery, useProductsQuery } from "../../api/queries";
 import { searchResultsStyles as s } from "../../assets/dummyStyles";
 import { ProductGridSkeleton } from "../Skeletons/SkeletonBlocks";
 import productFallback from "../../assets/P2.png";
@@ -55,51 +55,39 @@ const matchQuery = (item, query) =>
 
 const SearchResults = ({ query }) => {
   const { addItem, decreaseItem, getQuantity } = useCart();
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState(false);
-  const [loadAttempt, setLoadAttempt] = useState(0);
+  const {
+    data: productItems = [],
+    isLoading: productsLoading,
+    isError: productsError,
+    refetch: refetchProducts,
+  } = useProductsQuery();
+  const {
+    data: hookahItems = [],
+    isLoading: hookahsLoading,
+    isError: hookahsError,
+    refetch: refetchHookahs,
+  } = useHookahsQuery();
   const trimedQuery = query.trim();
+  const loading = productsLoading || hookahsLoading;
+  const loadError = productsError || hookahsError;
 
-  useEffect(() => {
-    let isCurrent = true;
-
-    const fetchSearchItems = async () => {
-      setLoading(true);
-      setLoadError(false);
-      try {
-        const [productResponse, hookahs] = await Promise.all([
-          getProducts(),
-          getHookahs(),
-        ]);
-
-        if (isCurrent) {
-          setItems([
-            ...(productResponse.data.products || []).map(toProductSearchItem),
-            ...(hookahs.data.hookahs || []).map(toHookahSearchItem),
-          ]);
-        }
-      } catch (error) {
-        console.log(error);
-        if (isCurrent) {
-          setItems([]);
-          setLoadError(true);
-        }
-      } finally {
-        if (isCurrent) setLoading(false);
-      }
-    };
-
-    fetchSearchItems();
-    return () => {
-      isCurrent = false;
-    };
-  }, [loadAttempt]);
+  const items = useMemo(
+    () => [
+      ...productItems.map(toProductSearchItem),
+      ...hookahItems.map(toHookahSearchItem),
+    ],
+    [productItems, hookahItems],
+  );
 
   const result = useMemo(
     () => items.filter((item) => matchQuery(item, trimedQuery)),
     [items, trimedQuery],
   );
+
+  const handleRetry = () => {
+    refetchProducts();
+    refetchHookahs();
+  };
 
   if (!trimedQuery) return null;
 
@@ -132,7 +120,7 @@ const SearchResults = ({ query }) => {
             </p>
             <button
               type="button"
-              onClick={() => setLoadAttempt((attempt) => attempt + 1)}
+              onClick={handleRetry}
               className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#A7E8C1] px-5 py-2.5 text-sm font-bold text-[#0B2B21] transition hover:bg-[#DDF4E5]"
             >
               <RefreshCw className="h-4 w-4" />

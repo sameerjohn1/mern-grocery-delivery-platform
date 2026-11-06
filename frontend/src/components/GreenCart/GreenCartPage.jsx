@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import {
@@ -10,7 +9,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { useCart } from "../../CartContext";
-import { getHookahs } from "../../api/api";
+import { useHookahsQuery } from "../../api/queries";
 import { hookahPageStyles as s } from "../../assets/dummyStyles";
 import { ProductGridSkeleton } from "../Skeletons/SkeletonBlocks";
 import hookahFallback from "../../assets/product-images/hookah-001.png";
@@ -61,41 +60,12 @@ const itemVariants = {
 const GreenCartPage = ({ expanded = false }) => {
   const { addItem, decreaseItem, getQuantity } = useCart();
   const prefersReducedMotion = useReducedMotion();
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState(false);
-  const [loadAttempt, setLoadAttempt] = useState(0);
-
-  useEffect(() => {
-    let isCurrent = true;
-
-    const fetchGreenCart = async () => {
-      setLoading(true);
-      setLoadError(false);
-
-      try {
-        const { data } = await getHookahs();
-        if (isCurrent) {
-          setProducts(Array.isArray(data?.hookahs) ? data.hookahs : []);
-        }
-      } catch (error) {
-        console.log("Error fetching hookahs:", error);
-        if (isCurrent) {
-          setLoadError(true);
-        }
-      } finally {
-        if (isCurrent) {
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchGreenCart();
-
-    return () => {
-      isCurrent = false;
-    };
-  }, [loadAttempt]);
+  const {
+    data: products = [],
+    isLoading: loading,
+    isError: loadError,
+    refetch,
+  } = useHookahsQuery();
 
   const visibleProducts = expanded ? products : products.slice(0, 12);
   const hasMoreProducts = !expanded;
@@ -120,7 +90,7 @@ const GreenCartPage = ({ expanded = false }) => {
           </p>
           <button
             type="button"
-            onClick={() => setLoadAttempt((attempt) => attempt + 1)}
+            onClick={() => refetch()}
             className={s.stateAction}
           >
             <RefreshCw size={16} />

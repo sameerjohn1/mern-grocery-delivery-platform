@@ -1,25 +1,11 @@
 import { ArrowUpRight, Mail, Phone, MapPin, Globe } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 import GreenCart from "../../assets/greenCart.png";
-import { getCategories } from "../../api/api";
+import { useCategoriesQuery } from "../../api/queries";
 import { footerStyles as s } from "../../assets/dummyStyles";
 
 const Footer = () => {
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const { data } = await getCategories();
-        setCategories(data.categories || []);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchCategories();
-  }, []);
+  const { data: categories = [] } = useCategoriesQuery();
 
   const scrollToSection = (sectionId) => {
     const section = document.getElementById(sectionId);

@@ -12,10 +12,10 @@ import {
   Loader2,
 } from "lucide-react";
 import {
-  addAddress,
-  getAddresses,
-  updateAddress as updateAddressApi,
-} from "../../api/api";
+  useAddAddressMutation,
+  useAddressesQuery,
+  useUpdateAddressMutation,
+} from "../../api/queries";
 import { addressPageStyles as s } from "../../assets/dummyStyles";
 import { storeRedirect } from "../../auth/authStorage";
 
@@ -60,7 +60,12 @@ const AddressPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams] = useSearchParams();
-  const [addresses, setAddresses] = useState([]);
+  const hasToken = Boolean(localStorage.getItem("token"));
+  const { data: addressRecords = [] } = useAddressesQuery({
+    enabled: hasToken,
+  });
+  const addAddressMutation = useAddAddressMutation();
+  const updateAddressMutation = useUpdateAddressMutation();
   const [selectedAddressId, setSelectedAddressId] = useState("");
   const [formData, setFormData] = useState(emptyAddress);
   const [editingId, setEditingId] = useState(null);
@@ -69,36 +74,23 @@ const AddressPage = () => {
   const [saveError, setSaveError] = useState("");
 
   useEffect(() => {
-    let isActive = true;
+    if (!hasToken) {
+      storeRedirect(`${location.pathname}${location.search}`);
+      navigate("/login");
+    }
+  }, [hasToken, location.pathname, location.search, navigate]);
 
-    const fetchAddresses = async () => {
-      if (!localStorage.getItem("token")) {
-        storeRedirect(`${location.pathname}${location.search}`);
-        navigate("/login");
-        return;
-      }
+  const addresses = useMemo(
+    () => addressRecords.map(toUiAddress),
+    [addressRecords],
+  );
 
-      try {
-        const { data } = await getAddresses();
-        const nextAddresses = (data.addresses || []).map(toUiAddress);
-        if (!isActive) return;
-
-        setAddresses(nextAddresses);
-        setSelectedAddressId((currentId) => currentId || nextAddresses[0]?.id || "");
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchAddresses();
-    return () => {
-      isActive = false;
-    };
-  }, [location.pathname, location.search, navigate]);
+  const resolvedSelectedAddressId = selectedAddressId || addresses[0]?.id || "";
 
   const selectedAddress = useMemo(
-    () => addresses.find((item) => item.id === selectedAddressId) || null,
-    [addresses, selectedAddressId],
+    () =>
+      addresses.find((item) => item.id === resolvedSelectedAddressId) || null,
+    [addresses, resolvedSelectedAddressId],
   );
 
   const isEditing = editingId !== null;
@@ -152,21 +144,13 @@ const AddressPage = () => {
       setSaveError("");
       const payload = toApiAddress(nextAddress);
       const { data } = editingId
-        ? await updateAddressApi(editingId, payload)
-        : await addAddress(payload);
+        ? await updateAddressMutation.mutateAsync({
+            id: editingId,
+            data: payload,
+          })
+        : await addAddressMutation.mutateAsync(payload);
 
-      const savedAddress = toUiAddress(data.address);
-
-      setAddresses((current) => {
-        if (editingId) {
-          return current.map((item) =>
-            item.id === editingId ? savedAddress : item,
-          );
-        }
-        return [savedAddress, ...current];
-      });
-
-      setSelectedAddressId(savedAddress.id);
+      setSelectedAddressId(toUiAddress(data.address).id);
       setShowSaved(true);
       resetForm();
 
@@ -461,7 +445,7 @@ const AddressPage = () => {
           ) : (
             <div className={s.addressGrid}>
               {addresses.map((address) => {
-                const isSelected = address.id === selectedAddressId;
+                const isSelected = address.id === resolvedSelectedAddressId;
 
                 return (
                   <div
