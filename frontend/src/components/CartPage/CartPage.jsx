@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   Banknote,
   CheckCircle2,
@@ -13,7 +14,8 @@ import {
 } from "lucide-react";
 import { useCart } from "../../CartContext";
 import { useNavigate } from "react-router-dom";
-import { createCheckoutSession, getAddresses, placeOrder } from "../../api/api";
+import { createCheckoutSession, placeOrder } from "../../api/api";
+import { queryKeys, useAddressesQuery } from "../../api/queries";
 import { cartPageStyles as s } from "../../assets/dummyStyles";
 import { resolveCatalogImageUrl } from "../../utils/imageUrls";
 import { storeRedirect } from "../../auth/authStorage";
@@ -32,6 +34,8 @@ const CartPage = () => {
     removeItem,
     clearCart,
   } = useCart();
+  const queryClient = useQueryClient();
+  const { refetch: refetchAddresses } = useAddressesQuery();
   const [paymentMode, setPaymentMode] = useState("cash");
   const [toastMessage, setToastMessage] = useState("");
   const [isCheckingOut, setIsCheckingOut] = useState(false);
@@ -56,8 +60,9 @@ const CartPage = () => {
     }
 
     try {
-      const { data } = await getAddresses();
-      const addresses = data.addresses || [];
+      const { data: addresses = [] } = await refetchAddresses({
+        throwOnError: true,
+      });
 
       if (addresses.length === 0) {
         showToast(
@@ -100,8 +105,9 @@ const CartPage = () => {
 
     let addressId;
     try {
-      const { data } = await getAddresses();
-      const addresses = data.addresses || [];
+      const { data: addresses = [] } = await refetchAddresses({
+        throwOnError: true,
+      });
       const deliveryAddress =
         addresses.find((address) => address.isDefault) || addresses[0];
       addressId = deliveryAddress?._id || "";
@@ -162,6 +168,7 @@ const CartPage = () => {
         paymentStatus: "Pending",
       });
 
+      queryClient.invalidateQueries({ queryKey: queryKeys.myOrders });
       clearCart();
       setToastMessage("Order placed successfully");
       window.setTimeout(() => {
