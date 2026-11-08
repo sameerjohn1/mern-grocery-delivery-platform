@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import {
   BadgeIndianRupee,
   CheckCircle2,
@@ -13,14 +13,14 @@ import {
   X,
 } from "lucide-react";
 import "../DashboardPage/dashboard.css";
+import { uploadImage } from "../../api/adminApi";
 import {
-  getCategories,
-  createCategory,
-  updateCategory,
-  deleteCategory,
-  createProducts,
-  uploadImage,
-} from "../../api/adminApi";
+  useCategoriesQuery,
+  useCreateCategoryMutation,
+  useCreateProductMutation,
+  useDeleteCategoryMutation,
+  useUpdateCategoryMutation,
+} from "../../api/queries";
 import { addItemsPageStyles as s } from "../../assets/dummyStyles";
 
 // --------------------- Toast Component ---------------------
@@ -143,8 +143,14 @@ const ActionButton = ({ children, icon: Icon, className = "", ...props }) => (
 
 // --------------------- Main Component ---------------------
 const AddItemsPage = () => {
+  // ---------- Queries & mutations ----------
+  const { data: categories = [] } = useCategoriesQuery();
+  const createCategoryMutation = useCreateCategoryMutation();
+  const updateCategoryMutation = useUpdateCategoryMutation();
+  const deleteCategoryMutation = useDeleteCategoryMutation();
+  const createProductMutation = useCreateProductMutation();
+
   // ---------- State ----------
-  const [categories, setCategories] = useState([]);
   const [productForm, setProductForm] = useState({ name: "", image: "" });
   const [itemForm, setItemForm] = useState({
     image: "",
@@ -170,22 +176,6 @@ const AddItemsPage = () => {
     setToast({ message, type, action });
     if (!action) setTimeout(() => setToast(null), 2200);
   };
-
-  // ---------- Data fetching ----------
-  const fetchCategories = async () => {
-    try {
-      const { data } = await getCategories();
-      setCategories(data.categories);
-    } catch (error) {
-      console.error("Failed to fetch categories:", error);
-    }
-  };
-
-  useEffect(() => {
-    getCategories()
-      .then(({ data }) => setCategories(data.categories))
-      .catch((error) => console.error("Failed to fetch categories:", error));
-  }, []);
 
   // ---------- Filter categories ----------
   const filteredCategories = useMemo(() => {
@@ -225,19 +215,20 @@ const AddItemsPage = () => {
           payload.image = image;
         }
 
-        await updateCategory(editingProductId, payload);
+        await updateCategoryMutation.mutateAsync({
+          id: editingProductId,
+          data: payload,
+        });
 
         showToast("Category Updated Successfully");
       } else {
-        await createCategory({
+        await createCategoryMutation.mutateAsync({
           categoryName: productForm.name.trim(),
           image,
         });
 
         showToast("Category Added Successfully");
       }
-
-      await fetchCategories();
 
       setProductForm({
         name: "",
@@ -268,8 +259,7 @@ const AddItemsPage = () => {
   const handleDeleteCategory = async (categoryId) => {
     try {
       setDeletingCategoryId(categoryId);
-      await deleteCategory(categoryId);
-      await fetchCategories();
+      await deleteCategoryMutation.mutateAsync(categoryId);
       setToast(null);
       setTimeout(() => showToast("Category deleted successfully"), 50);
     } catch (error) {
@@ -315,7 +305,7 @@ const AddItemsPage = () => {
         setItemFile(null);
       }
 
-      await createProducts({
+      await createProductMutation.mutateAsync({
         image,
         name: itemForm.name.trim(),
         company: itemForm.company.trim(),
