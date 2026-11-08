@@ -11,7 +11,8 @@ import {
   ArrowRight,
   Loader2,
 } from "lucide-react";
-import { createCatalogProduct, uploadImage } from "../../api/adminApi";
+import { uploadImage } from "../../api/adminApi";
+import { useCreateCatalogProductMutation } from "../../api/queries";
 import { addProductPageStyles as s } from "../../assets/dummyStyles";
 
 const InputField = ({
@@ -48,6 +49,7 @@ const InputField = ({
 };
 
 const AddProductPage = () => {
+  const createCatalogProductMutation = useCreateCatalogProductMutation();
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -112,7 +114,7 @@ const AddProductPage = () => {
       setIsSubmitting(true);
       const imageData = await uploadImage(image);
 
-      await createCatalogProduct({
+      await createCatalogProductMutation.mutateAsync({
         image: {
           url: imageData.image.url,
           public_id: imageData.image.public_id,

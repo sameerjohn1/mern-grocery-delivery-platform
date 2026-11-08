@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   Wallet,
   Filter,
@@ -17,11 +18,12 @@ import OrdersTable from "./components/OrdersTable";
 import StatGrid from "./components/StatGrid";
 import Toast from "./components/Toast";
 import {
-  getAllOrders,
-  getDashboard,
-  getSingleOrder,
-  updateOrderStatus as updateOrderStatusApi,
-} from "../../api/adminApi";
+  getAdminOrderQueryOptions,
+  useAdminOrderQuery,
+  useAdminOrdersQuery,
+  useDashboardQuery,
+  useUpdateOrderStatusMutation,
+} from "../../api/queries";
 import { adminOrdersViewStyles as s } from "../../assets/dummyStyles";
 import { DashboardContentSkeleton } from "../Skeletons/AdminSkeletons";
 
@@ -36,49 +38,13 @@ const statusOptions = [
 const ordersPerPage = 10;
 
 const getApiErrorMessage = (error, fallback) =>
-  error.response?.data?.message || error.message || fallback;
+  error?.response?.data?.message || error?.message || fallback;
 
-const loadViewData = async ({ showSummary, search, filterStatus, page }) => {
-  if (showSummary) {
-    const { data } = await getDashboard();
-    if (!data?.success || !data.dashboard) {
-      throw new Error(data?.message || "Dashboard data is unavailable.");
-    }
-
-    return {
-      dashboard: data.dashboard,
-      orders: (data.dashboard.latestOrders || []).map((order) => ({
-        ...order,
-        orderStatus:
-          order.orderStatus === "On the Way" ? "On the way" : order.orderStatus,
-      })),
-      totalPages: 1,
-    };
-  }
-
-  const { data } = await getAllOrders({
-    search,
-    status: filterStatus,
-    page,
-    limit: ordersPerPage,
-  });
-  if (!data?.success || !Array.isArray(data.orders)) {
-    throw new Error(data?.message || "Orders could not be loaded.");
-  }
-
-  return {
-    dashboard: null,
-    orders: data.orders,
-    totalPages: Math.max(data.totalPages || 1, 1),
-  };
-};
-
-const getPaymentStatusForOrderStatus = (order, orderStatus) => {
-  if (order.paymentMethod === "COD") {
-    return orderStatus === "Delivered" ? "Paid" : "Pending";
-  }
-  return "Paid";
-};
+const normalizeOrderStatus = (order) => ({
+  ...order,
+  orderStatus:
+    order.orderStatus === "On the Way" ? "On the way" : order.orderStatus,
+});
 
 function AdminOrdersView({
   limit,
@@ -88,55 +54,46 @@ function AdminOrdersView({
   eyebrow = "Store Control",
   showSummary = true,
 }) {
-  const [orders, setOrders] = useState([]);
-  const [dashboard, setDashboard] = useState(null);
-  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-  const [loadError, setLoadError] = useState("");
   const [toast, setToast] = useState(null);
-  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [selectedOrderId, setSelectedOrderId] = useState(null);
   const [cancelConfirmOrder, setCancelConfirmOrder] = useState(null);
   const [cancellingOrderId, setCancellingOrderId] = useState(null);
+  const queryClient = useQueryClient();
 
-  const loadData = useCallback(
-    () =>
-      loadViewData({
-        showSummary,
-        search: debouncedSearch,
-        filterStatus,
-        page,
-      }),
-    [debouncedSearch, filterStatus, page, showSummary],
+  const dashboardQuery = useDashboardQuery({ enabled: showSummary });
+  const ordersQuery = useAdminOrdersQuery(
+    {
+      search: debouncedSearch,
+      status: filterStatus,
+      page,
+      limit: ordersPerPage,
+    },
+    { enabled: !showSummary },
   );
+  const selectedOrderQuery = useAdminOrderQuery(selectedOrderId);
+  const updateOrderStatusMutation = useUpdateOrderStatusMutation();
 
-  useEffect(() => {
-    let isCurrent = true;
+  const dashboard = showSummary ? dashboardQuery.data ?? null : null;
+  const orders = useMemo(() => {
+    if (showSummary) {
+      return (dashboardQuery.data?.latestOrders || []).map(
+        normalizeOrderStatus,
+      );
+    }
+    return ordersQuery.data?.orders || [];
+  }, [showSummary, dashboardQuery.data, ordersQuery.data]);
 
-    loadData()
-      .then((result) => {
-        if (!isCurrent) return;
-        setDashboard(result.dashboard);
-        setOrders(result.orders);
-        setTotalPages(result.totalPages);
-        setLoadError("");
-      })
-      .catch((error) => {
-        if (isCurrent) {
-          setLoadError(getApiErrorMessage(error, "Failed to load dashboard."));
-        }
-      })
-      .finally(() => {
-        if (isCurrent) setLoading(false);
-      });
-
-    return () => {
-      isCurrent = false;
-    };
-  }, [loadData]);
+  const totalPages = showSummary ? 1 : ordersQuery.data?.totalPages || 1;
+  const activeQuery = showSummary ? dashboardQuery : ordersQuery;
+  const loading = activeQuery.isLoading;
+  const loadError = activeQuery.error
+    ? getApiErrorMessage(activeQuery.error, "Failed to load dashboard.")
+    : "";
+  const selectedOrder = selectedOrderQuery.data || null;
 
   useEffect(() => {
     const timer = setTimeout(() => setDebouncedSearch(search.trim()), 300);
@@ -151,11 +108,8 @@ function AdminOrdersView({
 
   const handleViewOrder = async (order) => {
     try {
-      const { data } = await getSingleOrder(order.orderId);
-      if (!data?.success || !data.order) {
-        throw new Error(data?.message || "Order details are unavailable.");
-      }
-      setSelectedOrder(data.order);
+      await queryClient.fetchQuery(getAdminOrderQueryOptions(order.orderId));
+      setSelectedOrderId(order.orderId);
     } catch (error) {
       setToast({
         type: "warning",
@@ -164,24 +118,8 @@ function AdminOrdersView({
     }
   };
 
-  const refreshData = async () => {
-    try {
-      const result = await loadData();
-      setDashboard(result.dashboard);
-      setOrders(result.orders);
-      setTotalPages(result.totalPages);
-      setLoadError("");
-      return true;
-    } catch (error) {
-      setLoadError(getApiErrorMessage(error, "Failed to refresh dashboard."));
-      return false;
-    }
-  };
-
-  const retryData = async () => {
-    setLoading(true);
-    await refreshData();
-    setLoading(false);
+  const retryData = () => {
+    activeQuery.refetch();
   };
 
   const requestOrderStatusChange = async (orderId, status) => {
@@ -196,32 +134,14 @@ function AdminOrdersView({
     }
 
     try {
-      const { data } = await updateOrderStatusApi(orderId, status);
+      const { data } = await updateOrderStatusMutation.mutateAsync({
+        orderId,
+        status,
+      });
       if (!data?.success) {
         throw new Error(data?.message || "Order status update failed.");
       }
 
-      setOrders((prev) =>
-        prev.map((order) =>
-          order.orderId === orderId
-            ? {
-                ...order,
-                orderStatus: status,
-                paymentStatus: getPaymentStatusForOrderStatus(order, status),
-              }
-            : order,
-        ),
-      );
-      setSelectedOrder((prev) =>
-        prev?.orderId === orderId
-          ? {
-              ...prev,
-              orderStatus: status,
-              paymentStatus: getPaymentStatusForOrderStatus(prev, status),
-            }
-          : prev,
-      );
-      await refreshData();
       setToast({
         type: status === "Cancelled" ? "warning" : "success",
         message: `Order ${status.toLowerCase()} successfully.`,
@@ -275,38 +195,14 @@ function AdminOrdersView({
 
     try {
       setCancellingOrderId(cancelConfirmOrder.orderId);
-      const { data } = await updateOrderStatusApi(
-        cancelConfirmOrder.orderId,
-        "Cancelled",
-      );
+      const { data } = await updateOrderStatusMutation.mutateAsync({
+        orderId: cancelConfirmOrder.orderId,
+        status: "Cancelled",
+      });
       if (!data?.success) {
         throw new Error(data?.message || "Order cancellation failed.");
       }
 
-      setOrders((prev) =>
-        prev.map((order) =>
-          order.orderId === cancelConfirmOrder.orderId
-            ? {
-                ...order,
-                orderStatus: "Cancelled",
-                paymentStatus: getPaymentStatusForOrderStatus(
-                  order,
-                  "Cancelled",
-                ),
-              }
-            : order,
-        ),
-      );
-      setSelectedOrder((prev) =>
-        prev?.orderId === cancelConfirmOrder.orderId
-          ? {
-              ...prev,
-              orderStatus: "Cancelled",
-              paymentStatus: getPaymentStatusForOrderStatus(prev, "Cancelled"),
-            }
-          : prev,
-      );
-      await refreshData();
       setCancelConfirmOrder(null);
       setToast({
         type: "warning",
@@ -473,7 +369,7 @@ function AdminOrdersView({
       />
       <OrderDetailsModal
         order={selectedOrder}
-        onClose={() => setSelectedOrder(null)}
+        onClose={() => setSelectedOrderId(null)}
         onCancelOrder={setCancelConfirmOrder}
         onStatusChange={requestOrderStatusChange}
       />

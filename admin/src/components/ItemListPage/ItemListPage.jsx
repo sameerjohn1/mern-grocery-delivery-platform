@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   Wallet,
   CheckCircle2,
@@ -15,13 +15,13 @@ import {
   X,
 } from "lucide-react";
 import "../DashboardPage/dashboard.css";
+import { uploadImage } from "../../api/adminApi";
 import {
-  deleteProduct,
-  getCategories,
-  getProducts,
-  updateProduct,
-  uploadImage,
-} from "../../api/adminApi";
+  useCategoriesQuery,
+  useDeleteProductMutation,
+  useProductsQuery,
+  useUpdateProductMutation,
+} from "../../api/queries";
 import { itemListPageStyles as s } from "../../assets/dummyStyles";
 
 // Toast component
@@ -85,8 +85,10 @@ const Field = ({ label, icon: Icon, ...props }) => (
 
 // Main component
 const ItemListPage = () => {
-  const [items, setItems] = useState([]);
-  const [products, setProducts] = useState([{ id: "all", name: "All Items" }]);
+  const { data: items = [] } = useProductsQuery();
+  const { data: categoryRecords = [] } = useCategoriesQuery();
+  const updateProductMutation = useUpdateProductMutation();
+  const deleteProductMutation = useDeleteProductMutation();
   const [activeProduct, setActiveProduct] = useState("all");
   const [search, setSearch] = useState("");
   const [editingId, setEditingId] = useState(null);
@@ -95,36 +97,21 @@ const ItemListPage = () => {
   const [savingEditId, setSavingEditId] = useState(null);
   const [deletingId, setDeletingId] = useState(null);
 
+  const products = useMemo(
+    () => [
+      { id: "all", name: "All Items" },
+      ...categoryRecords.map((category) => ({
+        id: category.categoryName,
+        name: category.categoryName,
+      })),
+    ],
+    [categoryRecords],
+  );
+
   const showToast = useCallback((message, type = "success", action) => {
     setToast({ message, type, action });
     if (!action) setTimeout(() => setToast(null), 2200);
   }, []);
-
-  const fetchListData = useCallback(async () => {
-    try {
-      const [categoryResponse, productResponse] = await Promise.all([
-        getCategories(),
-        getProducts(),
-      ]);
-
-      setProducts([
-        { id: "all", name: "All Items" },
-        ...(categoryResponse.data.categories || []).map((category) => ({
-          id: category.categoryName,
-          name: category.categoryName,
-        })),
-      ]);
-      setItems(productResponse.data.products || []);
-    } catch (error) {
-      console.error("Failed to fetch item list:", error);
-      showToast("Failed to load items", "danger");
-    }
-  }, [showToast]);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    fetchListData();
-  }, [fetchListData]);
 
   const visibleItems = useMemo(() => {
     const query = search.toLowerCase().trim();
@@ -176,17 +163,19 @@ const ItemListPage = () => {
         image = uploaded.image;
       }
 
-      await updateProduct(editingId, {
-        image,
-        name: editForm.name.trim(),
-        company: editForm.company.trim(),
-        size: editForm.weight.trim(),
-        oldPrice: Number(editForm.originalPrice),
-        sellingPrice: Number(editForm.sellingPrice),
-        category: selectedProduct?.name || editForm.productId,
+      await updateProductMutation.mutateAsync({
+        id: editingId,
+        data: {
+          image,
+          name: editForm.name.trim(),
+          company: editForm.company.trim(),
+          size: editForm.weight.trim(),
+          oldPrice: Number(editForm.originalPrice),
+          sellingPrice: Number(editForm.sellingPrice),
+          category: selectedProduct?.name || editForm.productId,
+        },
       });
 
-      await fetchListData();
       setEditingId(null);
       setEditForm(null);
       showToast("Item saved successfully");
@@ -206,8 +195,7 @@ const ItemListPage = () => {
       onConfirm: async () => {
         try {
           setDeletingId(item._id);
-          await deleteProduct(item._id);
-          await fetchListData();
+          await deleteProductMutation.mutateAsync(item._id);
           setToast(null);
           setTimeout(() => showToast(`${item.name} deleted successfully`), 50);
         } catch (error) {
