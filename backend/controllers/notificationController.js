@@ -1,5 +1,8 @@
 import Notification from "../models/Notification.js";
-import { serializeNotification } from "../services/notificationService.js";
+import {
+  notificationEvents,
+  serializeNotification,
+} from "../services/notificationService.js";
 
 const handle = (fn) => async (req, res) => {
   try {
@@ -102,3 +105,83 @@ export const deleteNotification = handle(async (req, res) => {
     .status(200)
     .json({ success: true, message: "Notification Deleted Successfully" });
 });
+
+const STREAM_HEARTBEAT_MS = 25_000;
+const STREAM_POLL_MS = 5_000;
+
+export const streamNotifications = (req, res) => {
+  res.status(200);
+  res.set({
+    "Content-Type": "text/event-stream; charset=utf-8",
+    "Cache-Control": "no-cache, no-transform",
+    Connection: "keep-alive",
+    "X-Accel-Buffering": "no",
+  });
+  res.flushHeaders?.();
+  res.write("retry: 5000\n\n");
+
+  const recipientId = req.user._id.toString();
+  const sentIds = new Set();
+  let lastCheckedAt = new Date();
+  let closed = false;
+
+  const send = (event, payload) => {
+    if (closed) return;
+    res.write(`event: ${event}\n`);
+    res.write(`data: ${JSON.stringify(payload)}\n\n`);
+  };
+
+  const push = (notification) => {
+    if (!notification?.id || sentIds.has(notification.id)) return;
+    sentIds.add(notification.id);
+    send("notification", notification);
+  };
+
+  const handleNotification = (notification) => {
+    if (notification?.recipient !== recipientId) return;
+    push(notification);
+  };
+
+  // The in-process event bus delivers instantly on a single instance. The
+  // periodic catch-up keeps multi-instance/serverless deployments in sync.
+  const catchUp = async () => {
+    try {
+      const notifications = await Notification.find({
+        recipient: req.user._id,
+        createdAt: { $gte: lastCheckedAt },
+      })
+        .sort({ createdAt: 1 })
+        .limit(50);
+
+      notifications.forEach((notification) => {
+        lastCheckedAt = notification.createdAt;
+        push(serializeNotification(notification));
+      });
+    } catch (error) {
+      console.error("Notification stream catch-up failed:", error.message);
+    }
+  };
+
+  notificationEvents.on("notification", handleNotification);
+  send("connected", {
+    success: true,
+    connectedAt: new Date().toISOString(),
+  });
+
+  const pollTimer = setInterval(catchUp, STREAM_POLL_MS);
+  const heartbeatTimer = setInterval(() => {
+    if (!closed) res.write(": ping\n\n");
+  }, STREAM_HEARTBEAT_MS);
+
+  const cleanup = () => {
+    if (closed) return;
+    closed = true;
+    clearInterval(pollTimer);
+    clearInterval(heartbeatTimer);
+    notificationEvents.off("notification", handleNotification);
+    res.end();
+  };
+
+  req.on("close", cleanup);
+  req.on("aborted", cleanup);
+};

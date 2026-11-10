@@ -53,6 +53,7 @@ export const serializeNotification = (notification) => {
 
   return {
     id: doc._id?.toString() || null,
+    recipient: doc.recipient?.toString() || null,
     type: doc.type,
     event: doc.event,
     title: doc.title,

@@ -1,5 +1,8 @@
 import express from "express";
-import { authMiddleware } from "../middleware/authMiddleware.js";
+import {
+  authMiddleware,
+  sseAuthMiddleware,
+} from "../middleware/authMiddleware.js";
 import { adminMiddleware } from "../middleware/adminMiddleware.js";
 import {
   deleteNotification,
@@ -7,9 +10,12 @@ import {
   getUnreadNotificationCount,
   markAllNotificationsAsRead,
   markNotificationAsRead,
+  streamNotifications,
 } from "../controllers/notificationController.js";
 
 const router = express.Router();
+
+router.get("/stream", sseAuthMiddleware, adminMiddleware, streamNotifications);
 
 router.use(authMiddleware, adminMiddleware);
 
