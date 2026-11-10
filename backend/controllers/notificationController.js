@@ -109,7 +109,7 @@ export const deleteNotification = handle(async (req, res) => {
 const STREAM_HEARTBEAT_MS = 25_000;
 const STREAM_POLL_MS = 5_000;
 
-export const streamNotifications = (req, res) => {
+export const streamNotifications = async (req, res) => {
   res.status(200);
   res.set({
     "Content-Type": "text/event-stream; charset=utf-8",
@@ -162,26 +162,42 @@ export const streamNotifications = (req, res) => {
     }
   };
 
-  notificationEvents.on("notification", handleNotification);
-  send("connected", {
-    success: true,
-    connectedAt: new Date().toISOString(),
-  });
-
-  const pollTimer = setInterval(catchUp, STREAM_POLL_MS);
-  const heartbeatTimer = setInterval(() => {
-    if (!closed) res.write(": ping\n\n");
-  }, STREAM_HEARTBEAT_MS);
+  let pollTimer = null;
+  let heartbeatTimer = null;
 
   const cleanup = () => {
     if (closed) return;
     closed = true;
-    clearInterval(pollTimer);
-    clearInterval(heartbeatTimer);
+    if (pollTimer) clearInterval(pollTimer);
+    if (heartbeatTimer) clearInterval(heartbeatTimer);
     notificationEvents.off("notification", handleNotification);
     res.end();
   };
 
   req.on("close", cleanup);
   req.on("aborted", cleanup);
+  notificationEvents.on("notification", handleNotification);
+
+  let unreadCount = null;
+  try {
+    unreadCount = await Notification.countDocuments({
+      recipient: req.user._id,
+      isRead: false,
+    });
+  } catch (error) {
+    console.error("Notification unread count failed:", error.message);
+  }
+
+  if (closed) return;
+
+  send("connected", {
+    success: true,
+    connectedAt: new Date().toISOString(),
+    unreadCount,
+  });
+
+  pollTimer = setInterval(catchUp, STREAM_POLL_MS);
+  heartbeatTimer = setInterval(() => {
+    if (!closed) res.write(": ping\n\n");
+  }, STREAM_HEARTBEAT_MS);
 };
