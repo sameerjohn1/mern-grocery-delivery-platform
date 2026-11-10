@@ -1,6 +1,7 @@
 import stripe from "../config/stripe.js";
 import Order from "../models/Order.js";
 import Address from "../models/Address.js";
+import { notifyAdminsOfNewOrder } from "../services/notificationService.js";
 
 const getClientUrl = (requestOrigin) => {
   const clientUrl = (
@@ -147,6 +148,11 @@ export const verifyPayment = handle(async (req, res) => {
     paymentStatus: "Paid",
     orderStatus: "Processing",
     stripeSessionId: session.id,
+  });
+  await notifyAdminsOfNewOrder({
+    order,
+    customer: req.user,
+    address,
   });
   res
     .status(200)
