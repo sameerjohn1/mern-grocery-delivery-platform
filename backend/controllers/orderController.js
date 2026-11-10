@@ -1,5 +1,6 @@
 import Order from "../models/Order.js";
 import Address from "../models/Address.js";
+import { notifyAdminsOfNewOrder } from "../services/notificationService.js";
 
 export const placeOrder = async (req, res) => {
   try {
@@ -25,6 +26,11 @@ export const placeOrder = async (req, res) => {
       ...req.body,
       paymentMethod: "COD",
       paymentStatus: "Pending",
+    });
+    await notifyAdminsOfNewOrder({
+      order,
+      customer: req.user,
+      address,
     });
     res
       .status(201)
