@@ -14,6 +14,7 @@ import orderRoutes from "./routes/orderRoute.js";
 import paymentRoutes from "./routes/paymentRoute.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import adminOrderRoutes from "./routes/adminOrderRoutes.js";
+import notificationRoutes from "./routes/notificationRoutes.js";
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -57,6 +58,7 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/payment", paymentRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/admin/orders", adminOrderRoutes);
+app.use("/api/admin/notifications", notificationRoutes);
 
 app.get("/", (req, res) => {
   res.send("API Working");
