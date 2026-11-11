@@ -15,6 +15,7 @@ import paymentRoutes from "./routes/paymentRoute.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import adminOrderRoutes from "./routes/adminOrderRoutes.js";
 import notificationRoutes from "./routes/notificationRoutes.js";
+import { initNotificationWebSocket } from "./services/notificationWebSocket.js";
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -64,13 +65,16 @@ app.get("/", (req, res) => {
   res.send("API Working");
 });
 
-// Locally we start a long-running server. On Vercel, server.js is used as the handler.
+// Locally we start a long-running server. On Vercel, server.js is used as the
+// handler, where WebSocket upgrades are unavailable and SSE remains the
+// realtime transport.
 if (!process.env.VERCEL) {
   connectDB()
     .then(() => {
-      app.listen(PORT, () => {
+      const server = app.listen(PORT, () => {
         console.log(`Server Started on http://localhost:${PORT}`);
       });
+      initNotificationWebSocket(server);
     })
     .catch((error) => {
       console.error(`Failed to connect to MongoDB: ${error.message}`);

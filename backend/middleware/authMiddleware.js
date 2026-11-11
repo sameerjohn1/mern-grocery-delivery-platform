@@ -7,7 +7,7 @@ const getTokenFromHeader = (req) => {
   return authHeader.split(" ")[1] || null;
 };
 
-const resolveUserFromToken = async (token) => {
+export const resolveUserFromToken = async (token) => {
   if (!token) {
     return { error: "Token missing", status: 401 };
   }
