@@ -12,7 +12,7 @@ import {
   Truck,
   XCircle,
 } from "lucide-react";
-import { cancelOrder, getMyOrder } from "../../api/api";
+import { useCancelOrderMutation, useMyOrdersQuery } from "../../api/queries";
 import { useNavigate } from "react-router-dom";
 import { formatShortOrderId } from "../../utils/orderIds";
 import { ordersPageStyles as s } from "../../assets/dummyStyles";
@@ -128,50 +128,24 @@ const getOrderProgress = (status) => {
   return Math.max(1, steps.indexOf(status) + 1);
 };
 
-const updateCancelledOrder = (orders, orderId) =>
-  orders.map((order) =>
-    order.id === orderId
-      ? {
-          ...order,
-          status: "cancelled",
-          cancelledAt: new Date().toISOString(),
-        }
-      : order,
-  );
-
 const OrdersPage = () => {
   const navigate = useNavigate();
-  const [orders, setOrders] = useState([]);
+  const {
+    data: orderRecords = [],
+    isLoading: loading,
+  } = useMyOrdersQuery();
+  const cancelOrderMutation = useCancelOrderMutation();
+  const orders = useMemo(() => orderRecords.map(toUiOrder), [orderRecords]);
   const [expandedOrderId, setExpandedOrderId] = useState(null);
   const [confirmOrderId, setConfirmOrderId] = useState(null);
   const [toastMessage, setToastMessage] = useState("");
-  const [loading, setLoading] = useState(true);
   const [cancellingId, setCancellingId] = useState(null);
 
   useEffect(() => {
-    let isActive = true;
-
-    const fetchOrders = async () => {
-      if (!localStorage.getItem("token")) {
-        storeRedirect("/orders");
-        navigate("/login");
-        return;
-      }
-
-      try {
-        const { data } = await getMyOrder();
-        if (isActive) setOrders((data.orders || []).map(toUiOrder));
-      } catch (error) {
-        console.error(error);
-      } finally {
-        if (isActive) setLoading(false);
-      }
-    };
-
-    fetchOrders();
-    return () => {
-      isActive = false;
-    };
+    if (!localStorage.getItem("token")) {
+      storeRedirect("/orders");
+      navigate("/login");
+    }
   }, [navigate]);
 
   const totalOrders = orders.length;
@@ -211,10 +185,7 @@ const OrdersPage = () => {
   const handleCancelOrder = async () => {
     try {
       setCancellingId(confirmOrderId);
-      await cancelOrder(confirmOrderId);
-      setOrders((currentOrders) =>
-        updateCancelledOrder(currentOrders, confirmOrderId),
-      );
+      await cancelOrderMutation.mutateAsync(confirmOrderId);
       setConfirmOrderId(null);
       showToast("Order cancelled successfully");
     } catch (error) {

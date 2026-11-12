@@ -1,8 +1,7 @@
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, RefreshCw, Sparkles } from "lucide-react";
-import { getCategories } from "../../api/api";
+import { useCategoriesQuery } from "../../api/queries";
 import { productsPageStyles as s } from "../../assets/dummyStyles";
 import { CategoryCardSkeleton } from "../Skeletons/SkeletonBlocks";
 import categoryFallback from "../../assets/P2.png";
@@ -25,34 +24,13 @@ const itemVariants = {
 };
 
 const ProductPage = () => {
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState(false);
-  const [loadAttempt, setLoadAttempt] = useState(0);
+  const {
+    data: categories = [],
+    isLoading: loading,
+    isError: loadError,
+    refetch,
+  } = useCategoriesQuery();
   const prefersReducedMotion = useReducedMotion();
-
-  useEffect(() => {
-    let isCurrent = true;
-
-    const fetchCategories = async () => {
-      setLoading(true);
-      setLoadError(false);
-      try {
-        const { data } = await getCategories();
-        if (isCurrent) setCategories(data.categories || []);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-        if (isCurrent) setLoadError(true);
-      } finally {
-        if (isCurrent) setLoading(false);
-      }
-    };
-
-    fetchCategories();
-    return () => {
-      isCurrent = false;
-    };
-  }, [loadAttempt]);
 
   return (
     <section id="products" className={s.section}>
@@ -108,7 +86,7 @@ const ProductPage = () => {
               </p>
               <button
                 type="button"
-                onClick={() => setLoadAttempt((attempt) => attempt + 1)}
+                onClick={() => refetch()}
                 className="inline-flex items-center gap-2 rounded-full bg-[#A7E8C1] px-4 py-2 text-sm font-bold text-[#0B2B21] transition hover:bg-[#DDF4E5]"
               >
                 <RefreshCw className="h-4 w-4" />

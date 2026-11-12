@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import {
@@ -12,7 +11,7 @@ import {
   ShoppingCart,
 } from "lucide-react";
 import { useCart } from "../../CartContext";
-import { getProducts } from "../../api/api";
+import { useProductsQuery } from "../../api/queries";
 import { productItemsPageStyles as s } from "../../assets/dummyStyles";
 import productFallback from "../../assets/P2.png";
 import { resolveCatalogImageUrl } from "../../utils/imageUrls";
@@ -37,38 +36,14 @@ const itemVariants = {
 const ProductItemsPage = () => {
   const { id } = useParams();
   const categoryName = decodeURIComponent(id);
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [loadError, setLoadError] = useState(false);
-  const [loadAttempt, setLoadAttempt] = useState(0);
+  const {
+    data: products = [],
+    isLoading: loading,
+    isError: loadError,
+    refetch,
+  } = useProductsQuery({ category: categoryName });
   const { addItem, decreaseItem, getQuantity } = useCart();
   const prefersReducedMotion = useReducedMotion();
-
-  useEffect(() => {
-    let isCurrent = true;
-
-    const fetchProducts = async () => {
-      setLoading(true);
-      setLoadError(false);
-      try {
-        const { data } = await getProducts({
-          category: categoryName,
-        });
-
-        if (isCurrent) setProducts(data.products || []);
-      } catch (error) {
-        console.error(error);
-        if (isCurrent) setLoadError(true);
-      } finally {
-        if (isCurrent) setLoading(false);
-      }
-    };
-
-    fetchProducts();
-    return () => {
-      isCurrent = false;
-    };
-  }, [categoryName, loadAttempt]);
 
   if (!loading && !loadError && products.length === 0) {
     return (
@@ -134,7 +109,7 @@ const ProductItemsPage = () => {
                 </p>
                 <button
                   type="button"
-                  onClick={() => setLoadAttempt((attempt) => attempt + 1)}
+                  onClick={() => refetch()}
                   className="inline-flex items-center gap-2 rounded-full bg-[#A7E8C1] px-4 py-2 text-sm font-bold text-[#0B2B21] transition hover:bg-[#DDF4E5]"
                 >
                   <RefreshCw size={15} />

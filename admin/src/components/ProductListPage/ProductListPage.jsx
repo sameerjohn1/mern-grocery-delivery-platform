@@ -14,16 +14,20 @@ import {
   Loader2,
 } from "lucide-react";
 import {
-  getCatalogProducts,
   getApiErrorMessage,
-  updateCatalogProduct,
-  deleteCatalogProduct,
   uploadImage,
 } from "../../api/adminApi";
+import {
+  useCatalogProductsQuery,
+  useDeleteCatalogProductMutation,
+  useUpdateCatalogProductMutation,
+} from "../../api/queries";
 import { productListPageStyles as s } from "../../assets/dummyStyles";
 
 const ProductListPage = () => {
-  const [products, setProducts] = useState([]);
+  const { data: products = [] } = useCatalogProductsQuery();
+  const updateCatalogProductMutation = useUpdateCatalogProductMutation();
+  const deleteCatalogProductMutation = useDeleteCatalogProductMutation();
   const [search, setSearch] = useState("");
   const [editingId, setEditingId] = useState(null);
   const [editData, setEditData] = useState({});
@@ -37,17 +41,6 @@ const ProductListPage = () => {
   const [deletingId, setDeletingId] = useState(null);
   const objectUrlRef = useRef(null);
   useEffect(() => {
-    const load = async () => {
-      try {
-        const { data } = await getCatalogProducts();
-        setProducts(data.hookahs);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    load();
-
     return () => {
       if (objectUrlRef.current) {
         URL.revokeObjectURL(objectUrlRef.current);
@@ -55,15 +48,6 @@ const ProductListPage = () => {
       }
     };
   }, []);
-
-  const fetchProducts = async () => {
-    try {
-      const { data } = await getCatalogProducts();
-      setProducts(data.hookahs);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const showToast = (message, type = "success") => {
     setToast({ show: true, message, type });
@@ -145,9 +129,11 @@ const ProductListPage = () => {
         payload.image = imageData;
       }
 
-      await updateCatalogProduct(editingId, payload);
+      await updateCatalogProductMutation.mutateAsync({
+        id: editingId,
+        data: payload,
+      });
 
-      await fetchProducts();
       setEditingId(null);
       setEditData({});
       showToast("Product updated successfully!");
@@ -166,9 +152,8 @@ const ProductListPage = () => {
   const confirmDelete = async () => {
     try {
       setDeletingId(confirmTarget.id);
-      await deleteCatalogProduct(confirmTarget.id);
+      await deleteCatalogProductMutation.mutateAsync(confirmTarget.id);
       setConfirmTarget(null);
-      fetchProducts();
       showToast("Product deleted successfully!", "error");
     } catch (error) {
       console.log(error);

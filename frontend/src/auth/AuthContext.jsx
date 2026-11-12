@@ -6,6 +6,7 @@ import {
   useMemo,
   useState,
 } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   AUTH_EVENT,
   clearLegacyAuthKeys,
@@ -18,6 +19,7 @@ import {
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
+  const queryClient = useQueryClient();
   const [token, setToken] = useState(() => getToken());
   const [user, setUser] = useState(() => getStoredUser());
 
@@ -49,7 +51,8 @@ export const AuthProvider = ({ children }) => {
     clearStoredSession();
     setToken(null);
     setUser(null);
-  }, []);
+    queryClient.clear();
+  }, [queryClient]);
 
   const value = useMemo(
     () => ({
