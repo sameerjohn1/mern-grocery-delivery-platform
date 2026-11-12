@@ -1,5 +1,6 @@
 import { useMemo } from "react";
-import { Bell, CalendarDays, LogOut, Menu } from "lucide-react";
+import { CalendarDays, LogOut, Menu } from "lucide-react";
+import NotificationBell from "./NotificationBell";
 
 const Topbar = ({ title, description, user, onOpenSidebar, onLogout }) => {
   const today = useMemo(
@@ -46,14 +47,7 @@ const Topbar = ({ title, description, user, onOpenSidebar, onLogout }) => {
             {today}
           </div>
 
-          <button
-            type="button"
-            aria-label="Notifications"
-            className="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#34D399]/15 bg-[#0D241D] text-[#A7C4B8] transition hover:border-[#34D399]/40 hover:text-white"
-          >
-            <Bell className="h-4 w-4" />
-            <span className="absolute right-2.5 top-2.5 h-1.5 w-1.5 rounded-full bg-[#34D399]" />
-          </button>
+          <NotificationBell />
 
           <div className="flex items-center gap-2 rounded-full border border-[#34D399]/15 bg-[#0D241D] py-1.5 pl-1.5 pr-2 sm:pr-3">
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#34D399] text-sm font-black text-[#06231A]">
