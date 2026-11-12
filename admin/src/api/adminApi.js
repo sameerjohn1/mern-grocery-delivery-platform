@@ -85,9 +85,23 @@ export const uploadImage = async (file) => {
 
   const response = await API.post("/upload", formData);
 
-  console.log("UPLOAD API RESPONSE:", response.data);
-
   return response.data;
 };
+
+// Notifications
+export const getNotifications = (params = {}) =>
+  API.get("/admin/notifications", { params });
+
+export const getUnreadNotificationCount = () =>
+  API.get("/admin/notifications/unread-count");
+
+export const markNotificationAsRead = (id) =>
+  API.patch(`/admin/notifications/${id}/read`);
+
+export const markAllNotificationsAsRead = () =>
+  API.patch("/admin/notifications/read-all");
+
+export const deleteNotification = (id) =>
+  API.delete(`/admin/notifications/${id}`);
 
 export default API;
